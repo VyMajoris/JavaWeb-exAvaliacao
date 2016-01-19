@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<ui:composition template="_template.xhtml">
+		<ui:define name="title">
+	    Cadastro de Professor
+	</ui:define>
+
+		<ui:define name="content">
+			<div class=" container top-landing">
+				<h2>Cadastro de Professor</h2>
+				<h:form>
+
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<h:outputLabel value="Registro de Matrícula"
+								style="font-weight:bold" />
+							<div class="input-group">
+								<span class="input-group-addon">RM</span> <input disabled="disabled" type="text"
+									class="form-control"  />
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<h:outputLabel value="Nome" style="font-weight:bold" />
+
+							<input class="form-control"></input>
+
+						</div>
+
+						<div class="form-group">
+
+							<h:outputLabel value="Email" style="font-weight:bold" />
+
+							<input class="form-control"></input>
+
+						</div>
+						<div class="form-group">
+
+							<h:outputLabel value="Data de Nascimento"
+								style="font-weight:bold" />
+
+							<input  class="form-control" type="date"></input>
+
+
+						</div>
+					</div>
+
+
+
+
+					<div class="col-md-6">
+						<div class="form-group">
+
+							<h:outputLabel value="Endereco" style="font-weight:bold" />
+
+							<input class="form-control" type="text"></input>
+
+						</div>
+
+						<div class="form-group">
+
+							<h:outputLabel value="Telefone" style="font-weight:bold" />
+
+							<input class="form-control" type="text" value="+55 "></input>
+
+						</div>
+
+						<div class="form-group">
+
+							<h:outputLabel value="Escola" style="font-weight:bold" />
+
+							<select class="form-control select select-primary">
+								<optgroup label="Profile">
+									<option value="0">My Profile</option>
+									<option value="1">My Friends</option>
+								</optgroup>
+								<optgroup label="System">
+									<option value="2">Messages</option>
+									<option value="3">My Settings</option>
+									<option value="4">Logout</option>
+								</optgroup>
+							</select>
+
+							<script type="text/javascript">
+								$(document).ready(function() {
+									$("select").select2();
+								});
+							</script>
+
+						</div>
+
+						<div class="form-group">
+
+							<h:outputLabel value="Curso" style="font-weight:bold" />
+
+							<select multiple="multiple"
+								class="form-control multiselect multiselect-info"
+								id="cb-frentes" required="required" size="1"
+								jsf:value="#{checkstyleBean.frente}">
+								<option value="#{null}" jsfc="f:selectItem" />
+								<optgroup label="Profile">
+									<option value="0">My Profile</option>
+									<option value="1">My Friends</option>
+								</optgroup>
+								<optgroup label="System">
+									<option value="2">Messages</option>
+									<option value="3">My Settings</option>
+									<option value="4">Logout</option>
+								</optgroup>
+								<ui:repeat value="#{appBean.frentes}" var="frente"
+									jsfc="f:selectItems">
+									<option value="#{frente}">#{frente}</option>
+								</ui:repeat>
+							</select>
+
+						</div>
+
+
+					</div>
+
+
+
+					<div class="col-sm-12">
+
+						<div class="form-group">
+
+
+
+							<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+								value="Enviar" />
+						</div>
+					</div>
+
+
+				</h:form>
+			</div>
+
+
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+	</ui:composition>
+
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+
+	<!--JavaScript
+    ================================================== -->
+
+
+</h:body>
+</html>

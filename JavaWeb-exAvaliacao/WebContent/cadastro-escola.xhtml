@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+<h:body>
+
+	<ui:composition template="_template.xhtml">
+		<ui:define name="title">
+	    Cadastro de Escolas
+	</ui:define>
+
+		<ui:define name="content">
+			<div class=" container top-landing">
+			<h:messages  />
+				<h2>Cadastro de Escolas</h2>
+				<h:form prependId="false">
+
+					<div class="row">
+						<div class="col-md-6">
+
+							<div class="form-group has-warning">
+								<h:outputLabel value="Nome" style="font-weight:bold" />
+								<h:inputText pa:placeholder="Nome"
+									value="#{escolaBean.escola.nome}" styleClass="form-control" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Salas" style="font-weight:bold" />
+								<h:inputText pa:placeholder="Salas" pa:type="number"
+									value="#{escolaBean.escola.salas}" styleClass="form-control" />
+							</div>
+
+						</div>
+
+						<!-- row -->
+					</div>
+
+
+					<div class="row">
+
+						<div class="col-md-6">
+
+							<div class="form-group">
+								<h:outputLabel value="Descrição Curta" style="font-weight:bold" />
+								<h:inputText pa:placeholder="Descrição Curta"
+									value="#{escolaBean.escola.descricao}"
+									styleClass="form-control" />
+							</div>
+
+							<!-- col-md-6 -->
+						</div>
+
+
+
+						<div class="col-md-6">
+							<div class="col-sm-8 padding-fix-right">
+								<div class="form-group">
+									<h:outputLabel value="Endereço" style="font-weight:bold" />
+									<h:inputText id="address" pa:placeholder="Endereço"
+										value="#{escolaBean.escola.endereco}"
+										styleClass="form-control" />
+								</div>
+							</div>
+							<div class="col-sm-4 padding-fix-left">
+								<div class="form-group">
+									<h:outputLabel value="Atualizar posição"
+										style="font-weight:bold;" />
+									<p:commandButton styleClass="btn btn-block btn-sm btn-primary"
+										style="height: 40px;" value="Pesquisar" icon="ui-icon-search"
+										onclick="geocode()" type="button" />
+								</div>
+							</div>
+
+							<!-- col-md-6 -->
+						</div>
+
+
+						<!-- row -->
+					</div>
+
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								
+									<h:outputLabel value="Ajuste a posição da escola no mapa"
+										style="font-weight:bold" />
+
+
+									<small Class="pull-right"> <h:outputText
+											style="margin-left:3px; margin-right:5px " id="lat"
+											value="#{escolaBean.lat}">
+
+
+											<f:convertNumber pattern="#00.000" />
+
+										</h:outputText> <h:outputText style="margin-left:3px" id="lng"
+											value="#{escolaBean.lng}">
+
+
+											<f:convertNumber pattern="#00.000" />
+
+										</h:outputText>
+
+									</small>
+
+									
+									
+
+
+									<p:gmap id="geoGmap" widgetVar="geoMap"
+										center="#{escolaBean.centerGeoMap}" zoom="11" type="ROADMAP"
+										model="#{escolaBean.draggableModel}"
+										style="width:100%;height:400px">
+
+										<p:ajax event="markerDrag"
+											listener="#{escolaBean.onMarkerDrag}" update="lat lng" />
+										<p:ajax event="geocode" listener="#{escolaBean.onGeocode}"
+											update="@this lat lng" />
+									</p:gmap>
+
+
+
+								
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+									action="#{escolaBean.cadastrarEscola}" type="submit" value="Enviar" />
+							</div>
+						</div>
+					</div>
+					<script type="text/javascript">
+					    function geocode() {
+					        PF('geoMap').geocode(document.getElementById('address').value);
+					    }
+					 
+					    
+					</script>
+
+				</h:form>
+			</div>
+
+
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+	</ui:composition>
+
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+
+	<!--JavaScript
+    ================================================== -->
+
+
+</h:body>
+</html>

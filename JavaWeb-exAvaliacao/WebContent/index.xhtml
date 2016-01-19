@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:body>
+
+	<ui:composition template="_template.xhtml">
+		<ui:define name="title">
+	    Lista de Figurinhas
+	</ui:define>
+	
+		<ui:define name="content">
+		
+			<section id="parallaxBar" data-speed="6" data-type="background">
+
+				<div class="container top-landing text-center">
+					<h1>Pós Graduações XYZ</h1>
+					<img class="img-responsive center-block" alt="logo"
+						src="https://weambassadors.files.wordpress.com/2014/04/xyz_logo_circle-01.png" />
+					<img class="img-responsive center-block" width="256px"
+						id="detail-icon-img"
+						src="https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-08-512.png"
+						alt="arrow, down icon" />
+
+				</div>
+
+			</section>
+			<div class="container-fluid ribbon text-center">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12 col-md-6 col-lg-3">
+							<h3 class="headers">Escolas</h3>
+							<img style="margin: 0px 0px 0px 0px"
+								src="http://cdn.flaticon.com/svg/5/5082.svg" alt="Escolas"
+								class="tile-image" />
+							<p class="text">Lorem ipsum dolor sit amet, consectetur
+								adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+								dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+								exercitation ullamco laboris nisi ut aliquip ex ea commodo
+								consequat.</p>
+						</div>
+
+						<div class="col-sm-12 col-md-6 col-lg-3">
+							<h3 class="headers">Professores</h3>
+							<img style="margin: 0px 0px 0px 0px"
+								src="http://cdn.flaticon.com/png/256/4413.png" alt="Professores"
+								class="tile-image" />
+							<p class="text">Sed partem menandri disputationi an, legere
+								audiam dissentiet pri no. No qui explicari reformidans, purto
+								assum eloquentiam at mel. Ea feugiat accumsan voluptaria nec,
+								habeo labores expetenda mei ad, vidit mediocritatem vis id.</p>
+
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-3">
+							<h3 class="headers">Alumni</h3>
+							<img style="margin: 0px 0px 0px 0px"
+								src="http://cdn.flaticon.com/svg/67/67902.svg" alt="Alumni"
+								class="tile-image" />
+							<p class="text">Inani vituperatoribus est ne. Mea simul
+								necessitatibus an. Sint maiorum no has, usu in malis volutpat,
+								utinam delicata et cum. Ut eum legendos consectetuer, nec at
+								minim invenire. Idque feugait pri in.</p>
+
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-3">
+							<h3 class="headers">Cursos</h3>
+							<img style="margin: 0px 0px 0px 0px"
+								src="http://cdn.flaticon.com/svg/42/42930.svg" alt="Cursos"
+								class="tile-image" />
+							<p class="text">Te nec meis reque essent, at etiam libris
+								quaerendum nam. Nam ex essent inermis. Ne graecis efficiantur
+								eam, dolore perfecto at usu, in eum illud eloquentiam. No stet
+								molestiae has.</p>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--  -->
+			<section id="parallaxBar2" data-speed="6" data-type="background">
+				<div class="container-fluid"></div>
+
+			</section>
+
+
+			<div class="container-fluid ribbon text-center">
+
+				<h3 class="headers" style="margin-top: 10px; margin-bottom: 10px">Locais</h3>
+				
+					<p:gmap id="map" center="-23.552241,-46.636509" zoom="10" type="ROAD" model="#{markersView.simpleModel}"
+				/>
+			</div>
+
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+	</ui:composition>
+
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+
+	
+
+	<!--JavaScript
+    ================================================== -->
+
+
+</h:body>
+</html>
