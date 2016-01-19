@@ -127,14 +127,7 @@ public class LoginBean implements Serializable{
 	}
 
 	private void createHsession(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		//Recupera a sessão do usuário... true -> cria uma sessão se não existe
-		HttpSession session = (HttpSession)
-				context.getExternalContext().getSession(true);
-		//Adiciona informação na sessão -> (chave, valor)
 		hSession = JpaUtil.getHibSession();
-
-
 	}
 
 

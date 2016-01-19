@@ -39,31 +39,18 @@ public class EscolaBean implements Serializable {
 		escola = new Escola();
 	}
 
-
 	private MapModel draggableModel;
-
 	private Escola escola;
-
 	@Inject
 	private GenericDao<Escola> escolaDao;
-
-
+	
 	private String latDisplay;
 	private String lngDisplay;
-
 	private String lat;
-
 	private String lng;
-
 	private Marker marker;
-	
 	private List<Escola> listEscola;
-
-
-
-
 	private String endereco;
-
 	private String centerGeoMap = "36.885233, 30.702323";
 
 	public void onGeocode(GeocodeEvent event) {
@@ -119,6 +106,15 @@ public class EscolaBean implements Serializable {
 
 		return centerGeoMap;
 	}
+	
+	public void buscarGps(int id){
+		
+		escolaDao = new GenericDao<Escola>(Escola.class);
+		
+		Escola escola = escolaDao.buscar(id);
+		
+	}
+	
 	public void listarEscolas(){
 		escolaDao = new  GenericDao<Escola>(Escola.class);
 		listEscola =  escolaDao.listar();
