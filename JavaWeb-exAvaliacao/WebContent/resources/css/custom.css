@@ -87,3 +87,46 @@ html, body {
 .dropdown-menu {
 	padding: 5px 4px 5px 4px !important;;
 }
+.overlayDialog{
+	background-color: white;
+}
+.ui-dialog-content{
+	padding: 0px !important;
+	}
+
+.ui-dialog-titlebar{
+	padding-right: 20px !important;
+}
+.ui-dialog-titlebar-close {
+    position: relative;
+    margin-bottom: 10px;
+}
+ 
+/*replace the content value with the
+corresponding value from the list below*/
+ 
+.ui-dialog-titlebar-close:before {
+    content: "\f00d";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: #000;
+    font-size: 18px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.ui-icon  {
+    text-indent: 0;
+    padding: 0px;
+    
+    margin-right: 55px !important;
+}
+.ui-button-text{
+	line-height: 0px !important;
+	 padding: 0px 0px 0px 13px !important;
+	 margin-left: 3px;
+
+}
