@@ -27,6 +27,7 @@
 
 					<div class="row">
 						<div class="col-md-6">
+						<h:outputText value="#{escolaBean.escola.id}" />
 
 							<div class="form-group has-warning">
 								<h:outputLabel value="Nome" style="font-weight:bold" />
@@ -139,8 +140,10 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-									action="#{escolaBean.cadastrarEscola}" type="submit" value="Enviar" />
+								<h:commandButton rendered="#{escolaBean.escola.id eq null}" styleClass="btn btn-block btn-lg btn-primary"
+									action="#{escolaBean.atualizarEscola}" type="submit" value="Atualizar" />
+									<h:commandButton  rendered="#{not empty escolaBean.escola.id}" styleClass="btn btn-block btn-lg btn-primary"
+									action="#{escolaBean.cadastrarEscola}" type="submit" value="Cadastrar" />
 							</div>
 						</div>
 					</div>

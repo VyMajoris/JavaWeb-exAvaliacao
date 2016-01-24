@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:jsf="http://xmlns.jcp.org/jsf/"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
@@ -26,71 +24,144 @@
 
 
 
-<p:dialog header="#{escolaBean.escolaNome}" resizable="false"  styleClass="overlayDialog" id="gmapDialog" widgetVar="dlg" width="625" height="400" modal="true">
-   <p:gmap id="geoMap" widgetVar="geoMap"
-								center="#{escolaBean.centerEscolaIndividual}" zoom="11" type="ROADMAP"
-								model="#{escolaBean.draggableModel}"
-								style="width:100%;height:400px"/>
-   
-</p:dialog>
+			<p:dialog header="#{escolaBean.escolaNome}" resizable="false"
+				styleClass="overlayDialog" id="gmapDialog" widgetVar="dlg"
+				width="625" height="400" modal="true">
+				<p:gmap id="geoMap" widgetVar="geoMap"
+					center="#{escolaBean.centerEscolaIndividual}" zoom="11"
+					type="ROADMAP" model="#{escolaBean.draggableModel}"
+					style="width:100%;height:400px" />
+
+			</p:dialog>
 
 
 
 
 
 			<div class="container top-landing">
+			<h:messages />
+				<h:form prependId="false">
+					
+					<h2>Lista de Escolas</h2>
+					<div class="row">
+						<div class="col-sm-12">
+							<p:dataTable  id="escolaTable" widgetVar="escolaTable" class="table" var="esc"
+								value="#{escolaBean.listEscola}">
 
-				<h:messages />
-				<h2>Lista de Escolas</h2>
-				<div class="row">
-					<div class="col-sm-12">
-						<p:dataTable id="wow" class="table" var="esc"
-							value="#{escolaBean.listEscola}">
-							<p:column headerText="Nome">
-								<h:outputText value="#{esc.nome}" />
-							</p:column>
 
-							<p:column headerText="Endereço">
-								<h:outputText value="#{esc.endereco}" />
-							</p:column>
 
-							<p:column headerText="Qtd. Salas">
-								<h:outputText value="#{esc.salas}" />
-							</p:column>
 
-							<p:column headerText="Descrição">
-								<h:outputText value="#{esc.descricao}" />
-							</p:column>
-							<p:column headerText="Opções">
-								<button title="Editar" class="btn btn-info btn-xs"
-									 type="button">
-									<i class="fa fa-pencil" style="margin-right: 3px" /> Editar
-								</button>
-								<button style="margin-right: 3px" title="Deletar" class="btn btn-danger btn-xs"
-									type="button">
-									<i class="fa fa-trash-o" style="margin-right: 3px" /> Deletar
-								</button>
-							
-								
+								<p:column headerText="Nome">
+									<h:outputText value="#{esc.nome}" />
+								</p:column>
+
+								<p:column headerText="Endereço">
+									<h:outputText value="#{esc.endereco}" />
+								</p:column>
+
+								<p:column headerText="Qtd. Salas">
+									<h:outputText value="#{esc.salas}" />
+								</p:column>
+
+								<p:column headerText="Descrição">
+									<h:outputText value="#{esc.descricao}" />
+								</p:column>
+								<p:column headerText="Opções">
+
+									<h:commandLink id="btnsearch"
+										action="#{escolaBean.prepAtualizarEscola(esc)}"
+										styleClass="btn btn-info btn-xs">
+										<i class="fa fa-pencil" style="margin-right: 3px" /> Editar
+								</h:commandLink>
+
+									<p:commandLink pa:data-toggle="modal" pa:data-target="#myModal"
+										style="margin-right: 3px" actionListener="#{escolaBean.teste(esc)}" title="Deletar"
+										class="btn btn-danger btn-xs" type="button">
+										<i class="fa fa-trash-o" style="margin-right: 3px" /> Deletar
+									 <f:ajax render="delDesc delEnd delNome delSalas" listener="#{escolaBean.prepRemoverEscola(esc)}"/>
 									
-									<p:commandButton value="Mapa" style="padding-bottom:6px; height: 24px !important;" styleClass="btn btn-success btn-xs" onclick="PF('dlg').show();" icon="fa fa-map-o"  update="geoMap"
+									</p:commandLink>
+
+
+
+
+									<p:commandButton value="Mapa"
+										style="padding-bottom:6px; height: 24px !important;"
+										styleClass="btn btn-success btn-xs"
+										onclick="PF('dlg').show();" icon="fa fa-map-o" update="geoMap"
 										action="#{escolaBean.buscarGps(esc.id)}">
-										
+
 									</p:commandButton>
-						
-
-
-							</p:column>
-
-						</p:dataTable>
 
 
 
+								</p:column>
+
+
+
+
+
+
+								<!-- Modal -->
+
+
+							</p:dataTable>
+
+
+
+
+						</div>
 
 					</div>
-				</div>
+
+				</h:form>
 
 			</div>
+
+
+
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&#215;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Deseja deletar
+								esta escola?</h4>
+						</div>
+						<div class="modal-body">
+							<p>
+								Nome:<h:outputText id="delNome" value="#{escolaBean.escolaTemp.nome}" /> 
+							</p>
+							<p>
+								Endereço: <h:outputText id="delEnd" value="#{escolaBean.escolaTemp.endereco}" />
+							</p>
+							<p>
+								Qtd. Salas: <h:outputText id="delSalas"  value="#{escolaBean.escolaTemp.salas}" />
+							</p>
+							<p>
+								Descrição: <h:outputText id="delDesc"  value="#{escolaBean.escolaTemp.descricao}" />
+							</p>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Não</button>
+							<p:commandLink  action="#{escolaBean.removerEscola()}"
+								type="button" class="btn btn-primary btn-danger" pa:data-dismiss="modal">Deletar</p:commandLink>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
 
 
 		</ui:define>

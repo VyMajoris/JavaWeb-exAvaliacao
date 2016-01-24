@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct; 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.behavior.Behavior;
 import javax.faces.context.FacesContext;
@@ -26,26 +27,28 @@ import br.com.fiap.dao.GenericDao;
 import br.com.fiap.entity.Escola;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class EscolaBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3753237190019758230L;
+	GMap gmap = new GMap();
+
 
 	@PostConstruct
 	public void init() {
+		System.out.println("INIT");
 		draggableModel = new DefaultMapModel();
 		escola = new Escola();
-		
 	}
-GMap gmap = new GMap();
-	private MapModel draggableModel;
-	private Escola escola;
 	@Inject
 	private GenericDao<Escola> escolaDao;
-
+	private MapModel draggableModel;
+	private Escola escola;
+	private Escola escolaTemp;
+	private int escolaDeleteId;
 	private String latDisplay;
 	private String lngDisplay;
 	private Double lat;
@@ -65,7 +68,6 @@ GMap gmap = new GMap();
 		if (results != null && !results.isEmpty()) {
 			LatLng center = results.get(0).getLatLng();
 			setCenterGeoMap(center.getLat() + "," + center.getLng());
-			
 
 			GeocodeResult result = results.get(0);
 			draggableModel.addOverlay(new Marker(result.getLatLng(), result.getAddress()));
@@ -80,35 +82,15 @@ GMap gmap = new GMap();
 
 			for(Marker premarker : draggableModel.getMarkers()) {
 				premarker.setDraggable(true);
-
 			}
 		}
-	}
-
-
-	public Double getLat() {
-		return lat;
-	}
-
-
-	public void setLat(Double lat) {
-		this.lat = lat;
-	}
-
-
-	public Double getLng() {
-		return lng;
-	}
-
-
-	public void setLng(Double lng) {
-		this.lng = lng;
 	}
 
 
 	public void setDraggableModel(MapModel draggableModel) {
 		this.draggableModel = draggableModel;
 	}
+
 
 
 	public void onMarkerDrag(MarkerDragEvent event) {
@@ -125,19 +107,19 @@ GMap gmap = new GMap();
 	}
 
 
-	public String cadastrarEscola(){
+	public void cadastrarEscola(){
 		escolaDao = new  GenericDao<Escola>(Escola.class);
 		System.out.println("teste");
 		escola.setLat(lat);
 		escola.setLng(lng);
 		escolaDao.adicionar(escola);
 
-		escola = new Escola();
+		this.escola = new Escola();
 		FacesMessage msg = new FacesMessage("Escola cadastrada!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-
-		return centerGeoMap;
 	}
+
+
 
 	public void buscarGps(int id){
 		System.out.println("IDDDDD"+id);
@@ -149,38 +131,41 @@ GMap gmap = new GMap();
 		draggableModel.addOverlay(new Marker(latLng));
 		System.out.println(escola.getNome());
 		setEscolaNome(escola.getNome());
-
-	}
-	public void teste(){
-		System.out.println("TESTE");
 	}
 
 	public void listarEscolas(){
 		escolaDao = new  GenericDao<Escola>(Escola.class);
 		listEscola =  escolaDao.listar();
-
-
 	}
 
 
 
+	public void prepRemoverEscola(Escola escola){
+		System.out.println(escola.getNome());
+		this.escolaTemp=escola;
+	}
 
 
+	public String removerEscola(){
+		System.out.println("Remover: " + escola.getNome());
+		escolaDao.removeById(escola.getId());
+		FacesMessage msg = new FacesMessage("Escola Removida!");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		listEscola = escolaDao.listar();
+		return "lista-escola?faces-redirect=true";
+	}
+
+	public String prepAtualizarEscola(Escola escola){
+		System.out.println("escola"+escola.getDescricao());
+		this.escola = escola;
+		return "cadastro-escola";
+	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	public String atualizarEscola(){
+		escolaDao.update(escola);
+		return "lista-escola";
+	}
 
 
 
@@ -190,6 +175,14 @@ GMap gmap = new GMap();
 
 
 	//getter setters
+	public int getEscolaDeleteId() {
+		return escolaDeleteId;
+	}
+
+
+	public void setEscolaDeleteId(int escolaDeleteId) {
+		this.escolaDeleteId = escolaDeleteId;
+	}
 
 	public MapModel getDraggableModel() {
 		return draggableModel;
@@ -220,6 +213,26 @@ GMap gmap = new GMap();
 		this.endereco = endereco;
 	}
 
+
+
+	public Double getLat() {
+		return lat;
+	}
+
+
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+
+
+	public Double getLng() {
+		return lng;
+	}
+
+
+	public void setLng(Double lng) {
+		this.lng = lng;
+	}
 
 
 	public Escola getEscola() {
@@ -283,6 +296,16 @@ GMap gmap = new GMap();
 
 	public void setEscolaNome(String escolaNome) {
 		this.escolaNome = escolaNome;
+	}
+
+
+	public Escola getEscolaTemp() {
+		return escolaTemp;
+	}
+
+
+	public void setEscolaTemp(Escola escolaTemp) {
+		this.escolaTemp = escolaTemp;
 	}
 
 

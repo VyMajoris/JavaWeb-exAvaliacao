@@ -18,7 +18,6 @@ import javax.persistence.NamedQuery;
 public class Escola {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	private String nome;
@@ -49,7 +48,6 @@ public class Escola {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
 
 
 	public Double getLat() {

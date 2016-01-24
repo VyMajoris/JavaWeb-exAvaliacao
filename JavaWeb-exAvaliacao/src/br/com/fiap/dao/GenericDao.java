@@ -5,25 +5,49 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 
 public class GenericDao<T> implements Dao<T> {
 
 	private final Class<T> classe;
-	protected EntityManager em;
+	protected EntityManager em = JpaUtil.getEntityManager();
 
 	public GenericDao(Class<T> classe) {
 		this.classe = classe;
 	}
 
 	@Override
+	public void removeById(int id){
+		System.out.println(em.isOpen());
+		em.getTransaction().begin();
+		T entity = em.find(classe,id);
+		em.remove(entity);
+		em.getTransaction().commit();
+	}
+	@Override
+	public void remover(T entity) {
+		em.getTransaction().begin();
+		//para forçar a entidade ser gerenciada pelo em
+		em.merge(entity);
+		em.remove(entity);
+		em.getTransaction().commit();
+
+	}
+	@Override
 	public void adicionar(T entidade) {
-		em = JpaUtil.getEntityManager();
+		
 		em.getTransaction().begin();
 		em.persist(entidade);
 		em.getTransaction().commit();
-		em.close();
 
+
+	}
+	@Override
+	public void update(T entity) {
+		em.getTransaction().begin();
+		em.merge(entity);
+		em.getTransaction().commit();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -39,20 +63,9 @@ public class GenericDao<T> implements Dao<T> {
 		em.getTransaction().begin();
 		T entidade = em.find(classe, id);
 		em.getTransaction().commit();
-		em.close();
+		
 
 		return entidade;
-	}
-
-	public T buscaUsuario(String rm,String senha) {
-		em = JpaUtil.getEntityManager();
-		em.getTransaction().begin();
-	//	T entidade = em.find(classe, id);
-		
-		em.getTransaction().commit();
-		em.close();
-
-		return null;
 	}
 
 
