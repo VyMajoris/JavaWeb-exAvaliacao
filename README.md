@@ -1,10 +1,10 @@
 # JavaWeb-exAvaliacao
 
 TODO:  
-CRUD Professor
-CRUD Aluno
-CRUD Disciplina
-CRUD Curso
+CRUD Professor  
+CRUD Aluno  
+CRUD Disciplina  
+CRUD Curso  
 
 Verificar CRUD Escola(Ainda não tem os relacionamentos)
 
