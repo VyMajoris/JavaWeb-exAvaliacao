@@ -148,7 +148,7 @@ public class EscolaBean implements Serializable {
 
 	public String removerEscola(){
 		System.out.println("Remover: " + escola.getNome());
-		escolaDao.removeById(escola.getId());
+		escolaDao.removeById(escola.getEscolaId());
 		FacesMessage msg = new FacesMessage("Escola Removida!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		listEscola = escolaDao.listar();

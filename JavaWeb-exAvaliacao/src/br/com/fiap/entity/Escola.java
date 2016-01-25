@@ -1,11 +1,27 @@
 package br.com.fiap.entity;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
+
+
+
 
 @NamedQueries({
 	@NamedQuery(
@@ -18,7 +34,7 @@ import javax.persistence.NamedQuery;
 public class Escola {
 
 	@Id
-	private int id;
+	private int escolaId;
 
 	private String nome;
 
@@ -32,14 +48,31 @@ public class Escola {
 
 	private int salas;
 
-	public int getId() {
-		return id;
+	@JoinColumn
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "escola_curso", joinColumns = { 
+			@JoinColumn(name = "ESCOLA_ID", nullable = false, updatable = false) }, 
+	inverseJoinColumns = { @JoinColumn(name = "CURSO_ID") })
+	private List<Curso> listCurso;
+	
+	
+
+	public List<Curso> getListCurso() {
+		return listCurso;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setListCurso(List<Curso> listCurso) {
+		this.listCurso = listCurso;
 	}
 
+	public int getEscolaId() {
+		return escolaId;
+	}
+
+	public void setEscolaId(int escolaId) {
+		this.escolaId = escolaId;
+	}
 
 	public String getEndereco() {
 		return endereco;

@@ -21,13 +21,13 @@
 
 		<ui:define name="content">
 			<div class=" container top-landing">
-			<h:messages  />
+				<h:messages />
 				<h2>Cadastro de Escolas</h2>
 				<h:form prependId="false">
 
 					<div class="row">
 						<div class="col-md-6">
-						<h:outputText value="#{escolaBean.escola.id}" />
+							<h:outputText value="#{escolaBean.escola.escolaId}" />
 
 							<div class="form-group has-warning">
 								<h:outputLabel value="Nome" style="font-weight:bold" />
@@ -94,56 +94,60 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								
-									<h:outputLabel value="Ajuste a posição da escola no mapa"
-										style="font-weight:bold" />
+
+								<h:outputLabel value="Ajuste a posição da escola no mapa"
+									style="font-weight:bold" />
 
 
-									<small Class="pull-right"> <h:outputText
-											style="margin-left:3px; margin-right:5px " id="lat"
-											value="#{escolaBean.lat}">
+								<small Class="pull-right"> <h:outputText
+										style="margin-left:3px; margin-right:5px " id="lat"
+										value="#{escolaBean.lat}">
 
 
-											<f:convertNumber pattern="#00.000" />
+										<f:convertNumber pattern="#00.000" />
 
-										</h:outputText> <h:outputText style="margin-left:3px" id="lng"
-											value="#{escolaBean.lng}">
-
-
-											<f:convertNumber pattern="#00.000" />
-
-										</h:outputText>
-
-									</small>
-
-									
-									
+									</h:outputText> <h:outputText style="margin-left:3px" id="lng"
+										value="#{escolaBean.lng}">
 
 
-									<p:gmap id="geoGmap" widgetVar="geoMap"
-										center="#{escolaBean.centerGeoMap}" zoom="11" type="ROADMAP"
-										model="#{escolaBean.draggableModel}"
-										style="width:100%;height:400px">
+										<f:convertNumber pattern="#00.000" />
 
-										<p:ajax event="markerDrag"
-											listener="#{escolaBean.onMarkerDrag}" update="lat lng" />
-										<p:ajax event="geocode" listener="#{escolaBean.onGeocode}"
-											update="@this lat lng" />
-									</p:gmap>
+									</h:outputText>
+
+								</small>
 
 
 
-								
+
+
+								<p:gmap id="geoGmap" widgetVar="geoMap"
+									center="#{escolaBean.centerGeoMap}" zoom="11" type="ROADMAP"
+									model="#{escolaBean.draggableModel}"
+									style="width:100%;height:400px">
+
+									<p:ajax event="markerDrag"
+										listener="#{escolaBean.onMarkerDrag}" update="lat lng" />
+									<p:ajax event="geocode" listener="#{escolaBean.onGeocode}"
+										update="@this lat lng" />
+								</p:gmap>
+
+
+
+
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<h:commandButton rendered="#{escolaBean.escola.id eq null}" styleClass="btn btn-block btn-lg btn-primary"
-									action="#{escolaBean.atualizarEscola}" type="submit" value="Atualizar" />
-									<h:commandButton  rendered="#{not empty escolaBean.escola.id}" styleClass="btn btn-block btn-lg btn-primary"
-									action="#{escolaBean.cadastrarEscola}" type="submit" value="Cadastrar" />
+								<h:commandButton rendered="#{escolaBean.escola.escolaId eq null}"
+									styleClass="btn btn-block btn-lg btn-primary"
+									action="#{escolaBean.atualizarEscola}" type="submit"
+									value="Atualizar" />
+								<h:commandButton rendered="#{not empty escolaBean.escola.escolaId }"
+									styleClass="btn btn-block btn-lg btn-primary"
+									action="#{escolaBean.cadastrarEscola}" type="submit"
+									value="Cadastrar" />
 							</div>
 						</div>
 					</div>
