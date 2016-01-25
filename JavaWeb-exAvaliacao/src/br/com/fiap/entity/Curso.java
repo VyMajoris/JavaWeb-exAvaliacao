@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 public class Curso {
 
 	@Id
-	private int codigo;
+	private int cursoId;
 	private String nome;
 	private String descricao;
 	private String descricaoCompleta;
@@ -30,12 +30,11 @@ public class Curso {
 	private List<Escola> listEscola;
 	
 
-	
-	public int getCodigo() {
-		return codigo;
+	public int getCursoId() {
+		return cursoId;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setCursoId(int cursoId) {
+		this.cursoId = cursoId;
 	}
 	public String getNome() {
 		return nome;
