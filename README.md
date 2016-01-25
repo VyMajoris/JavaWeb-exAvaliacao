@@ -12,3 +12,4 @@ Refatorar código para aplicar EJB
 Finalizar ajustes no CSS  
 Mostrar o LatLng das escolas no index.xhtml  
 Filters/Navigation rules
+Links entre as páginas
