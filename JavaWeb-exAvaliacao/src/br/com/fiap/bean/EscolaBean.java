@@ -30,16 +30,13 @@ import br.com.fiap.entity.Escola;
 @SessionScoped
 public class EscolaBean implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3753237190019758230L;
+	
 	GMap gmap = new GMap();
-
-
+	
 	@PostConstruct
 	public void init() {
-		System.out.println("INIT");
+		System.out.println("EscolaBean init");
 		draggableModel = new DefaultMapModel();
 		escola = new Escola();
 	}
@@ -56,30 +53,36 @@ public class EscolaBean implements Serializable {
 	private Marker marker;
 	private List<Escola> listEscola;
 	private String endereco;
-	private String centerGeoMap = "36.885233, 30.702323";
-	private String centerEscolaIndividual = "36.885233, 30.702323";
+	private String centerGeoMap = "-23.554174, -46.636177";
+	private String centerEscolaIndividual = "-23.554174, -46.636177";
 	private String escolaNome;
-
+	private boolean escolaUpdate = false;
+	
+	
 	public void onGeocode(GeocodeEvent event) {
 		draggableModel = new DefaultMapModel();
+		//pega o resultado do geocode
 		List<GeocodeResult> results = event.getResults();
 
 
 		if (results != null && !results.isEmpty()) {
 			LatLng center = results.get(0).getLatLng();
-			setCenterGeoMap(center.getLat() + "," + center.getLng());
-
+			centerGeoMap = center.getLat() + "," + center.getLng();
+			//pega somente o primeiro resultado
 			GeocodeResult result = results.get(0);
+			//coloca uma marca no mapa com as coordenadas do resultado
 			draggableModel.addOverlay(new Marker(result.getLatLng(), result.getAddress()));
-			System.out.println(result.getLatLng()+ result.getAddress());
-
+			
+			//seta o lat e long deste bean com os do resultado
 			this.setLat(result.getLatLng().getLat());
 			this.setLng(result.getLatLng().getLng());
-
+			
+			//formata o latlong para mostrar no JSF
 			DecimalFormat df = new DecimalFormat("###.###");
 			this.setLatDisplay("Lat: " + (df.format(result.getLatLng().getLat())));
 			this.setLngDisplay("Lng: " + (df.format(result.getLatLng().getLng())));
-
+			
+			//seta a marca como draggable
 			for(Marker premarker : draggableModel.getMarkers()) {
 				premarker.setDraggable(true);
 			}
@@ -94,8 +97,8 @@ public class EscolaBean implements Serializable {
 
 
 	public void onMarkerDrag(MarkerDragEvent event) {
+		
 		marker = event.getMarker();
-		System.out.println(+marker.getLatlng().getLat());
 
 		DecimalFormat df = new DecimalFormat("###.###");
 
@@ -109,11 +112,9 @@ public class EscolaBean implements Serializable {
 
 	public void cadastrarEscola(){
 		escolaDao = new  GenericDao<Escola>(Escola.class);
-		System.out.println("teste");
 		escola.setLat(lat);
 		escola.setLng(lng);
 		escolaDao.adicionar(escola);
-
 		this.escola = new Escola();
 		FacesMessage msg = new FacesMessage("Escola cadastrada!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -122,15 +123,13 @@ public class EscolaBean implements Serializable {
 
 
 	public void buscarGps(int id){
-		System.out.println("IDDDDD"+id);
 		Escola escola = escolaDao.buscar(id);
 		draggableModel  = new DefaultMapModel();
 		escolaDao = new GenericDao<Escola>(Escola.class);
 		LatLng latLng = new LatLng(escola.getLat(), escola.getLng());
 		centerEscolaIndividual = escola.getLat() + "," + escola.getLng();
 		draggableModel.addOverlay(new Marker(latLng));
-		System.out.println(escola.getNome());
-		setEscolaNome(escola.getNome());
+		escolaNome = escola.getNome();
 	}
 
 	public void listarEscolas(){
@@ -147,7 +146,6 @@ public class EscolaBean implements Serializable {
 
 
 	public String removerEscola(){
-		System.out.println("Remover: " + escola.getNome());
 		escolaDao.removeById(escola.getEscolaId());
 		FacesMessage msg = new FacesMessage("Escola Removida!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -156,14 +154,15 @@ public class EscolaBean implements Serializable {
 	}
 
 	public String prepAtualizarEscola(Escola escola){
-		System.out.println("escola"+escola.getDescricao());
 		this.escola = escola;
+		escolaUpdate = true;
 		return "cadastro-escola";
 	}
 
 
 	public String atualizarEscola(){
 		escolaDao.update(escola);
+		escolaUpdate = false;
 		return "lista-escola";
 	}
 
@@ -212,7 +211,6 @@ public class EscolaBean implements Serializable {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
 
 
 	public Double getLat() {
@@ -306,6 +304,16 @@ public class EscolaBean implements Serializable {
 
 	public void setEscolaTemp(Escola escolaTemp) {
 		this.escolaTemp = escolaTemp;
+	}
+
+
+	public boolean isEscolaUpdate() {
+		return escolaUpdate;
+	}
+
+
+	public void setEscolaUpdate(boolean escolaUpdate) {
+		this.escolaUpdate = escolaUpdate;
 	}
 
 

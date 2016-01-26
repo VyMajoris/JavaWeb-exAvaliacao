@@ -27,8 +27,6 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							<h:outputText value="#{escolaBean.escola.escolaId}" />
-
 							<div class="form-group has-warning">
 								<h:outputLabel value="Nome" style="font-weight:bold" />
 								<h:inputText pa:placeholder="Nome"
@@ -140,11 +138,11 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<h:commandButton rendered="#{escolaBean.escola.escolaId eq null}"
+								<h:commandButton rendered="#{escolaBean.escolaUpdate == true}"
 									styleClass="btn btn-block btn-lg btn-primary"
 									action="#{escolaBean.atualizarEscola}" type="submit"
 									value="Atualizar" />
-								<h:commandButton rendered="#{not empty escolaBean.escola.escolaId }"
+								<h:commandButton rendered="#{escolaBean.escolaUpdate == false}"
 									styleClass="btn btn-block btn-lg btn-primary"
 									action="#{escolaBean.cadastrarEscola}" type="submit"
 									value="Cadastrar" />
