@@ -69,7 +69,7 @@ public class CursoBean {
 	}
 
 	public String prepAtualizarCurso(Curso curso){
-		System.out.println("curso"+curso.getDescricao());
+		System.out.println("curso"+curso.getNome());
 		this.curso = curso;
 		return "cadastro-curso";
 	}

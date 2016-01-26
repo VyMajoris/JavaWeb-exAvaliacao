@@ -19,7 +19,6 @@ public class Curso {
 	@Id
 	private int cursoId;
 	private String nome;
-	private String descricao;
 	private String descricaoCompleta;
 	private Double duracao;
 	private Date dataInicio;
@@ -42,12 +41,7 @@ public class Curso {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+
 	public String getDescricaoCompleta() {
 		return descricaoCompleta;
 	}

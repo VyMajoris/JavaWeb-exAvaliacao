@@ -6,7 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:jsf="http://xmlns.jcp.org/jsf/"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui">
 
 
@@ -18,164 +18,106 @@
 	</ui:define>
 
 		<ui:define name="content">
-			<div class=" container top-landing">
+			<div class="container top-landing">
 				<h2>Cadastro de Curso</h2>
-				<h:form>
-
-
-					<div class="col-md-6">
-						<div class="form-group has-warning">
-							<h:outputLabel value="Nome" style="font-weight:bold" />
-
-							<input type="text" class="form-control " />
-
-						</div>
-
-
-						<div class="form-group">
-							<h:outputLabel value="Descrição Curta" style="font-weight:bold" />
-
-							<input class="form-control"></input>
-
-						</div>
-
-						<div class="form-group">
-
-							<h:outputLabel value="Duração" style="font-weight:bold" />
-
-							<div class="input-group">
-								<input type="text" class="form-control" /> <span
-									class="input-group-addon">HORAS-AULA (H/A)</span>
+				<h:form prependId="false">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group has-warning">
+								<h:outputLabel value="Nome" style="font-weight:bold" />
+								<h:inputText pa:placeholder="Nome"
+									value="#{cursoBean.curso.nome}" styleClass="form-control" />
 							</div>
-
 						</div>
-						<div class="form-group">
-
-							<h:outputLabel value="Data de Início"
-								style="font-weight:bold" />
-
-							<input class="form-control" type="date"></input>
-
-
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Duração" style="font-weight:bold" />
+								<div class="input-group">
+									<h:inputText pa:placeholder="Nome"
+										value="#{cursoBean.curso.duracao}" styleClass="form-control" />
+									<span class="input-group-addon">HORAS-AULA (H/A)</span>
+								</div>
+							</div>
 						</div>
 					</div>
-
-
-
-
-					<div class="col-md-6">
-						<div class="form-group">
-
-							<h:outputLabel value="Previsão de Término" style="font-weight:bold" />
-
-							<input  class="form-control" type="date"></input>
-
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Data de Início" style="font-weight:bold" />
+								<h:inputText pa:type="date" pa:placeholder="Nome"
+									value="#{cursoBean.curso.dataInicio}" styleClass="form-control" />
+								
+								
+							</div>
 						</div>
-
-						<div class="form-group">
-
-							<h:outputLabel value="Vagas" style="font-weight:bold" />
-
-							<input class="form-control" type="text"></input>
-
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Previsão de Término"
+									style="font-weight:bold" />
+								<input class="form-control" type="date"></input>
+							</div>
 						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Vagas" style="font-weight:bold" />
+								<input class="form-control" type="text"></input>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Escolas" style="font-weight:bold" />
+								<select multiple="multiple"
+									class="form-control multiselect multiselect-info"
+									id="cb-frentes" required="required" size="1"
+									jsf:value="#{checkstyleBean.frente}">
+									<option value="#{null}" jsfc="f:selectItem" />
+									<optgroup label="Profile">
+										<option value="0">My Profile</option>
+										<option value="1">My Friends</option>
+									</optgroup>
+									<optgroup label="System">
+										<option value="2">Messages</option>
+										<option value="3">My Settings</option>
+										<option value="4">Logout</option>
+									</optgroup>
+									<ui:repeat value="#{appBean.frentes}" var="frente"
+										jsfc="f:selectItems">
+										<option value="#{frente}">#{frente}</option>
+									</ui:repeat>
+								</select>
 
-						<div class="form-group">
-
-							<h:outputLabel value="Escolas" style="font-weight:bold" />
-
-							<select multiple="multiple"
-								class="form-control multiselect multiselect-info"
-								id="cb-frentes" required="required" size="1"
-								jsf:value="#{checkstyleBean.frente}">
-								<option value="#{null}" jsfc="f:selectItem" />
-								<optgroup label="Profile">
-									<option value="0">My Profile</option>
-									<option value="1">My Friends</option>
-								</optgroup>
-								<optgroup label="System">
-									<option value="2">Messages</option>
-									<option value="3">My Settings</option>
-									<option value="4">Logout</option>
-								</optgroup>
-								<ui:repeat value="#{appBean.frentes}" var="frente"
-									jsfc="f:selectItems">
-									<option value="#{frente}">#{frente}</option>
-								</ui:repeat>
-							</select>
-
-							<script type="text/javascript">
+								<script type="text/javascript">
 								$(document).ready(function() {
 									$("select").select2();
 								});
 							</script>
-
-						</div>
-
-						<div class="form-group">
-
-							<h:outputLabel value="Disciplinas" style="font-weight:bold" />
-							<select multiple="multiple"
-								class="form-control multiselect multiselect-info"
-								id="cb-frentes" required="required" size="1"
-								jsf:value="#{checkstyleBean.frente}">
-								<option value="#{null}" jsfc="f:selectItem" />
-								<optgroup label="Profile">
-									<option value="0">My Profile</option>
-									<option value="1">My Friends</option>
-								</optgroup>
-								<optgroup label="System">
-									<option value="2">Messages</option>
-									<option value="3">My Settings</option>
-									<option value="4">Logout</option>
-								</optgroup>
-								<ui:repeat value="#{appBean.frentes}" var="frente"
-									jsfc="f:selectItems">
-									<option value="#{frente}">#{frente}</option>
-								</ui:repeat>
-							</select>
-
-						</div>
-
-
-					</div>
-
-
-					<div class="col-sm-12">
-					<div class="form-group">
-							<h:outputLabel value="Descrição Completa" style="font-weight:bold" />
-							<textarea class="form-control" rows="3"></textarea>
-						</div>
-						</div>
-
-
-					<div class="col-sm-12">
-
-						<div class="form-group">
-
-
-
-							<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-								value="Enviar" />
+							</div>
 						</div>
 					</div>
-
-
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<h:outputLabel value="Descrição Completa"
+									style="font-weight:bold" />
+								<textarea class="form-control" rows="3"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+									value="Enviar" />
+							</div>
+						</div>
+					</div>
 				</h:form>
 			</div>
-
-
 		</ui:define>
 		<ui:define name="footer"></ui:define>
 	</ui:composition>
-
-	<!-- Main jumbotron for a primary marketing message or call to action -->
-
-
-
-	<!--JavaScript
-    ================================================== -->
-
 
 </h:body>
 </html>
