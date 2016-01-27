@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.CascadeType;
 import javax.persistence.Id;
@@ -33,7 +35,7 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 public class Escola {
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int escolaId;
 
 	private String nome;
