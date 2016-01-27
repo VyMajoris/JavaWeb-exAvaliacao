@@ -32,6 +32,16 @@ public class CursoBean {
 		curso = new Curso();
 		cursoDao = new  GenericDao<Curso>(Curso.class);
 		escolaDao = new GenericDao<Escola>(Escola.class);
+		listEscolaTotal = escolaDao.listar();
+		System.out.println(listEscolaTotal.size());
+		for (int i = 0; i < listEscolaTotal.size(); i++) {
+			System.out.println(i);
+			System.out.println(listEscolaTotal.get(i).getNome()); ;
+			System.out.println(listEscolaTotal.get(i).getDescricao()); ;
+			System.out.println(listEscolaTotal.get(i).getEndereco()); ;
+			System.out.println(listEscolaTotal.get(i).getEscolaId()); ;
+			System.out.println(listEscolaTotal.get(i).getSalas()); ;
+		}
 
 	}
 	public void cadastrarCurso(){
@@ -42,9 +52,7 @@ public class CursoBean {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public List<Escola> listarEscolas(){
-		return escolaDao.listar();
-	}
+
 
 	public List<Curso> listarCursos(){
 		return cursoDao.listar();
