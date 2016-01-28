@@ -1,5 +1,6 @@
 package br.com.fiap.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,20 +24,11 @@ import org.hibernate.annotations.NamedQuery;
 
 
 
-
-
-@NamedQueries({
-	@NamedQuery(
-			name = "findEscola",
-			query = "from Aluno a where a.rm = :rm and a.senha = :senha"
-			)
-})
-
 @Entity
 public class Escola {
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int escolaId;
+	private int idEscola;
 
 	private String nome;
 
@@ -56,9 +48,12 @@ public class Escola {
 	@JoinTable(name = "escola_curso", joinColumns = { 
 			@JoinColumn(name = "ESCOLA_ID", nullable = false, updatable = false) }, 
 	inverseJoinColumns = { @JoinColumn(name = "CURSO_ID") })
-	private List<Curso> listCurso;
+	private List<Curso> listCurso = new ArrayList<Curso>();
 	
-	
+	@Override
+	 public String toString() {
+	     return String.format("%s[id=%d]", getClass().getSimpleName(), getIdEscola());
+	 }
 
 	public List<Curso> getListCurso() {
 		return listCurso;
@@ -68,13 +63,6 @@ public class Escola {
 		this.listCurso = listCurso;
 	}
 
-	public int getEscolaId() {
-		return escolaId;
-	}
-
-	public void setEscolaId(int escolaId) {
-		this.escolaId = escolaId;
-	}
 
 	public String getEndereco() {
 		return endereco;
@@ -95,6 +83,14 @@ public class Escola {
 
 	public Double getLng() {
 		return lng;
+	}
+
+	public int getIdEscola() {
+		return idEscola;
+	}
+
+	public void setIdEscola(int idEscola) {
+		this.idEscola = idEscola;
 	}
 
 	public void setLng(Double lng) {

@@ -69,7 +69,7 @@ public class LoginBean implements Serializable{
 				session.setAttribute("loginType", "aluno");
 				//LOGIN ALUNO
 				for (Aluno a : alunoList) {
-					System.out.println("RM DO ALUNO" + a.getRm());
+					System.out.println("RM DO ALUNO" + a.getRmAluno());
 					session.setAttribute("displayName", a.getNome());
 				}
 			}else{
@@ -81,7 +81,7 @@ public class LoginBean implements Serializable{
 
 					//LOGIN PROFESSOR
 					for (Professor p : professorList) {
-						System.out.println("RM DO PROFESSOR" + p.getRm());
+						System.out.println("RM DO PROFESSOR" + p.getRmProfessor());
 						session.setAttribute("displayName", p.getNome());
 					}
 				}else{

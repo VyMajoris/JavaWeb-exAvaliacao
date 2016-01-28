@@ -1,5 +1,6 @@
 package br.com.fiap.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 
@@ -19,23 +22,30 @@ import javax.persistence.OneToMany;
 public class Curso {
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int cursoId;
+	private int idCurso;
 	private String nome;
 	private String descricaoCompleta;
 	private Double duracao;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicio;
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataTermino;
 	private int vagas;
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "listCurso")
-	private List<Escola> listEscola;
-	
+	private List<Escola> listEscola = new ArrayList<Escola>();
 
-	public int getCursoId() {
-		return cursoId;
+
+
+	@Override
+	public String toString() {
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getIdCurso());
 	}
-	public void setCursoId(int cursoId) {
-		this.cursoId = cursoId;
+	public int getIdCurso() {
+		return idCurso;
+	}
+	public void setIdCurso(int idCurso) {
+		this.idCurso = idCurso;
 	}
 	public String getNome() {
 		return nome;

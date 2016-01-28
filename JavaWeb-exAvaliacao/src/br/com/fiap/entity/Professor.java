@@ -9,12 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @NamedQueries({
 	@NamedQuery(
 			name = "findProfessor",
-			query = "from Professor p where p.rm = :rm and p.senha = :senha"
+			query = "from Professor p where p.rmProfessor = :rmProfessor and p.senha = :senha"
 			)
 })
 
@@ -24,7 +26,7 @@ public class Professor {
 
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int rm;
+	private int rmProfessor;
 
 	private String senha;
 
@@ -32,15 +34,14 @@ public class Professor {
 
 	private String nome;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNasc;
 	
-	public int getRm() {
-		return rm;
-	}
 
-	public void setRm(int rm) {
-		this.rm = rm;
-	}
+	@Override
+	 public String toString() {
+	     return String.format("%s[id=%d]", getClass().getSimpleName(), getRmProfessor());
+	 }
 
 	public String getSenha() {
 		return senha;
@@ -74,11 +75,13 @@ public class Professor {
 		this.dataNasc = dataNasc;
 	}
 
+	public int getRmProfessor() {
+		return rmProfessor;
+	}
 
-
-
-
-
+	public void setRmProfessor(int rmProfessor) {
+		this.rmProfessor = rmProfessor;
+	}
 
 
 }

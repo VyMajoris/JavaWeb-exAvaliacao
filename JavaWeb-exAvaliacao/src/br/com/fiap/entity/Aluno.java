@@ -11,37 +11,37 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @NamedQueries({
 	@NamedQuery(
-	name = "findAluno",
-	query = "from Aluno a where a.rm = :rm and a.senha = :senha"
-	)
+			name = "findAluno",
+			query = "from Aluno a where a.rmAluno = :rmAluno and a.senha = :senha"
+			)
 })
 
 @Entity
 public class Aluno {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int rm;
-	
+	private int rmAluno;
+
 	private String senha;
-	
+
 	private String cpf;
-	
+
 	private String nome;
-	
+
 	private String email;
 	private String tel;
 	private String endereco;
-	
+
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNasc;
 
-	public int getRm() {
-		return rm;
-	}
-
-	public void setRm(int rm) {
-		this.rm = rm;
+	@Override
+	public String toString() {
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getRmAluno());
 	}
 
 	public String getSenha() {
@@ -99,17 +99,16 @@ public class Aluno {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	
 
-	
-	/*
-	 * 	TINYBLOB => 255 Bytes
-		BLOB => 64 Kilobytes
-		MEDIUMBLOB => 16 Megabytes
-		LONGBLOB => 4 Gigabits 
-	 */
+	public int getRmAluno() {
+		return rmAluno;
+	}
 
-	
-	
+	public void setRmAluno(int rmAluno) {
+		this.rmAluno = rmAluno;
+	}
+
+
+
 }
 
