@@ -39,8 +39,8 @@ public class EscolaBean implements Serializable {
 		System.out.println("EscolaBean init");
 		draggableModel = new DefaultMapModel();
 		escola = new Escola();
+		escolaDao = new  GenericDao<Escola>(Escola.class);
 	}
-	@Inject
 	private GenericDao<Escola> escolaDao;
 	private MapModel draggableModel;
 	private Escola escola;
@@ -111,7 +111,7 @@ public class EscolaBean implements Serializable {
 
 
 	public void cadastrarEscola(){
-		escolaDao = new  GenericDao<Escola>(Escola.class);
+		
 		escola.setLat(lat);
 		escola.setLng(lng);
 		escolaDao.adicionar(escola);
@@ -146,7 +146,7 @@ public class EscolaBean implements Serializable {
 
 
 	public String removerEscola(){
-		escolaDao.removeById(escola.getEscolaId());
+		escolaDao.removeById(escola.getIdEscola());
 		FacesMessage msg = new FacesMessage("Escola Removida!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		listEscola = escolaDao.listar();

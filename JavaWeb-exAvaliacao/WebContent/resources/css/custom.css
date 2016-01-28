@@ -130,3 +130,6 @@ corresponding value from the list below*/
 	 margin-left: 3px;
 
 }
+textarea{
+	max-width: 100%;
+}

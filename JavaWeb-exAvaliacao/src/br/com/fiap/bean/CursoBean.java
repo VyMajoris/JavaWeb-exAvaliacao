@@ -1,5 +1,9 @@
 package br.com.fiap.bean;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,49 +22,54 @@ import br.com.fiap.entity.Escola;
 @SessionScoped
 public class CursoBean {
 	private List<Escola> listEscolaTotal;
-	private List<Escola> listEscolaSelecionadas;
+	private List<String> listEscolaIdSelecionadas;
 	private List<Curso> listCurso;
 	private GenericDao<Curso> cursoDao;
 	private GenericDao<Escola> escolaDao;
 	private Curso curso;
 	private Curso cursoTemp;
+	private String dataInicio;
+	private String dataTermino;
 
 
 	@PostConstruct
 	public void init() {
 		System.out.println("Curso Bean init");
 		curso = new Curso();
+		
 		cursoDao = new  GenericDao<Curso>(Curso.class);
 		escolaDao = new GenericDao<Escola>(Escola.class);
 		listEscolaTotal = escolaDao.listar();
-		System.out.println(listEscolaTotal.size());
-		for (int i = 0; i < listEscolaTotal.size(); i++) {
-			System.out.println(i);
-			System.out.println(listEscolaTotal.get(i).getNome()); ;
-			System.out.println(listEscolaTotal.get(i).getDescricao()); ;
-			System.out.println(listEscolaTotal.get(i).getEndereco()); ;
-			System.out.println(listEscolaTotal.get(i).getEscolaId()); ;
-			System.out.println(listEscolaTotal.get(i).getSalas()); ;
+	}
+
+
+	public Date formatarDate(String data, String oldFormat, String newFormat){
+		Date date = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat(oldFormat);
+			date = sdf.parse(data);
+			sdf.applyPattern(newFormat);
+			date = sdf.parse(sdf.format(date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+
+
+	public void cadastrarCurso() throws ParseException{
+		curso.setDataInicio(formatarDate(dataInicio, "yyyy-MM-dd", "dd/MM/yyyy"));
+		curso.setDataTermino(formatarDate(dataTermino, "yyyy-MM-dd", "dd/MM/yyyy"));
+
+		for (String escolaId : listEscolaIdSelecionadas) {
+			System.out.println("Escola ID: +"+ escolaId);
+			curso.getListEscola().add(escolaDao.buscar(Integer.parseInt(escolaId)));
 		}
 
-	}
-	public void cadastrarCurso(){
 		cursoDao.adicionar(curso);
 		curso = new Curso();
-		curso.setListEscola(listEscolaSelecionadas);
 		FacesMessage msg = new FacesMessage("Curso cadastrado!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-
-
-	public List<Curso> listarCursos(){
-		return cursoDao.listar();
-	}
-
-
-	public void addEscolaLista(Escola escola){
-		listEscolaSelecionadas.add(escola);
 	}
 
 	public void prepRemoverCurso(Curso curso){
@@ -69,7 +78,7 @@ public class CursoBean {
 
 	public String removerCurso(){
 		System.out.println("Remover: " + curso.getNome());
-		cursoDao.removeById(curso.getCursoId());
+		cursoDao.removeById(curso.getIdCurso());
 		FacesMessage msg = new FacesMessage("Curso Removido!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		listCurso = cursoDao.listar();
@@ -86,6 +95,33 @@ public class CursoBean {
 		return "lista-curso";
 	}
 
+	
+	
+	public List<Escola> listarEscolas(){
+		return escolaDao.listar();
+	}
+
+
+	public List<Curso> listarCursos(){
+		return cursoDao.listar();
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	//Getter and Setters;
 	public List<Escola> getListEscolaTotal() {
@@ -94,12 +130,17 @@ public class CursoBean {
 	public void setListEscolaTotal(List<Escola> listEscolaTotal) {
 		this.listEscolaTotal = listEscolaTotal;
 	}
-	public List<Escola> getListEscolaSelecionadas() {
-		return listEscolaSelecionadas;
+
+	public List<String> getListEscolaIdSelecionadas() {
+		return listEscolaIdSelecionadas;
 	}
-	public void setListEscolaSelecionadas(List<Escola> listEscolaSelecionadas) {
-		this.listEscolaSelecionadas = listEscolaSelecionadas;
+
+
+	public void setListEscolaIdSelecionadas(List<String> listEscolaIdSelecionadas) {
+		this.listEscolaIdSelecionadas = listEscolaIdSelecionadas;
 	}
+
+
 	public List<Curso> getListCurso() {
 		return listCurso;
 	}
@@ -129,6 +170,18 @@ public class CursoBean {
 	}
 	public void setCursoTemp(Curso cursoTemp) {
 		this.cursoTemp = cursoTemp;
+	}
+	public String getDataTermino() {
+		return dataTermino;
+	}
+	public void setDataTermino(String dataTermino) {
+		this.dataTermino = dataTermino;
+	}
+	public String getDataInicio() {
+		return dataInicio;
+	}
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
 

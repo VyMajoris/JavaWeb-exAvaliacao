@@ -34,7 +34,7 @@
 							<div class="form-group">
 								<h:outputLabel value="Duração" style="font-weight:bold" />
 								<div class="input-group">
-									<h:inputText pa:placeholder="Nome"
+									<h:inputText pa:type="number" pa:placeholder="Nome"
 										value="#{cursoBean.curso.duracao}" styleClass="form-control" />
 									<span class="input-group-addon">HORAS-AULA (H/A)</span>
 								</div>
@@ -45,8 +45,11 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Data de Início" style="font-weight:bold" />
-								<h:inputText pa:type="date" pa:placeholder="Nome"
-									value="#{cursoBean.curso.dataInicio}" styleClass="form-control" />
+
+								<p:inputText styleClass="form-control" type="date"
+									value="#{cursoBean.dataInicio}">
+
+								</p:inputText>
 
 
 							</div>
@@ -55,7 +58,12 @@
 							<div class="form-group">
 								<h:outputLabel value="Previsão de Término"
 									style="font-weight:bold" />
-								<input class="form-control" type="date"></input>
+								<p:inputText styleClass="form-control" type="date"
+									value="#{cursoBean.dataTermino}">>
+								</p:inputText>
+
+
+
 							</div>
 						</div>
 					</div>
@@ -63,30 +71,31 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Vagas" style="font-weight:bold" />
-								<input class="form-control" type="text"></input>
+								<input jsf:value="#{cursoBean.curso.vagas}" class="form-control"
+									type="text"></input>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Escolas" style="font-weight:bold" />
-								<select pa:placeholder="Digite ou selecione as escolas" multiple="multiple"
-									class="form-control multiselect multiselect-info"
-									id="cb-frentes" required="required" size="1"
-									jsf:value="#{cursoBean.listEscolaSelecionadas}">
-									<option value="#{null}" jsfc="f:selectItem" />
+								<h:selectManyListbox 
+									styleClass="form-control multiselect multiselect-info"
+									required="required" size="1"
+									value="#{cursoBean.listEscolaIdSelecionadas}">
 
-									<option value="4">Logout</option>
 
-									<ui:repeat value="#{cursoBean.listEscolaTotal}" var="escola">
-										<option value="#{escola.nome}">#{escola.nome}</option>
-									</ui:repeat>
-								</select>
+									<f:selectItems value="#{cursoBean.listarEscolas()}" var="esc"
+										itemLabel="#{esc.nome}" itemValue="#{esc.idEscola}" />
+
+								</h:selectManyListbox>
 
 
 								<script type="text/javascript">
 								$(document).ready(function() {
 									$("select").select2();
+									
 								});
+							
 							</script>
 							</div>
 						</div>
@@ -96,15 +105,23 @@
 							<div class="form-group">
 								<h:outputLabel value="Descrição Completa"
 									style="font-weight:bold" />
-								<textarea class="form-control" rows="3"></textarea>
+
+								<h:inputTextarea value="#{cursoBean.curso.descricaoCompleta}"
+									styleClass="form-control" rows="3" />
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-									value="Enviar" />
+								<h:commandButton rendered="#{escolaBean.escolaUpdate == true}"
+									styleClass="btn btn-block btn-lg btn-primary"
+									action="#{cursoBean.atualizarCurso()}" type="submit"
+									value="Atualizar" />
+								<h:commandButton rendered="#{escolaBean.escolaUpdate == false}"
+									styleClass="btn btn-block btn-lg btn-primary"
+									action="#{cursoBean.cadastrarCurso()}" type="submit"
+									value="Cadastrar" />
 							</div>
 						</div>
 					</div>
