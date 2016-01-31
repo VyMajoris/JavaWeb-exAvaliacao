@@ -6,8 +6,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Query;
@@ -17,17 +15,14 @@ import br.com.fiap.dao.JpaUtil;
 import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Professor;
 
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 @ManagedBean
 @RequestScoped
 public class LoginBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String teste = "teste;";
 	protected List<Aluno> alunoList;
 	List<Professor> professorList;
@@ -112,6 +107,7 @@ public class LoginBean implements Serializable{
 		this.senha = senha;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void queryAluno(){
 		Query queryAluno = hSession.getNamedQuery("findAluno");
 		queryAluno.setInteger("rm",  Integer.parseInt(rm));
@@ -119,6 +115,7 @@ public class LoginBean implements Serializable{
 		alunoList = queryAluno.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void queryProfessor(){
 		Query queryProfessor = hSession.getNamedQuery("findProfessor");
 		queryProfessor.setInteger("rm", Integer.parseInt(rm));

@@ -3,20 +3,15 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import javax.annotation.PostConstruct; 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.component.behavior.Behavior;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import org.primefaces.component.gmap.GMap;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.map.GeocodeEvent;
 import org.primefaces.event.map.MarkerDragEvent;
-import org.primefaces.event.map.ReverseGeocodeEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.GeocodeResult;
 import org.primefaces.model.map.LatLng;

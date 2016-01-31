@@ -2,7 +2,6 @@ package br.com.fiap.bean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +10,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
-import org.primefaces.model.map.DefaultMapModel;
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.entity.Curso;
@@ -63,7 +60,8 @@ public class CursoBean {
 
 		for (String escolaId : listEscolaIdSelecionadas) {
 			System.out.println("Escola ID: +"+ escolaId);
-			curso.getListEscola().add(escolaDao.buscar(Integer.parseInt(escolaId)));
+//			curso.getEscolas().add(escolaDao.buscar(Integer.parseInt(escolaId)));
+			curso.setEscola(escolaDao.buscar(Integer.parseInt(escolaId)));
 		}
 
 		cursoDao.adicionar(curso);

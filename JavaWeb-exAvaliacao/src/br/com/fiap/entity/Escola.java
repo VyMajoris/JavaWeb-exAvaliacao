@@ -1,26 +1,15 @@
 package br.com.fiap.entity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.persistence.Column;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.CascadeType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
+import javax.persistence.OneToMany;
 
 
 
@@ -42,25 +31,22 @@ public class Escola {
 
 	private int salas;
 
-	@JoinColumn
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "escola_curso", joinColumns = { 
-			@JoinColumn(name = "ESCOLA_ID", nullable = false, updatable = false) }, 
-	inverseJoinColumns = { @JoinColumn(name = "CURSO_ID") })
-	private List<Curso> listCurso = new ArrayList<Curso>();
+
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="escola")
+	private Collection<Curso> cursos = new ArrayList<Curso>();
 	
 	@Override
 	 public String toString() {
 	     return String.format("%s[id=%d]", getClass().getSimpleName(), getIdEscola());
 	 }
 
-	public List<Curso> getListCurso() {
-		return listCurso;
+	public Collection<Curso> getCursos() {
+		return cursos;
 	}
 
-	public void setListCurso(List<Curso> listCurso) {
-		this.listCurso = listCurso;
+
+	public void setCursos(Collection<Curso> cursos) {
+		this.cursos = cursos;
 	}
 
 

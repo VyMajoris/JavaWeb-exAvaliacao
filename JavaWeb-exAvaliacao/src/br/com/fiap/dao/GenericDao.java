@@ -2,10 +2,7 @@ package br.com.fiap.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 
 public class GenericDao<T> implements Dao<T> {

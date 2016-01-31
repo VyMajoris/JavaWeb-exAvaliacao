@@ -1,17 +1,14 @@
 package br.com.fiap.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -32,11 +29,11 @@ public class Curso {
 	private Date dataTermino;
 	private int vagas;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "listCurso")
-	private List<Escola> listEscola = new ArrayList<Escola>();
-
-
-
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idEscola")
+	private Escola escola = new Escola();
+	
+	
 	@Override
 	public String toString() {
 		return String.format("%s[id=%d]", getClass().getSimpleName(), getIdCurso());
@@ -84,11 +81,11 @@ public class Curso {
 	public void setVagas(int vagas) {
 		this.vagas = vagas;
 	}
-	public List<Escola> getListEscola() {
-		return listEscola;
+	public Escola getEscola() {
+		return escola;
 	}
-	public void setListEscola(List<Escola> listEscola) {
-		this.listEscola = listEscola;
+	public void setEscola(Escola escola) {
+		this.escola = escola;
 	}
 
 

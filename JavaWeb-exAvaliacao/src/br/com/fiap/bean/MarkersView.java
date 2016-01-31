@@ -1,9 +1,10 @@
 package br.com.fiap.bean;
  
 import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
- 
+
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
@@ -12,7 +13,11 @@ import org.primefaces.model.map.Marker;
 @ManagedBean
 public class MarkersView implements Serializable {
     
-    private MapModel simpleModel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private MapModel simpleModel;
   
     @PostConstruct
     public void init() {

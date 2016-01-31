@@ -2,8 +2,6 @@ package br.com.fiap.dao;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
-
 
 
 public interface Dao<T> {
