@@ -37,8 +37,8 @@ public class GenericDao<T> implements Dao<T> {
 		em.getTransaction().begin();
 		em.persist(entidade);
 		em.getTransaction().commit();
-
-
+		
+		
 	}
 	@Override
 	public void update(T entity) {
