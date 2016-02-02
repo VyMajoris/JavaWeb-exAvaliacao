@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:body>
+	<ui:composition template="_template.xhtml">
+		<ui:define name="title">
+	    Lista de Professores
+	</ui:define>
+		<f:metadata>
+			<f:viewAction action="#{professorBean.listarProfessores()}" />
+		</f:metadata>
+		<ui:define name="content">
+			<div class="container top-landing">
+				<h:messages />
+				<h:form prependId="false">
+					<h2>Lista de Professores</h2>
+					<div class="row">
+						<div class="col-sm-12">
+							<p:dataTable id="professorTable" widgetVar="professorTable"
+								class="table" var="prof" value="#{professorBean.listProfessor}">
+								<p:column headerText="Nome">
+									<h:outputText value="#{prof.nome}" />
+								</p:column>
+								<p:column headerText="Email">
+									<h:outputText value="#{prof.email}" />
+								</p:column>
+								<p:column headerText="Telefone">
+									<h:outputText value="#{prof.telefone}" />
+								</p:column>
+
+								<p:column headerText="Endereco">
+									<h:outputText value="#{prof.endereco}" />
+								</p:column>
+
+								<p:column headerText="Disciplinas">
+									<h:outputText value="TO-DO" />
+								</p:column>
+								<p:column headerText="Opções">
+									<h:commandLink id="btnsearch"
+										action="#{professorBean.prepAtualizarProfessor(prof)}"
+										styleClass="btn btn-info btn-xs">
+										<i class="fa fa-pencil" style="margin-right: 3px" /> Editar
+								</h:commandLink>
+									<p:commandLink pa:data-toggle="modal" pa:data-target="#myModal"
+										style="margin-right: 3px" title="Deletar"
+										class="btn btn-danger btn-xs" type="button">
+										<i class="fa fa-trash-o" style="margin-right: 3px" /> Deletar
+									 <f:ajax render="delDesc delEnd delNome delSalas"
+											listener="#{professorBean.prepRemoverProfessor(prof)}" />
+									</p:commandLink>
+
+								</p:column>
+							</p:dataTable>
+						</div>
+					</div>
+				</h:form>
+			</div>
+
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&#215;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Deseja deletar
+								este professor?</h4>
+						</div>
+						<div class="modal-body">
+							<p>
+								Nome:
+								<h:outputText id="delNome"
+									value="#{professorBean.professorTemp.nome}" />
+							</p>
+							<p>
+								Email:
+								<h:outputText id="delEmail"
+									value="#{professorBean.professorTemp.email}" />
+							</p>
+							<p>
+								Telefone
+								<h:outputText id="delTelefone"
+									value="#{professorBean.professorTemp.telefone}" />
+							</p>
+
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Não</button>
+							<p:commandLink action="#{professorBean.removerProfessor()}" type="button"
+								class="btn btn-primary btn-danger" pa:data-dismiss="modal">Deletar</p:commandLink>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+	</ui:composition>
+</h:body>
+</html>

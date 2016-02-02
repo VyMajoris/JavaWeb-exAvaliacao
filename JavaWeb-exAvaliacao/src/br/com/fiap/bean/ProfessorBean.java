@@ -62,7 +62,7 @@ public class ProfessorBean {
 		professorTemp=professor;
 	}
 
-	public String removerCurso(){
+	public String removerProfessor(){
 		System.out.println("Remover: " + professorTemp.getNome());
 		professorDao.removeById(professorTemp.getRmProfessor());
 		FacesMessage msg = new FacesMessage("Professor Removido!");
