@@ -11,7 +11,7 @@
 <h:body>
 	<ui:composition template="_template.xhtml">
 		<ui:define name="title">
-	    Lista de Escolas
+	    Lista de Cursos
 	</ui:define>
 		<f:metadata>
 			<f:viewAction action="#{cursoBean.listarCursos()}" />
@@ -20,7 +20,7 @@
 			<div class="container top-landing">
 			<h:messages />
 				<h:form prependId="false">
-					<h2>Lista de Escolas</h2>
+					<h2>Lista de Cursos</h2>
 					<div class="row">
 						<div class="col-sm-12">
 							<p:dataTable  id="cursoTable" widgetVar="cursoTable" class="table" var="cur"
