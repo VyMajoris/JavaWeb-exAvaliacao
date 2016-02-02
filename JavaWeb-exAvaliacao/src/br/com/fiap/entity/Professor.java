@@ -29,7 +29,11 @@ public class Professor {
 
 	private String senha;
 
-	private String cpf;
+	private String telefone;
+	
+	private String email;
+	
+	private String endereco;
 
 	private String nome;
 
@@ -50,13 +54,6 @@ public class Professor {
 		this.senha = senha;
 	}
 
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
 
 	public String getNome() {
 		return nome;

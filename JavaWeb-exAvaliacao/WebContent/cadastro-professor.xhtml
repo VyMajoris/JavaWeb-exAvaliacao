@@ -25,7 +25,7 @@
 		</div>
 	
 
-		ui:define name="content">
+		<ui:define name="content">
 			<div class=" container top-landing">
 			<h:messages />
 			<h2>Cadastro de Escolas</h2>
@@ -119,10 +119,10 @@
 						<h:selectManyListbox
 							styleClass="form-control multiselect multiselect-info"
 							required="required" size="1"
-							value="#{professorBean.listDisciplinasSelecionadas}">
+							value="#{professorBean.listDisciplinaIdSelecionadas}">
 
 
-							<f:selectItems value="#{professorBean.listDisciplinas}" var="dis"
+							<f:selectItems value="#{professorBean.listarDisciplinas()}" var="dis"
 								itemLabel="#{dis.nome}" itemValue="#{dis.idDisciplina}" />
 
 						</h:selectManyListbox>

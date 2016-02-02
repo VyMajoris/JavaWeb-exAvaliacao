@@ -14,43 +14,41 @@
 	    Lista de Escolas
 	</ui:define>
 		<f:metadata>
-			<f:viewAction action="#{escolaBean.listarEscolas}" />
+			<f:viewAction action="#{cursoBean.listarCursos()}" />
 		</f:metadata>
 		<ui:define name="content">
-			<p:dialog header="#{escolaBean.escolaNome}" resizable="false"
-				styleClass="overlayDialog" id="gmapDialog" widgetVar="dlg"
-				width="625" height="400" modal="true">
-				<p:gmap id="geoMap" widgetVar="geoMap"
-					center="#{escolaBean.centerEscolaIndividual}" zoom="11"
-					type="ROADMAP" model="#{escolaBean.draggableModel}"
-					style="width:100%;height:400px" />
-			</p:dialog>
 			<div class="container top-landing">
 			<h:messages />
 				<h:form prependId="false">
 					<h2>Lista de Escolas</h2>
 					<div class="row">
 						<div class="col-sm-12">
-							<p:dataTable  id="escolaTable" widgetVar="escolaTable" class="table" var="esc"
-								value="#{escolaBean.listEscola}">
+							<p:dataTable  id="cursoTable" widgetVar="cursoTable" class="table" var="cur"
+								value="#{cursoBean.listCurso}">
 								<p:column headerText="Nome">
-									<h:outputText value="#{esc.nome}" />
+									<h:outputText value="#{cur.nome}" />
 								</p:column>
 
-								<p:column headerText="Endereço">
-									<h:outputText value="#{esc.endereco}" />
+								<p:column headerText="Data de Início">
+									<h:outputText value="#{cur.dataInicio}" />
 								</p:column>
 
-								<p:column headerText="Qtd. Salas">
-									<h:outputText value="#{esc.salas}" />
+								<p:column headerText="Data de Término">
+									<h:outputText value="#{cur.dataTermino}" />
 								</p:column>
 								
-								<p:column headerText="Descrição">
-									<h:outputText value="#{esc.descricao}" />
+								<p:column headerText="Horas/Aula">
+									<h:outputText value="#{cur.duracao}" />
+								</p:column>
+								<p:column headerText="Vagas">
+									<h:outputText value="#{cur.vagas}" />
+								</p:column>
+								<p:column headerText="Escola">
+									<h:outputText value="#{cur.escola.nome}" />
 								</p:column>
 								<p:column headerText="Opções">
 									<h:commandLink id="btnsearch"
-										action="#{escolaBean.prepAtualizarEscola(esc)}"
+										action="#{cursoBean.prepAtualizarCurso(cur)}"
 										styleClass="btn btn-info btn-xs">
 										<i class="fa fa-pencil" style="margin-right: 3px" /> Editar
 								</h:commandLink>
@@ -58,14 +56,9 @@
 										style="margin-right: 3px" title="Deletar"
 										class="btn btn-danger btn-xs" type="button">
 										<i class="fa fa-trash-o" style="margin-right: 3px" /> Deletar
-									 <f:ajax render="delDesc delEnd delNome delSalas" listener="#{escolaBean.prepRemoverEscola(esc)}"/>
+									 <f:ajax render="delDesc delEnd delNome delSalas" listener="#{cursoBean.prepRemoverCurso(cur)}"/>
 									</p:commandLink>
-									<p:commandButton value="Mapa"
-										style="padding-bottom:6px; height: 24px !important;"
-										styleClass="btn btn-success btn-xs"
-										onclick="PF('dlg').show();" icon="fa fa-map-o" update="geoMap"
-										action="#{escolaBean.buscarGps(esc.id)}">
-									</p:commandButton>
+									
 								</p:column>
 							</p:dataTable>
 						</div>
@@ -83,27 +76,27 @@
 								<span aria-hidden="true">&#215;</span>
 							</button>
 							<h4 class="modal-title" id="myModalLabel">Deseja deletar
-								esta escola?</h4>
+								este curso?</h4>
 						</div>
 						<div class="modal-body">
 							<p>
-								Nome:<h:outputText id="delNome" value="#{escolaBean.escolaTemp.nome}" /> 
+								Nome:<h:outputText id="delNome" value="#{cursoBean.cursoTemp.nome}" /> 
 							</p>
 							<p>
-								Endereço: <h:outputText id="delEnd" value="#{escolaBean.escolaTemp.endereco}" />
+								Vagas: <h:outputText id="delVagas" value="#{cursoBean.cursoTemp.vagas}" />
 							</p>
 							<p>
-								Qtd. Salas: <h:outputText id="delSalas"  value="#{escolaBean.escolaTemp.salas}" />
+								Data de Início: <h:outputText id="delSalas"  value="#{cursoBean.cursoTemp.dataInicio}" />
 							</p>
 							<p>
-								Descrição: <h:outputText id="delDesc"  value="#{escolaBean.escolaTemp.descricao}" />
+								Escola: <h:outputText id="delDesc"  value="#{cursoBean.cursoTemp.escola}" />
 							</p>
 
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Não</button>
-							<p:commandLink  action="#{escolaBean.removerEscola()}"
+							<p:commandLink  action="#{cursoBean.removerCurso()}"
 								type="button" class="btn btn-primary btn-danger" pa:data-dismiss="modal">Deletar</p:commandLink>
 						</div>
 					</div>

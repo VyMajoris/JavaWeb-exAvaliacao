@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.entity.Curso;
 import br.com.fiap.entity.Escola;
+import br.com.fiap.helpers.FormatadorData;
 
 @ManagedBean
 @SessionScoped
@@ -27,6 +28,8 @@ public class CursoBean {
 	private Curso cursoTemp;
 	private String dataInicio;
 	private String dataTermino;
+	private boolean cursoUpdate;
+	
 
 
 	@PostConstruct
@@ -55,8 +58,8 @@ public class CursoBean {
 
 
 	public void cadastrarCurso() throws ParseException{
-		curso.setDataInicio(formatarDate(dataInicio, "yyyy-MM-dd", "dd/MM/yyyy"));
-		curso.setDataTermino(formatarDate(dataTermino, "yyyy-MM-dd", "dd/MM/yyyy"));
+		curso.setDataInicio(FormatadorData.formatarDate(dataInicio, "yyyy-MM-dd", "dd/MM/yyyy"));
+		curso.setDataTermino(FormatadorData.formatarDate(dataTermino, "yyyy-MM-dd", "dd/MM/yyyy"));
 
 		for (String escolaId : listEscolaIdSelecionadas) {
 			System.out.println("Escola ID: +"+ escolaId);
@@ -180,6 +183,16 @@ public class CursoBean {
 	}
 	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
+	}
+
+
+	public boolean isCursoUpdate() {
+		return cursoUpdate;
+	}
+
+
+	public void setCursoUpdate(boolean cursoUpdate) {
+		this.cursoUpdate = cursoUpdate;
 	}
 
 
