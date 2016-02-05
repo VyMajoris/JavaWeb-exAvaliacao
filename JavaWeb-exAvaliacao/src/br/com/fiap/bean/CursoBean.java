@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.fiap.dao.GenericDao;
@@ -17,7 +18,9 @@ import br.com.fiap.entity.Escola;
 import br.com.fiap.helpers.FormatadorData;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
+
+//NÃO USAR
 public class CursoBean {
 	private List<Escola> listEscolaTotal;
 	private List<String> listEscolaIdSelecionadas;
@@ -29,49 +32,44 @@ public class CursoBean {
 	private String dataInicio;
 	private String dataTermino;
 	private boolean cursoUpdate;
-	
+
 
 
 	@PostConstruct
 	public void init() {
 		System.out.println("Curso Bean init");
 		curso = new Curso();
-		
+
 		cursoDao = new  GenericDao<Curso>(Curso.class);
 		escolaDao = new GenericDao<Escola>(Escola.class);
 		listEscolaTotal = escolaDao.listar();
 	}
 
 
-	public Date formatarDate(String data, String oldFormat, String newFormat){
-		Date date = null;
-		try {
-			SimpleDateFormat sdf = new SimpleDateFormat(oldFormat);
-			date = sdf.parse(data);
-			sdf.applyPattern(newFormat);
-			date = sdf.parse(sdf.format(date));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return date;
-	}
-
-
 	public void cadastrarCurso() throws ParseException{
-		curso.setDataInicio(FormatadorData.formatarDate(dataInicio, "yyyy-MM-dd", "dd/MM/yyyy"));
-		curso.setDataTermino(FormatadorData.formatarDate(dataTermino, "yyyy-MM-dd", "dd/MM/yyyy"));
 
-		for (String escolaId : listEscolaIdSelecionadas) {
-			System.out.println("Escola ID: +"+ escolaId);
-//			curso.getEscolas().add(escolaDao.buscar(Integer.parseInt(escolaId)));
-			curso.setEscola(escolaDao.buscar(Integer.parseInt(escolaId)));
+		if (listEscolaIdSelecionadas.isEmpty()) {
+			FacesMessage msg = new FacesMessage("Para cadastrar um curso é necessário selecionar uma escola!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+
+		}else{
+			for (String escolaId : listEscolaIdSelecionadas) {
+				System.out.println("Escola ID: +"+ escolaId);
+				curso.setEscola(escolaDao.buscar(Integer.parseInt(escolaId)));
+			}
+
+			cursoDao.adicionar(curso);
+			dataInicio = "";
+			dataTermino = "";
+			listEscolaIdSelecionadas.clear();
+			curso = new Curso();
+
+			FacesMessage msg = new FacesMessage("Curso cadastrado!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
-		cursoDao.adicionar(curso);
-		curso = new Curso();
-		FacesMessage msg = new FacesMessage("Curso cadastrado!");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
+
+
 
 	public void prepRemoverCurso(Curso curso){
 		cursoTemp=curso;
@@ -80,7 +78,7 @@ public class CursoBean {
 	public String removerCurso(){
 		System.out.println("Remover: " + curso.getNome());
 		cursoDao.removeById(curso.getIdCurso());
-		FacesMessage msg = new FacesMessage("Curso Removido!");
+		FacesMessage msg = new FacesMessage("Curso "+curso.getNome()+" Removido!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		listCurso = cursoDao.listar();
 		return "lista-curso?faces-redirect=true";
@@ -89,40 +87,46 @@ public class CursoBean {
 	public String prepAtualizarCurso(Curso curso){
 		System.out.println("curso"+curso.getNome());
 		this.curso = curso;
+		cursoUpdate = true;
 		return "cadastro-curso";
 	}
 	public String atualizarCurso(){
 		cursoDao.update(curso);
+		cursoUpdate = false;
+		FacesMessage msg = new FacesMessage("Curso " +curso.getNome()+ " Atualizado!");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+
 		return "lista-curso";
 	}
 
-	
-	
+
+
 	public List<Escola> listarEscolas(){
 		return escolaDao.listar();
 	}
 
 
-	public List<Curso> listarCursos(){
-		return cursoDao.listar();
+	public void listarCursos(){
+
+		listCurso =  cursoDao.listar();
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	//Getter and Setters;
 	public List<Escola> getListEscolaTotal() {

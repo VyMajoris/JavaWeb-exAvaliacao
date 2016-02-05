@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 public class Escola {
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int idEscola;
+	private Long idEscola;
 
 	private String nome;
 
@@ -24,9 +24,6 @@ public class Escola {
 
 	private String endereco;
 
-	private Double lat;
-
-	private Double lng;
 
 	private int salas;
 
@@ -34,10 +31,44 @@ public class Escola {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="escola")
 	private Collection<Curso> cursos = new ArrayList<Curso>();
 	
-	@Override
-	 public String toString() {
-	     return String.format("%s[id=%d]", getClass().getSimpleName(), getIdEscola());
-	 }
+	   @Override
+	    public int hashCode() {
+	        final int prime = 31;
+	        int result = 1;
+	        result = prime * result + ((idEscola == null) ? 0 : idEscola.hashCode());
+	        return result;
+	    }
+
+	    @Override
+	    public boolean equals(Object obj) {
+	        if (this == obj)
+	            return true;
+	        if (obj == null)
+	            return false;
+	        if (getClass() != obj.getClass())
+	            return false;
+	        Escola other = (Escola) obj;
+	        if (idEscola == null) {
+	            if (other.idEscola != null)
+	                return false;
+	        } else if (!idEscola.equals(other.idEscola))
+	            return false;
+	        return true;
+	    }
+	    @Override
+	    public String toString() {
+	        return "Classe [id=" + idEscola + ", nome=" + nome + "]";
+	    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public Collection<Curso> getCursos() {
 		return cursos;
@@ -58,29 +89,17 @@ public class Escola {
 	}
 
 
-	public Double getLat() {
-		return lat;
-	}
 
-	public void setLat(Double lat) {
-		this.lat = lat;
-	}
 
-	public Double getLng() {
-		return lng;
-	}
-
-	public int getIdEscola() {
+	public Long getIdEscola() {
 		return idEscola;
 	}
 
-	public void setIdEscola(int idEscola) {
+	public void setIdEscola(Long idEscola) {
 		this.idEscola = idEscola;
 	}
 
-	public void setLng(Double lng) {
-		this.lng = lng;
-	}
+
 
 	public String getNome() {
 		return nome;

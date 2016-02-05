@@ -11,6 +11,7 @@ import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
  
 @ManagedBean
+//NÃO USAR
 public class MarkersView implements Serializable {
     
     /**

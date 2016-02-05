@@ -5,7 +5,7 @@
 	<persistence-unit name="jpaPU" transaction-type="RESOURCE_LOCAL">
 		<class>br.com.fiap.entity.Curso</class>
 		<class>br.com.fiap.entity.Aluno</class>
-		<class>br.com.fiap.entity.Diciplina</class>
+		<class>br.com.fiap.entity.Disciplina</class>
 		<class>br.com.fiap.entity.Escola</class>
 		<class>br.com.fiap.entity.Professor</class>
 		<class>br.com.fiap.entity.Administrador</class>

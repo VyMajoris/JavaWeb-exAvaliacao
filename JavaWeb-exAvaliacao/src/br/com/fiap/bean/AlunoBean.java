@@ -2,11 +2,13 @@ package br.com.fiap.bean;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.fiap.entity.Aluno;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
+//NÃO USAR
 public class AlunoBean {
 
 	public Aluno getAluno() {

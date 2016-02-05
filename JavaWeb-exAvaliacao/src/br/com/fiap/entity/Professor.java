@@ -1,15 +1,22 @@
 package br.com.fiap.entity;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.fiap.helpers.FormatadorData;
 
 
 @NamedQueries({
@@ -24,27 +31,51 @@ import javax.persistence.TemporalType;
 public class Professor {
 
 
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int rmProfessor;
+	@Id
+	private Long rmProfessor;
 
 	private String senha;
 
 	private String telefone;
-	
+
 	private String email;
-	
+
 	private String endereco;
 
 	private String nome;
+	
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();
+
+	
+	
+	
+	
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNasc;
-	
 
 	@Override
-	 public String toString() {
-	     return String.format("%s[id=%d]", getClass().getSimpleName(), getRmProfessor());
-	 }
+	public String toString() {
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getRmProfessor());
+	}
+
+	public Collection<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(Collection<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+	public Long getRmProfessor() {
+		return rmProfessor;
+	}
+
+	public void setRmProfessor(Long rmProfessor) {
+		this.rmProfessor = rmProfessor;
+	}
 
 	public String getSenha() {
 		return senha;
@@ -68,16 +99,10 @@ public class Professor {
 	}
 
 	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
+
+		this.dataNasc = (FormatadorData.formatarDate(dataNasc.toString(), "yyyy-MM-dd", "dd/MM/yyyy"));
 	}
 
-	public int getRmProfessor() {
-		return rmProfessor;
-	}
-
-	public void setRmProfessor(int rmProfessor) {
-		this.rmProfessor = rmProfessor;
-	}
 
 	public String getEndereco() {
 		return endereco;

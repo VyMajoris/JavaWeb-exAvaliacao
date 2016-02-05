@@ -24,7 +24,8 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<p:dataTable id="professorTable" widgetVar="professorTable"
-								class="table" var="prof" value="#{professorBean.listProfessor}">
+								class="table" var="prof"
+								value="#{professorListaBean.listProfessor}">
 								<p:column headerText="Nome">
 									<h:outputText value="#{prof.nome}" />
 								</p:column>
@@ -43,17 +44,19 @@
 									<h:outputText value="TO-DO" />
 								</p:column>
 								<p:column headerText="Opções">
-									<h:commandLink id="btnsearch"
-										action="#{professorBean.prepAtualizarProfessor(prof)}"
+									<h:commandLink id="btnsearch" action="cadastro-professor"
 										styleClass="btn btn-info btn-xs">
-										<i class="fa fa-pencil" style="margin-right: 3px" /> Editar
-								</h:commandLink>
+										<i class="fa fa-pencil" style="margin-right: 3px" />
+										<f:setPropertyActionListener
+											target="#{professorCadastroBean.professor}" value="#{prof}" />
+									</h:commandLink>
 									<p:commandLink pa:data-toggle="modal" pa:data-target="#myModal"
 										style="margin-right: 3px" title="Deletar"
 										class="btn btn-danger btn-xs" type="button">
 										<i class="fa fa-trash-o" style="margin-right: 3px" /> Deletar
-									 <f:ajax render="delDesc delEnd delNome delSalas"
-											listener="#{professorBean.prepRemoverProfessor(prof)}" />
+									<f:setPropertyActionListener
+											target="#{professorListaBean.idProfessorremover}"
+											value="#{prof.rmProfessor}" />
 									</p:commandLink>
 
 								</p:column>
@@ -97,8 +100,9 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Não</button>
-							<p:commandLink action="#{professorBean.removerProfessor()}" type="button"
-								class="btn btn-primary btn-danger" pa:data-dismiss="modal">Deletar</p:commandLink>
+							<p:commandLink action="#{professorBean.removerProfessor()}"
+								type="button" class="btn btn-primary btn-danger"
+								pa:data-dismiss="modal">Deletar</p:commandLink>
 						</div>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-package br.com.fiap.bean;
+package br.com.fiap.bean.request;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +17,7 @@ import br.com.fiap.entity.Professor;
 
 @ManagedBean
 @RequestScoped
+// >>>OK<<<
 public class LoginBean implements Serializable{
 
 	/**
