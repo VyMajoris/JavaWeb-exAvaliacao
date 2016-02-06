@@ -19,7 +19,7 @@ public class ProfessorListaBean {
 	private GenericDao<Professor> professorDao;
 
 
-	private int idProfessorremover;
+	private Long idProfessorremover;
 
 	@PostConstruct
 	public void init(){
@@ -29,13 +29,7 @@ public class ProfessorListaBean {
 	}
 
 
-	public int getIdProfessorremover() {
-		return idProfessorremover;
-	}
 
-	public void setIdProfessorremover(int idProfessorremover) {
-		this.idProfessorremover = idProfessorremover;
-	}
 
 	public String remove(){
 		System.out.println("REMOVE " +idProfessorremover);
@@ -44,7 +38,7 @@ public class ProfessorListaBean {
 		.addMessage(null, new FacesMessage("Professor Removido!"));
 		listProfessor = professorDao.listar();
 		return "lista-professor?faces-redirect=true";
-		
+
 	}
 
 	public List<Professor> getListProfessor() {
@@ -54,5 +48,17 @@ public class ProfessorListaBean {
 	public void setListProfessor(List<Professor> listProfessor) {
 		this.listProfessor = listProfessor;
 	}
+	public Long getIdProfessorremover() {
+		return idProfessorremover;
+	}
+
+
+
+	public void setIdProfessorremover(Long idProfessorremover) {
+		this.idProfessorremover = idProfessorremover;
+	}
+
+
+
 
 }

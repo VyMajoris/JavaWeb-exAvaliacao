@@ -10,7 +10,8 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf/"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 
 <h:body>
@@ -88,31 +89,29 @@
 						<div class="col-sm-12">
 							<div class="form-group">
 
-								<c:if test="${escolaCadastroBean.escola.idEscola != 0}">
+								<c:if test="${empty escolaCadastroBean.escola.idEscola}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{escolaCadastroBean.atualizarEscola()}" type="submit"
-										value="Atualizar" />
+										action="#{escolaCadastroBean.cadastrarEscola}" type="submit"
+										value="Cadastrar" ajax="false" />
 								</c:if>
-								<c:if test="${escolaCadastroBean.escola.idEscola == 0}">
-									<h:commandButton
-										rendered="#{escolaCadastroBean.escola.idEscola == 0}"
-										styleClass="btn btn-block btn-lg btn-primary"
-										action="#{escolaCadastroBean.cadastrarEscola()}" type="submit"
-										value="Cadastrar" />
+								<c:if test="${not empty escolaCadastroBean.escola.idEscola}">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+										action="#{escolaCadastroBean.atualizarEscola}" type="submit"
+										value="Atualizar" ajax="false" />
 								</c:if>
+
+
+
+
+
+
+
+
 
 
 							</div>
 						</div>
 					</div>
-					<script type="text/javascript">
-					    function geocode() {
-						 
-					        PF('geoMap').geocode(document.getElementById('address').value);
-					    }
-					 
-					    
-					</script>
 
 				</h:form>
 			</div>

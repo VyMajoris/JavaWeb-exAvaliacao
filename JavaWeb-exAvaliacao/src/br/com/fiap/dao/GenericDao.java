@@ -15,7 +15,7 @@ public class GenericDao<T> implements Dao<T> {
 	}
 
 	@Override
-	public void removeById(int id){
+	public void removeById(Long id){
 		System.out.println(em.isOpen());
 		em.getTransaction().begin();
 		T entity = em.find(classe,id);
@@ -55,7 +55,7 @@ public class GenericDao<T> implements Dao<T> {
 	}
 
 	@Override
-	public T buscar(int id) {
+	public T buscar(Long id) {
 		em = JpaUtil.getEntityManager();
 		em.getTransaction().begin();
 		T entidade = em.find(classe, id);

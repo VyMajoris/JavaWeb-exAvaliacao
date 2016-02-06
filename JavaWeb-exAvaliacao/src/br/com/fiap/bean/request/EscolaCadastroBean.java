@@ -25,7 +25,7 @@ public class EscolaCadastroBean implements Serializable {
 	private Escola escola;
 	private List<Escola> listEscola;
 
-	private boolean escolaUpdate = false;
+	
 
 	@PostConstruct
 	public void init() {
@@ -38,14 +38,16 @@ public class EscolaCadastroBean implements Serializable {
 		System.out.println("CADASTRAR ESCOLA "+ escola.getNome());
 		escolaDao.adicionar(escola);
 		this.escola = new Escola();
-		FacesMessage msg = new FacesMessage("Escola cadastrada!");
+		FacesMessage msg = new FacesMessage("Escola "+escola.getNome()+" cadastrada!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 	}
+	
+	
 	public String atualizarEscola(){
 		System.out.println("ATUALIZAR ESCOLA: "+ escola.getNome());
 		escolaDao.update(escola);
-		FacesMessage msg = new FacesMessage("Escola Atualizada!");
+		FacesMessage msg = new FacesMessage("Escola "+escola.getNome()+" Atualizada!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "lista-escola";
 
@@ -80,13 +82,5 @@ public class EscolaCadastroBean implements Serializable {
 		this.listEscola = listEscola;
 	}
 
-	public boolean isEscolaUpdate() {
-		return escolaUpdate;
-	}
-
-
-	public void setEscolaUpdate(boolean escolaUpdate) {
-		this.escolaUpdate = escolaUpdate;
-	}
 
 }

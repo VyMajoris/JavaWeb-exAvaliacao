@@ -15,14 +15,7 @@
 	</ui:define>
 	
 		<ui:define name="content">
-			<p:dialog header="#{escolaBean.escolaNome}" resizable="false"
-				styleClass="overlayDialog" id="gmapDialog" widgetVar="dlg"
-				width="625" height="400" modal="true">
-				<p:gmap id="geoMap" widgetVar="geoMap"
-					center="#{escolaBean.centerEscolaIndividual}" zoom="11"
-					type="ROADMAP" model="#{escolaBean.draggableModel}"
-					style="width:100%;height:400px" />
-			</p:dialog>
+
 			<div class="container top-landing">
 				<h:messages />
 				<h:form prependId="false">

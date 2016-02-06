@@ -125,15 +125,13 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<c:if test="${cursoCadastroBean.curso.idCurso != 0}">
+								<c:if test="${not empty cursoCadastroBean.curso.idCurso }">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{cursoCadastroBean.atualizarCurso()}" type="submit"
 										value="Atualizar" />
 								</c:if>
-								<c:if test="${cursoCadastroBean.curso.idCurso == 0}">
-									<h:commandButton
-										rendered="#{cursoCadastroBean.curso.idCurso == 0}"
-										styleClass="btn btn-block btn-lg btn-primary"
+								<c:if test="${empty cursoCadastroBean.curso.idCurso}">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{cursoCadastroBean.cadastrarCurso()}" type="submit"
 										value="Cadastrar" />
 								</c:if>

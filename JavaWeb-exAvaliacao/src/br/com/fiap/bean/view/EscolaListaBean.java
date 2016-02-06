@@ -24,7 +24,7 @@ public class EscolaListaBean {
 	private GenericDao<Escola> escolaDao;
 
 
-	private int idEscolaremover;
+	private Long idEscolaremover;
 
 	@PostConstruct
 	public void init(){
@@ -34,13 +34,21 @@ public class EscolaListaBean {
 	}
 
 
-	public int getIdEscolaremover() {
+
+
+	public Long getIdEscolaremover() {
 		return idEscolaremover;
 	}
 
-	public void setIdEscolaremover(int idEscolaremover) {
+
+
+
+	public void setIdEscolaremover(Long idEscolaremover) {
 		this.idEscolaremover = idEscolaremover;
 	}
+
+
+
 
 	public String remove(){
 		System.out.println("REMOVE " +idEscolaremover);
@@ -48,7 +56,7 @@ public class EscolaListaBean {
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage("Escola Removida!"));
 		listEscola = escolaDao.listar();
-		return "lista-escola?faces-redirect=true";
+		return "lista-escola";
 		
 	}
 

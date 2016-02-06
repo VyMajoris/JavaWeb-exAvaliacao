@@ -18,7 +18,7 @@ public class CursoListaBean {
 
 	private List<Curso> listCurso;
 	private GenericDao<Curso> cursoDao;
-	private int idCursoRemover;
+	private Long idCursoRemover;
 
 
 
@@ -40,11 +40,11 @@ public class CursoListaBean {
 	}
 	
 	
-	
-	public int getIdCursoRemover() {
+
+	public Long getIdCursoRemover() {
 		return idCursoRemover;
 	}
-	public void setIdCursoRemover(int idCursoRemover) {
+	public void setIdCursoRemover(Long idCursoRemover) {
 		this.idCursoRemover = idCursoRemover;
 	}
 	public List<Curso> getListCurso() {

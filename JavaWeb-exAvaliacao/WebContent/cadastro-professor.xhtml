@@ -135,12 +135,12 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<c:if test="${professorCadastroBean.professor.rmProfessor != 0}">
+								<c:if test="${not empty professorCadastroBean.professor.rmProfessor}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{professorCadastroBean.atualizarProfessor()}" type="submit"
 										value="Atualizar" />
 								</c:if>
-								<c:if test="${professorCadastroBean.professor.rmProfessor == 0}">
+								<c:if test="${empty professorCadastroBean.professor.rmProfessor }">
 									<h:commandButton
 										rendered="#{professorCadastroBean.professor.rmProfessor == 0}"
 										styleClass="btn btn-block btn-lg btn-primary"

@@ -19,7 +19,7 @@ public class DisciplinaListaBean {
 	private GenericDao<Disciplina> disciplinaDao;
 
 
-	private int idDisciplinaremover;
+	private Long idDisciplinaremover;
 
 	@PostConstruct
 	public void init(){
@@ -29,13 +29,11 @@ public class DisciplinaListaBean {
 	}
 
 
-	public int getIdDisciplinaremover() {
-		return idDisciplinaremover;
-	}
+	
 
-	public void setIdDisciplinaremover(int idDisciplinaremover) {
-		this.idDisciplinaremover = idDisciplinaremover;
-	}
+
+
+
 
 	public String remove(){
 		System.out.println("REMOVE " +idDisciplinaremover);
@@ -54,5 +52,16 @@ public class DisciplinaListaBean {
 	public void setListDisciplina(List<Disciplina> listDisciplina) {
 		this.listDisciplina = listDisciplina;
 	}
+	public Long getIdDisciplinaremover() {
+		return idDisciplinaremover;
+	}
+
+
+
+
+	public void setIdDisciplinaremover(Long idDisciplinaremover) {
+		this.idDisciplinaremover = idDisciplinaremover;
+	}
+
 
 }

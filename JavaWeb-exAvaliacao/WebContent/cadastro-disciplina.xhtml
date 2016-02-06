@@ -53,13 +53,13 @@
 
 
 								<h:outputLabel value="Cursos" style="font-weight:bold" />
-								<h:selectOneMenu 
+								<h:selectOneMenu
 									styleClass="form-control select select-block mb1"
 									value="#{disciplinaCadastroBean.disciplina.cursos}">
 									<f:selectItem itemValue="null" itemLabel="Sel. classe" />
 									<f:selectItems value="#{disciplinaCadastroBean.listCurso}"
 										var="esc" itemValue="#{esc}" itemLabel="#{esc.nome}" />
-							</h:selectOneMenu>
+								</h:selectOneMenu>
 
 
 
@@ -84,17 +84,19 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-							<c:if test="${disciplinaCadastroBean.disciplina.idDisciplina != 0}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{disciplinaCadastroBean.atualizarDisciplina()}" type="submit"
-										value="Atualizar" />
-								</c:if>
-								<c:if test="${disciplinaCadastroBean.disciplina.idDisciplina == 0}">
+								<c:if
+									test="${empty disciplinaCadastroBean.disciplina.idDisciplina}">
 									<h:commandButton
 										rendered="#{disciplinaCadastroBean.disciplina.idDisciplina == 0}"
 										styleClass="btn btn-block btn-lg btn-primary"
-										action="#{disciplinaCadastroBean.cadastrarDisciplina()}" type="submit"
-										value="Cadastrar" />
+										action="#{disciplinaCadastroBean.cadastrarDisciplina()}"
+										type="submit" value="Cadastrar" />
+								</c:if>
+								<c:if
+									test="${not empty disciplinaCadastroBean.disciplina.idDisciplina }">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+										action="#{disciplinaCadastroBean.atualizarDisciplina()}"
+										type="submit" value="Atualizar" />
 								</c:if>
 							</div>
 						</div>
