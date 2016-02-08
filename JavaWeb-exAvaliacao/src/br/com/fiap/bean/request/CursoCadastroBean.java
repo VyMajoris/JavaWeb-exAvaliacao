@@ -35,11 +35,13 @@ public class CursoCadastroBean {
 	}
 
 	public void cadastrarCurso() throws ParseException{
+		System.out.println("cadastro curso");
 		if (curso.getEscola() == null) {
+		
 			FacesMessage msg = new FacesMessage("Para cadastrar um curso é necessário selecionar uma escola!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}else{
-
+			System.out.println("curso escola "+curso.getEscola());
 			cursoDao.adicionar(curso);
 			curso = new Curso();
 			FacesMessage msg = new FacesMessage("Curso cadastrado!");
@@ -47,6 +49,7 @@ public class CursoCadastroBean {
 		}
 	}
 	public String atualizarCurso(){
+		System.out.println("atualizarCurso curso");
 		cursoDao.update(curso);
 		FacesMessage msg = new FacesMessage("Curso " +curso.getNome()+ " Atualizado!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);

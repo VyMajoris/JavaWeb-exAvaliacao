@@ -41,7 +41,9 @@
 								</p:column>
 
 								<p:column headerText="Disciplinas">
-									<h:outputText value="TO-DO" />
+									<ui:repeat var="dis" value="#{prof.disciplinas}">
+									<h:outputText value="#{dis.nome}  " />
+									</ui:repeat>
 								</p:column>
 								<p:column headerText="Opções">
 									<h:commandLink id="btnsearch" action="cadastro-professor"
@@ -78,29 +80,11 @@
 							<h4 class="modal-title" id="myModalLabel">Deseja deletar
 								este professor?</h4>
 						</div>
-						<div class="modal-body">
-							<p>
-								Nome:
-								<h:outputText id="delNome"
-									value="#{professorBean.professorTemp.nome}" />
-							</p>
-							<p>
-								Email:
-								<h:outputText id="delEmail"
-									value="#{professorBean.professorTemp.email}" />
-							</p>
-							<p>
-								Telefone
-								<h:outputText id="delTelefone"
-									value="#{professorBean.professorTemp.telefone}" />
-							</p>
-
-
-						</div>
+				
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Não</button>
-							<p:commandLink action="#{professorBean.removerProfessor()}"
+							<p:commandLink action="#{professorListaBean.remove()}"
 								type="button" class="btn btn-primary btn-danger"
 								pa:data-dismiss="modal">Deletar</p:commandLink>
 						</div>

@@ -1,5 +1,6 @@
 package br.com.fiap.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,7 +14,7 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public class Escola {
+public class Escola implements Serializable {
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idEscola;
@@ -28,7 +29,7 @@ public class Escola {
 	private int salas;
 
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="escola")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="escola")
 	private Collection<Curso> cursos = new ArrayList<Curso>();
 	
 	   @Override
@@ -38,26 +39,29 @@ public class Escola {
 	        result = prime * result + ((idEscola == null) ? 0 : idEscola.hashCode());
 	        return result;
 	    }
+	
 
 	    @Override
-	    public boolean equals(Object obj) {
-	        if (this == obj)
-	            return true;
-	        if (obj == null)
-	            return false;
-	        if (getClass() != obj.getClass())
-	            return false;
-	        Escola other = (Escola) obj;
-	        if (idEscola == null) {
-	            if (other.idEscola != null)
-	                return false;
-	        } else if (!idEscola.equals(other.idEscola))
-	            return false;
+	    public boolean equals(Object o) {
+	    
+	        if (this == o){
+	        
+	        	return true;
+	        } 
+	        if (o == null || getClass() != o.getClass()){
+	        	
+	        	 return false;
+	        }
+	        Escola escola = (Escola) o;
+	        if (idEscola != null ? !idEscola.equals(escola.idEscola) : escola.idEscola != null) {
+	        	
+	        	return false;
+	        }
 	        return true;
 	    }
 	    @Override
 	    public String toString() {
-	        return "Classe [id=" + idEscola + ", nome=" + nome + "]";
+	        return "Escola: [id=" + idEscola + ", nome=" + nome + "]";
 	    }
 	
 	

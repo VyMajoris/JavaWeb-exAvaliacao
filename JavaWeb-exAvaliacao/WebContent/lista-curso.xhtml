@@ -79,31 +79,11 @@
 							<h4 class="modal-title" id="myModalLabel">Deseja deletar
 								este curso?</h4>
 						</div>
-						<div class="modal-body">
-							<p>
-								Nome:
-								<h:outputText id="delNome" value="#{cursoBean.cursoTemp.nome}" />
-							</p>
-							<p>
-								Vagas:
-								<h:outputText id="delVagas" value="#{cursoBean.cursoTemp.vagas}" />
-							</p>
-							<p>
-								Data de Início:
-								<h:outputText id="delSalas"
-									value="#{cursoBean.cursoTemp.dataInicio}" />
-							</p>
-							<p>
-								Escola:
-								<h:outputText id="delDesc"
-									value="#{cursoBean.cursoTemp.escola.nome}" />
-							</p>
-
-						</div>
+						
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Não</button>
-							<p:commandLink action="#{cursoBean.removerCurso()}" type="button"
+							<p:commandLink action="#{cursoListaBean.remove()}" type="button"
 								class="btn btn-primary btn-danger" pa:data-dismiss="modal">Deletar</p:commandLink>
 						</div>
 					</div>

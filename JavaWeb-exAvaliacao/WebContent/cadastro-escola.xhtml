@@ -27,7 +27,7 @@
 				<h:messages globalOnly="true" />
 				<h2>Cadastro de Escolas</h2>
 				<h:form prependId="false">
-					<h:inputText value="#{escolaCadastroBean.escola.idEscola}" />
+					<h:inputHidden value="#{escolaCadastroBean.escola.idEscola}" />
 
 					<div class="row">
 						<div class="col-md-6">
@@ -45,17 +45,13 @@
 									value="#{escolaCadastroBean.escola.salas}"
 									styleClass="form-control" />
 							</div>
-
 						</div>
 
 						<!-- row -->
 					</div>
 
-
 					<div class="row">
-
 						<div class="col-md-6">
-
 							<div class="form-group">
 								<h:outputLabel value="Descrição Curta" style="font-weight:bold" />
 								<h:inputText pa:placeholder="Descrição Curta"
@@ -66,23 +62,15 @@
 							<!-- col-md-6 -->
 						</div>
 
-
-
 						<div class="col-md-6">
-
 							<div class="form-group">
 								<h:outputLabel value="Endereço" style="font-weight:bold" />
 								<h:inputText id="address" pa:placeholder="Endereço"
 									value="#{escolaCadastroBean.escola.endereco}"
 									styleClass="form-control" />
-
 							</div>
-
-
 							<!-- col-md-6 -->
 						</div>
-
-
 						<!-- row -->
 					</div>
 					<div class="row">
@@ -92,23 +80,13 @@
 								<c:if test="${empty escolaCadastroBean.escola.idEscola}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{escolaCadastroBean.cadastrarEscola}" type="submit"
-										value="Cadastrar" ajax="false" />
+										value="Cadastrar" />
 								</c:if>
 								<c:if test="${not empty escolaCadastroBean.escola.idEscola}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{escolaCadastroBean.atualizarEscola}" type="submit"
-										value="Atualizar" ajax="false" />
+										value="Atualizar"  />
 								</c:if>
-
-
-
-
-
-
-
-
-
-
 							</div>
 						</div>
 					</div>

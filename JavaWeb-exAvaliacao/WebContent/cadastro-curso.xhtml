@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:jsf="http://xmlns.jcp.org/jsf/"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
@@ -15,22 +17,23 @@
 
 	<ui:composition template="_template.xhtml">
 		<ui:define name="title">
-	    Cadastro de Curso
+	    Cadastro de Cursos
 	</ui:define>
-
-
 
 		<ui:define name="content">
 
-
-			<div class="container top-landing">
+			<div class=" container top-landing">
 				<h:messages globalOnly="true" />
-				<h2>Cadastro de Curso</h2>
-				<h:form prependId="false">
+				<h2>Cadastro de Cursos</h2>
+
+				<h:form id="cursoForm" prependId="false">
+					<h:inputHidden value="#{cursoCadastroBean.curso.idCurso}"/>
+				
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group has-warning">
 								<h:outputLabel value="Nome" style="font-weight:bold" />
+
 								<h:inputText pa:placeholder="Nome"
 									value="#{cursoCadastroBean.curso.nome}"
 									styleClass="form-control" />
@@ -39,8 +42,9 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Duração" style="font-weight:bold" />
+
 								<div class="input-group">
-									<h:inputText pa:type="number" pa:placeholder="Nome"
+									<h:inputText pa:type="number" pa:placeholder="Duração"
 										value="#{cursoCadastroBean.curso.duracao}"
 										styleClass="form-control" />
 									<span class="input-group-addon">HORAS-AULA (H/A)</span>
@@ -51,25 +55,25 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<h:outputLabel value="Data de Início" style="font-weight:bold" />
+								<h:outputLabel value="Data de Início " style="font-weight:bold" />
 
-								<p:inputText styleClass="form-control" type="date"
+								<h:inputText styleClass="form-control date"
 									value="#{cursoCadastroBean.curso.dataInicio}">
-									<f:convertDateTime pattern="yyyy-MM-dd" />
-								</p:inputText>
+									<f:convertDateTime pattern="dd/mm/yyyy" />
+								</h:inputText>
 
 
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<h:outputLabel value="Previsão de Término"
+								<h:outputLabel value="Previsão de Término "
 									style="font-weight:bold" />
-								<p:inputText styleClass="form-control" type="date"
-									value="#{cursoCadastroBean.dataTermino}">
-									<f:convertDateTime pattern="yyyy-MM-dd" />
-								</p:inputText>
 
+								<h:inputText styleClass="form-control date"
+									value="#{cursoCadastroBean.curso.dataTermino}">
+									<f:convertDateTime pattern="dd/mm/yyyy" />
+								</h:inputText>
 
 
 							</div>
@@ -79,8 +83,9 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Vagas" style="font-weight:bold" />
-								<input jsf:value="#{cursoCadastroBean.curso.vagas}"
-									class="form-control" type="text"></input>
+
+								<h:inputText value="#{cursoCadastroBean.curso.vagas}"
+									class="form-control" pa:placeholder="Vagas" pa:type="number" />
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -89,7 +94,7 @@
 
 								<h:outputLabel value="Escola" style="font-weight:bold" />
 								<h:selectOneMenu
-									styleClass="form-control select select-block mb1"
+									styleClass="form-control select select-primary select-block mbl"
 									value="#{cursoCadastroBean.curso.escola}">
 									<f:selectItem itemValue="null" itemLabel="Sel. classe" />
 									<f:selectItems value="#{cursoCadastroBean.listEscolaTotal}"
@@ -101,7 +106,9 @@
 								<script type="text/javascript">
 								$(document).ready(function() {
 									$("select").select2({
-										
+									});
+									$(function() {
+										   $(".date").inputmask( 'dd/mm/yyyy' );
 									});
 									
 								});
@@ -125,24 +132,36 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<c:if test="${not empty cursoCadastroBean.curso.idCurso }">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{cursoCadastroBean.atualizarCurso()}" type="submit"
-										value="Atualizar" />
-								</c:if>
+
 								<c:if test="${empty cursoCadastroBean.curso.idCurso}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{cursoCadastroBean.cadastrarCurso()}" type="submit"
 										value="Cadastrar" />
 								</c:if>
+								<c:if test="${not empty cursoCadastroBean.curso.idCurso}">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+										action="#{cursoCadastroBean.atualizarCurso()}" type="submit"
+										value="Atualizar" />
+								</c:if>
 							</div>
 						</div>
 					</div>
+
 				</h:form>
 			</div>
+
+
 		</ui:define>
 		<ui:define name="footer"></ui:define>
 	</ui:composition>
+
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+
+	<!--JavaScript
+    ================================================== -->
+
 
 </h:body>
 </html>

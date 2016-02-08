@@ -133,3 +133,6 @@ corresponding value from the list below*/
 textarea{
 	max-width: 100%;
 }
+.form-control[disabled]{
+	color:#97a4a4;
+}

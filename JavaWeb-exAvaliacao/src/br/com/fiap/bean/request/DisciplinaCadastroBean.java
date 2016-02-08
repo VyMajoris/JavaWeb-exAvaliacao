@@ -1,6 +1,7 @@
 package br.com.fiap.bean.request;
 
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -20,18 +21,23 @@ public class DisciplinaCadastroBean {
 
 	Disciplina disciplina;
 	private GenericDao<Disciplina> disciplinaDao;
-	private GenericDao<Curso> escolaDao;
+	private GenericDao<Curso> cursoDao;
 	private List<Curso> listCurso;
+
 
 	@PostConstruct
 	public void init(){
 		System.out.println("Disciplina Bean init");
 		disciplina = new Disciplina();
 		disciplinaDao = new GenericDao<Disciplina>(Disciplina.class);
-		escolaDao = new GenericDao<Curso>(Curso.class);
-		setListCurso(escolaDao.listar());
+		cursoDao = new GenericDao<Curso>(Curso.class);
+		listCurso = cursoDao.listar();
+		
 	}
 	public void cadastrarDisciplina() throws ParseException{
+		
+		
+		System.out.println("PROFESSOR: "+ disciplina.getProfessor());
 			disciplinaDao.adicionar(disciplina);
 			disciplina = new Disciplina();
 			FacesMessage msg = new FacesMessage("Disciplina cadastrada!");
@@ -52,7 +58,7 @@ public class DisciplinaCadastroBean {
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
-	public List<Curso> getListCurso() {
+	public Collection<Curso> getListCurso() {
 		return listCurso;
 	}
 	public void setListCurso(List<Curso> listCurso) {

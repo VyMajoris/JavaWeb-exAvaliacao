@@ -23,7 +23,6 @@ public class EscolaCadastroBean implements Serializable {
 	private static final long serialVersionUID = -3753237190019758230L;
 	private GenericDao<Escola> escolaDao;
 	private Escola escola;
-	private List<Escola> listEscola;
 
 	
 
@@ -73,14 +72,6 @@ public class EscolaCadastroBean implements Serializable {
 		this.escolaDao = escolaDao;
 	}
 
-	public List<Escola> getListEscola() {
-		return listEscola;
-	}
-
-
-	public void setListEscola(List<Escola> listEscola) {
-		this.listEscola = listEscola;
-	}
 
 
 }

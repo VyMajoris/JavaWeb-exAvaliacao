@@ -7,6 +7,8 @@ import java.util.Date;
 public class FormatadorData {
 	
 	public static Date formatarDate(String data, String oldFormat, String newFormat){
+		System.out.println("DATA>>" +data);
+		
 		Date date = null;
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat(oldFormat);

@@ -1,5 +1,6 @@
 package br.com.fiap.converter;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -7,13 +8,16 @@ import javax.faces.convert.FacesConverter;
 
 import br.com.fiap.entity.Curso;
 
-//@FacesConverter(value = "classeConverter")    
+  
+@ManagedBean
 @FacesConverter(forClass = Curso.class)
 public class CursoConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
         if (value != null && !value.isEmpty()) {
-            return (Curso) uiComponent.getAttributes().get(value);
+        	Curso curso = (Curso) uiComponent.getAttributes().get(value);
+        	System.out.println("CONVERTER = " +curso.getIdCurso());
+            return curso;
         }
         return null;
     }

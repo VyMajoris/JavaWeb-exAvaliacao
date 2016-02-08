@@ -1,8 +1,10 @@
 package br.com.fiap.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,38 +18,80 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import br.com.fiap.converter.BaseEntity;
 import br.com.fiap.helpers.FormatadorData;
 
 
 
 
 @Entity
-public class Curso {
+public class Curso implements BaseEntity, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2017152337624237340L;
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idCurso;
+	@NotNull(message = "O curso deve ter um nome")
 	private String nome;
+	@NotNull(message = "O curso deve ter uma descrição")
 	private String descricaoCompleta;
+	@NotNull(message = "O curso deve ter uma duração")
+
 	private Double duracao;
-	@Temporal(TemporalType.TIMESTAMP)
+	
+
+	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
-	@Temporal(TemporalType.TIMESTAMP)
+
+
+	@Temporal(TemporalType.DATE)
 	private Date dataTermino;
+	@NotNull(message = "O curso deve ter uma quantidade de vagas")
 	private int vagas;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idEscola")
 	private Escola escola = new Escola();
 
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="cursos")
-	private Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	@ManyToMany( fetch=FetchType.EAGER, mappedBy="cursos")
+	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
-	
-	
-	
-	
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idCurso == null) ? 0 : idCurso.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+
+		if (this == o){
+
+			return true;
+		} 
+		if (o == null || getClass() != o.getClass()){
+
+			return false;
+		}
+		Curso curso = (Curso) o;
+		if (idCurso != null ? !idCurso.equals(curso.idCurso) : curso.idCurso != null) {
+
+			return false;
+		}
+		return true;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return String.format("%s[id=%d]", getClass().getSimpleName(), getIdCurso());
@@ -81,13 +125,13 @@ public class Curso {
 		return dataInicio;
 	}
 	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = (FormatadorData.formatarDate(dataInicio.toString(), "yyyy-MM-dd", "dd/MM/yyyy"));
+		this.dataInicio = dataInicio;
 	}
 	public Date getDataTermino() {
 		return dataTermino;
 	}
 	public void setDataTermino(Date dataTermino) {
-		this.dataTermino =(FormatadorData.formatarDate(dataTermino.toString(), "yyyy-MM-dd", "dd/MM/yyyy"));
+		this.dataTermino = dataTermino;
 	}
 	public int getVagas() {
 		return vagas;
@@ -100,6 +144,12 @@ public class Curso {
 	}
 	public void setEscola(Escola escola) {
 		this.escola = escola;
+	}
+
+
+	@Override
+	public Long getId() {
+		return new Long(idCurso);  
 	}
 
 

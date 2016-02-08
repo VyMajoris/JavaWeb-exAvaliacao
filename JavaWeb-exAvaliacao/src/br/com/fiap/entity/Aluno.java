@@ -1,5 +1,6 @@
 package br.com.fiap.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -19,9 +20,9 @@ import javax.persistence.TemporalType;
 })
 
 @Entity
-public class Aluno {
+public class Aluno implements Serializable{
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int rmAluno;
+	private Long rmAluno;
 
 	private String senha;
 
@@ -35,6 +36,39 @@ public class Aluno {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNasc;
+	
+	
+	
+	
+	
+	
+	 @Override
+	    public int hashCode() {
+	        final int prime = 31;
+	        int result = 1;
+	        result = prime * result + ((rmAluno == null) ? 0 : rmAluno.hashCode());
+	        return result;
+	    }
+	
+
+	    @Override
+	    public boolean equals(Object o) {
+	    
+	        if (this == o){
+	        
+	        	return true;
+	        } 
+	        if (o == null || getClass() != o.getClass()){
+	        	
+	        	 return false;
+	        }
+	        Aluno aluno = (Aluno) o;
+	        if (rmAluno != null ? !rmAluno.equals(aluno.rmAluno) : aluno.rmAluno != null) {
+	        	
+	        	return false;
+	        }
+	        return true;
+	    }
 
 	@Override
 	public String toString() {
@@ -97,14 +131,15 @@ public class Aluno {
 		this.tel = tel;
 	}
 
-	public int getRmAluno() {
+
+	public Long getRmAluno() {
 		return rmAluno;
 	}
 
-	public void setRmAluno(int rmAluno) {
+
+	public void setRmAluno(Long rmAluno) {
 		this.rmAluno = rmAluno;
 	}
-
 
 
 }

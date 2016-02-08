@@ -1,7 +1,9 @@
 package br.com.fiap.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,9 +16,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import br.com.fiap.converter.BaseEntity;
+
 
 @Entity
-public class Disciplina {
+public class Disciplina implements BaseEntity, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idDisciplina;
 
@@ -27,11 +36,40 @@ public class Disciplina {
 
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="idProfessor")
-	private Professor professor = new Professor();
+	private Professor professor;
 
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private Collection<Curso> cursos = new ArrayList<Curso>();
+	@ManyToMany(fetch=FetchType.EAGER)
+	private List<Curso> cursos = new ArrayList<Curso>();
+	
+	
 
+	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idDisciplina == null) ? 0 : idDisciplina.hashCode());
+        return result;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+    
+        if (this == o){
+        
+        	return true;
+        } 
+        if (o == null || getClass() != o.getClass()){
+        	
+        	 return false;
+        }
+        Disciplina disciplina = (Disciplina) o;
+        if (idDisciplina != null ? !idDisciplina.equals(disciplina.idDisciplina) : disciplina.idDisciplina != null) {
+        	
+        	return false;
+        }
+        return true;
+    }
 	
 
 
@@ -55,13 +93,13 @@ public class Disciplina {
 
 
 
-	public Collection<Curso> getCursos() {
+	public List<Curso> getCursos() {
 		return cursos;
 	}
 
 
 
-	public void setCursos(Collection<Curso> cursos) {
+	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
 	}
 
@@ -97,6 +135,13 @@ public class Disciplina {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+
+	@Override
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return new Long(idDisciplina);
 	}
 
 

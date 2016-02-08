@@ -37,7 +37,7 @@
 
 								<p:column headerText="Cursos Relacionados">
 								<ui:repeat var="cur" value="#{dis.cursos}">
-									<h:outputText value="#{cur.nome}" />
+									<h:outputText value="#{cur.nome}  " />
 									</ui:repeat>
 								</p:column>
 								
@@ -76,31 +76,11 @@
 							<h4 class="modal-title" id="myModalLabel">Deseja deletar
 								este disciplina?</h4>
 						</div>
-						<div class="modal-body">
-							<p>
-								Nome:
-								<h:outputText id="delNome" value="#{disciplinaBean.disciplinaTemp.nome}" />
-							</p>
-							<p>
-								Vagas:
-								<h:outputText id="delVagas" value="#{disciplinaBean.disciplinaTemp.vagas}" />
-							</p>
-							<p>
-								Data de Início:
-								<h:outputText id="delSalas"
-									value="#{disciplinaBean.disciplinaTemp.dataInicio}" />
-							</p>
-							<p>
-								Escola:
-								<h:outputText id="delDesc"
-									value="#{disciplinaBean.disciplinaTemp.escola.nome}" />
-							</p>
-
-						</div>
+					
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Não</button>
-							<p:commandLink action="#{disciplinaBean.removerDisciplina()}" type="button"
+							<p:commandLink action="#{disciplinaListaBean.remove()}" type="button"
 								class="btn btn-primary btn-danger" pa:data-dismiss="modal">Deletar</p:commandLink>
 						</div>
 					</div>

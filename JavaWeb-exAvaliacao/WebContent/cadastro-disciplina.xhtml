@@ -14,6 +14,8 @@
 
 <h:body>
 
+
+
 	<ui:composition template="_template.xhtml">
 		<ui:define name="title">
 	    Cadastro de Disciplina
@@ -24,7 +26,8 @@
 				<h:messages globalOnly="true" />
 				<h2>Cadastro de Disciplina</h2>
 				<h:form>
-
+					<h:inputHidden
+						value="#{disciplinaCadastroBean.disciplina.idDisciplina}" />
 
 					<div class="row">
 						<div class="col-md-6">
@@ -32,7 +35,7 @@
 								<h:outputLabel value="Nome" style="font-weight:bold" />
 
 								<h:inputText styleClass="form-control"
-									value="#{disciplinaBean.disciplina.nome}" />
+									value="#{disciplinaCadastroBean.disciplina.nome}" />
 
 							</div>
 						</div>
@@ -42,7 +45,7 @@
 								<h:outputLabel value="Descrição Curta" style="font-weight:bold" />
 
 								<h:inputText styleClass="form-control"
-									value="#{disciplinaBean.disciplina.descricao}" />
+									value="#{disciplinaCadastroBean.disciplina.descricao}" />
 
 							</div>
 						</div>
@@ -53,13 +56,14 @@
 
 
 								<h:outputLabel value="Cursos" style="font-weight:bold" />
-								<h:selectOneMenu
-									styleClass="form-control select select-block mb1"
+								<h:selectManyListbox immediate="true"
+									converter="#{simpleEntityConverter}"
+									styleClass="form-control multiselect multiselect-info"
 									value="#{disciplinaCadastroBean.disciplina.cursos}">
-									<f:selectItem itemValue="null" itemLabel="Sel. classe" />
+
 									<f:selectItems value="#{disciplinaCadastroBean.listCurso}"
-										var="esc" itemValue="#{esc}" itemLabel="#{esc.nome}" />
-								</h:selectOneMenu>
+										var="cur" itemValue="#{cur}" itemLabel="#{cur.nome}" />
+								</h:selectManyListbox>
 
 
 
@@ -86,9 +90,7 @@
 							<div class="form-group">
 								<c:if
 									test="${empty disciplinaCadastroBean.disciplina.idDisciplina}">
-									<h:commandButton
-										rendered="#{disciplinaCadastroBean.disciplina.idDisciplina == 0}"
-										styleClass="btn btn-block btn-lg btn-primary"
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{disciplinaCadastroBean.cadastrarDisciplina()}"
 										type="submit" value="Cadastrar" />
 								</c:if>
