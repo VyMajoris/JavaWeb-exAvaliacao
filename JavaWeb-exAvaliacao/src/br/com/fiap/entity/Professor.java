@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.fiap.converter.BaseEntity;
 import br.com.fiap.helpers.FormatadorData;
 
 
@@ -30,7 +31,7 @@ import br.com.fiap.helpers.FormatadorData;
 
 
 @Entity
-public class Professor implements Serializable{
+public class Professor implements BaseEntity, Serializable{
 
 
 	/**
@@ -45,8 +46,10 @@ public class Professor implements Serializable{
 	private String email;
 	private String endereco;
 	private String nome;
+	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="professor")
-	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	private Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	
 	@Temporal(TemporalType.DATE)
 	private Date dataNasc;
 
@@ -82,11 +85,11 @@ public class Professor implements Serializable{
 		return String.format("%s[id=%d]", getClass().getSimpleName(), getRmProfessor());
 	}
 
-	public List<Disciplina> getDisciplinas() {
+	public Collection<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}
 
-	public void setDisciplinas(List<Disciplina> disciplinas) {
+	public void setDisciplinas(Collection<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
 
@@ -149,5 +152,10 @@ public class Professor implements Serializable{
 		this.telefone = telefone;
 	}
 
+	@Override
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return new Long(rmProfessor);
+	}
 
 }

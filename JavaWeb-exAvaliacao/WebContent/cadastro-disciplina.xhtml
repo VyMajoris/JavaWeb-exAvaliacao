@@ -51,10 +51,11 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
+
+
+
+						<div class="col-md-6">
 							<div class="form-group">
-
-
 								<h:outputLabel value="Cursos" style="font-weight:bold" />
 								<h:selectManyListbox immediate="true"
 									converter="#{simpleEntityConverter}"
@@ -64,10 +65,30 @@
 									<f:selectItems value="#{disciplinaCadastroBean.listCurso}"
 										var="cur" itemValue="#{cur}" itemLabel="#{cur.nome}" />
 								</h:selectManyListbox>
+							</div>
+						</div>
 
 
 
-								<script type="text/javascript">
+
+						<div class="col-md-6">
+							<div class="form-group">
+
+								<h:outputLabel value="Professor" style="font-weight:bold" />
+
+								<h:selectOneListbox immediate="true"
+									converter="#{simpleEntityConverter}"
+									styleClass="form-control multiselect multiselect-info"
+									value="#{disciplinaCadastroBean.disciplina.professor}">
+
+									<f:selectItems value="#{disciplinaCadastroBean.listProf}"
+										var="prof" itemValue="#{prof}" itemLabel="#{prof.nome}" />
+								</h:selectOneListbox>
+							</div>
+						</div>
+
+
+						<script type="text/javascript">
 								$(document).ready(function() {
 									$("select").select2({
 										
@@ -76,37 +97,38 @@
 								});
 							
 							</script>
-							</div>
-						</div>
+
 					</div>
+			
 
 
 
 
 
 
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<c:if
-									test="${empty disciplinaCadastroBean.disciplina.idDisciplina}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{disciplinaCadastroBean.cadastrarDisciplina()}"
-										type="submit" value="Cadastrar" />
-								</c:if>
-								<c:if
-									test="${not empty disciplinaCadastroBean.disciplina.idDisciplina }">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{disciplinaCadastroBean.atualizarDisciplina()}"
-										type="submit" value="Atualizar" />
-								</c:if>
-							</div>
-						</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<c:if
+							test="${empty disciplinaCadastroBean.disciplina.idDisciplina}">
+							<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+								action="#{disciplinaCadastroBean.cadastrarDisciplina()}"
+								type="submit" value="Cadastrar" />
+						</c:if>
+						<c:if
+							test="${not empty disciplinaCadastroBean.disciplina.idDisciplina }">
+							<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+								action="#{disciplinaCadastroBean.atualizarDisciplina()}"
+								type="submit" value="Atualizar" />
+						</c:if>
 					</div>
-
-
-				</h:form>
+				</div>
 			</div>
+
+
+			</h:form>
+			</div>
+			
 
 
 		</ui:define>

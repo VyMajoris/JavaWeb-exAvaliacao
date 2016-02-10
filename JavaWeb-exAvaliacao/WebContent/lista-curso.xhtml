@@ -42,7 +42,14 @@
 									<h:outputText value="#{cur.vagas}" />
 								</p:column>
 								<p:column headerText="Escola">
-									<h:outputText value="#{cur.escola.nome}" />
+								
+										<h:commandLink id="btnsearch" action="cadastro-escola"
+										styleClass="btn btn-info btn-xs">
+										<i class="fa fa-pencil" style="margin-right: 3px" />
+										<f:setPropertyActionListener
+											target="#{escolaCadastroBean.escola}" value="#{cur.escola}" />
+												<h:outputText value="#{cur.escola.nome}" />
+									</h:commandLink>
 								</p:column>
 								<p:column headerText="Opções">
 									<h:commandLink id="btnsearch" action="cadastro-curso"

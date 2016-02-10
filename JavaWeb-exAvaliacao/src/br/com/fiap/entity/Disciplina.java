@@ -28,14 +28,10 @@ public class Disciplina implements BaseEntity, Serializable {
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idDisciplina;
-
 	private String nome;
 	private String descricao;
 
-
-
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idProfessor")
 	private Professor professor;
 
 	@ManyToMany(fetch=FetchType.EAGER)

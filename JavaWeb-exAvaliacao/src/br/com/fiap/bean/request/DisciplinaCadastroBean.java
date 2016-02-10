@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.entity.Disciplina;
+import br.com.fiap.entity.Professor;
 import br.com.fiap.entity.Curso;
 import br.com.fiap.entity.Disciplina;
 
@@ -22,22 +23,33 @@ public class DisciplinaCadastroBean {
 	Disciplina disciplina;
 	private GenericDao<Disciplina> disciplinaDao;
 	private GenericDao<Curso> cursoDao;
+	private GenericDao<Professor> profDao;
 	private List<Curso> listCurso;
+	private List<Professor> listProf;
 
 
+	public List<Professor> getListProf() {
+		return listProf;
+	}
+	public void setListProf(List<Professor> listProf) {
+		this.listProf = listProf;
+	}
 	@PostConstruct
 	public void init(){
 		System.out.println("Disciplina Bean init");
 		disciplina = new Disciplina();
 		disciplinaDao = new GenericDao<Disciplina>(Disciplina.class);
 		cursoDao = new GenericDao<Curso>(Curso.class);
+		profDao = new GenericDao<Professor>(Professor.class);
 		listCurso = cursoDao.listar();
+		listProf = profDao.listar();
 		
 	}
 	public void cadastrarDisciplina() throws ParseException{
 		
 		
 		System.out.println("PROFESSOR: "+ disciplina.getProfessor());
+		 System.out.println("CURSO ID " +disciplina.getCursos().get(0));
 			disciplinaDao.adicionar(disciplina);
 			disciplina = new Disciplina();
 			FacesMessage msg = new FacesMessage("Disciplina cadastrada!");

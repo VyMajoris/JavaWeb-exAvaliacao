@@ -27,53 +27,34 @@ public class ProfessorCadastroBean {
 	private GenericDao<Disciplina> disciplinaDao;
 	private List<Disciplina> listDisciplina;
 
-
-	
-	
 	@PostConstruct
 	public void init(){
 		System.out.println("Professor Bean init");
-		
 		professor = new Professor();
-		System.out.println("b "+professor.getNome());
-		if (professor.getRmProfessor() != null) {
-			System.out.println("PROFESSOR RM1 = "+professor.getRmProfessor());
-			System.out.println(professor.getNome());
-			
-		}else{
-			Random rand = new Random();
-			int randomNum = rand.nextInt((99999 - 11111) + 1) + 0;
-			
-			System.out.println("c "+"PROFESSOR RM2 = "+professor.getRmProfessor());
-			System.out.println(professor.getNome());
-			professor.setRmProfessor(Long.parseLong(String.format("%05d", randomNum)));
-			System.out.println("PROFESSOR RM3 = "+professor.getRmProfessor());
-			System.out.println("d "+professor.getNome());
-	
-			
-		}
-		
-		
-		
-		
-		
+		generateRandomId();
 		professorDao = new  GenericDao<Professor>(Professor.class);
 		disciplinaDao = new GenericDao<Disciplina>(Disciplina.class);
 		escolaDao = new GenericDao<Escola>(Escola.class);
 		listDisciplina = disciplinaDao.listar();
 	}
+	private void generateRandomId() {
+		if (professor.getRmProfessor() == null) {
+			Random rand = new Random();
+			int randomNum = rand.nextInt((99999 - 11111) + 1) + 0;
+			professor.setRmProfessor(Long.parseLong(String.format("%05d", randomNum)));
+		}
+	}
 	public void cadastrarProfessor() throws ParseException{
-
-
 
 		if (!escolaDao.listar().isEmpty()) {
 			
-		
-			
-			professorDao.adicionar(professor);
-			
-			
+			professorDao.update(professor);
 			professor = new Professor();
+			
+			
+			
+			generateRandomId();
+
 			FacesMessage msg = new FacesMessage("Professor cadastrado!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}else{

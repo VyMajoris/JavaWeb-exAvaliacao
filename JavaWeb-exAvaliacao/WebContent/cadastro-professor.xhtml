@@ -108,25 +108,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-
 				
-								<h:outputLabel value="Disciplinas" style="font-weight:bold" />
-								<h:selectManyListbox immediate="true"
-								converter="#{simpleEntityConverter}"
-									styleClass="form-control multiselect multiselect-info"
-									value="#{professorCadastroBean.professor.disciplinas}">
-									
-									<f:selectItems value="#{professorCadastroBean.listDisciplina}"
-										var="dis" itemValue="#{dis}" itemLabel="#{dis.nome}" />
-								</h:selectManyListbox>
-							</div>
-
-						</div>
-
-					</div>
 
 					<script type="text/javascript">
 								$(document).ready(function() {

@@ -21,8 +21,9 @@
 					<h2>Lista de Disciplinas</h2>
 					<div class="row">
 						<div class="col-sm-12">
-							<p:dataTable id="disciplinaTable" widgetVar="disciplinaTable" class="table"
-								var="dis" value="#{disciplinaListaBean.listDisciplina}">
+							<p:dataTable id="disciplinaTable" widgetVar="disciplinaTable"
+								class="table" var="dis"
+								value="#{disciplinaListaBean.listDisciplina}">
 								<p:column headerText="Nome">
 									<h:outputText value="#{dis.nome}" />
 								</p:column>
@@ -36,17 +37,24 @@
 								</p:column>
 
 								<p:column headerText="Cursos Relacionados">
-								<ui:repeat var="cur" value="#{dis.cursos}">
-									<h:outputText value="#{cur.nome}  " />
+									<ui:repeat var="cur" value="#{dis.cursos}">
+										<h:commandLink id="btnsearch" action="cadastro-curso"
+											styleClass="btn btn-info btn-xs">
+											<f:setPropertyActionListener
+												target="#{cursoCadastroBean.curso}" value="#{cur}" />
+											<h:outputText value="#{cur.nome}  " />
+										</h:commandLink>
 									</ui:repeat>
 								</p:column>
-								
+
 								<p:column headerText="Opções">
 									<h:commandLink id="btnsearch" action="cadastro-disciplina"
 										styleClass="btn btn-info btn-xs">
 										<i class="fa fa-pencil" style="margin-right: 3px" />
+										Editar
 										<f:setPropertyActionListener
 											target="#{disciplinaCadastroBean.disciplina}" value="#{dis}" />
+
 									</h:commandLink>
 									<p:commandLink pa:data-toggle="modal" pa:data-target="#myModal"
 										style="margin-right: 3px" title="Deletar"
@@ -76,12 +84,13 @@
 							<h4 class="modal-title" id="myModalLabel">Deseja deletar
 								este disciplina?</h4>
 						</div>
-					
+
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Não</button>
-							<p:commandLink action="#{disciplinaListaBean.remove()}" type="button"
-								class="btn btn-primary btn-danger" pa:data-dismiss="modal">Deletar</p:commandLink>
+							<p:commandLink action="#{disciplinaListaBean.remove()}"
+								type="button" class="btn btn-primary btn-danger"
+								pa:data-dismiss="modal">Deletar</p:commandLink>
 						</div>
 					</div>
 				</div>

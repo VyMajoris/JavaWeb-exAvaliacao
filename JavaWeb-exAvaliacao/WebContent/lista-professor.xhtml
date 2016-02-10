@@ -42,13 +42,24 @@
 
 								<p:column headerText="Disciplinas">
 									<ui:repeat var="dis" value="#{prof.disciplinas}">
-									<h:outputText value="#{dis.nome}  " />
+									
+									<h:commandLink id="btnsearch" action="cadastro-disciplina"
+										styleClass="btn btn-info btn-xs">
+										
+											<h:outputText value="#{dis.nome}" />
+										
+										<f:setPropertyActionListener
+											target="#{disciplinaCadastroBean.disciplina}" value="#{dis}" />
+									</h:commandLink>
+									
+									
 									</ui:repeat>
 								</p:column>
 								<p:column headerText="Opções">
 									<h:commandLink id="btnsearch" action="cadastro-professor"
 										styleClass="btn btn-info btn-xs">
 										<i class="fa fa-pencil" style="margin-right: 3px" />
+										Editar
 										<f:setPropertyActionListener
 											target="#{professorCadastroBean.professor}" value="#{prof}" />
 									</h:commandLink>
