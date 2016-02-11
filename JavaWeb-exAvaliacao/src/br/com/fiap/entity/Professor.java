@@ -46,6 +46,8 @@ public class Professor implements BaseEntity, Serializable{
 	private String email;
 	private String endereco;
 	private String nome;
+	private String cpf;
+	
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="professor")
 	private Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();
@@ -156,6 +158,14 @@ public class Professor implements BaseEntity, Serializable{
 	public Long getId() {
 		// TODO Auto-generated method stub
 		return new Long(rmProfessor);
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 }

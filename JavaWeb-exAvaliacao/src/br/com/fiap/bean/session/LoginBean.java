@@ -1,10 +1,12 @@
-package br.com.fiap.bean.request;
+package br.com.fiap.bean.session;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +18,7 @@ import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Professor;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 // >>>OK<<<
 public class LoginBean implements Serializable{
 
@@ -24,13 +26,13 @@ public class LoginBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected String teste = "teste;";
-	protected List<Aluno> alunoList;
-	List<Professor> professorList;
-	Session hSession;
+	private String teste = "teste;";
+	private List<Aluno> alunoList = new ArrayList<Aluno>();
+	private List<Professor> professorList = new ArrayList<Professor>();
+	private Session hSession;
 
-	protected String rm;
-	protected String senha;
+	private String rm;
+	private String senha;
 
 	public String getTeste() {
 		return teste;
@@ -45,14 +47,13 @@ public class LoginBean implements Serializable{
 	}
 
 	public String logar(){
-		System.out.println("logafr");
 		System.out.println("RM===" +rm +"senha===="+senha);
 
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 		//Admin
 		if (rm.equals("admin")&&senha.equals("admin")) {
-			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		
 			session.setAttribute("loginType", "admin");
 			session.setAttribute("displayName", "admin");	
 		}else{
@@ -79,6 +80,7 @@ public class LoginBean implements Serializable{
 					for (Professor p : professorList) {
 						System.out.println("RM DO PROFESSOR" + p.getRmProfessor());
 						session.setAttribute("displayName", p.getNome());
+						session.setAttribute("professor", p);
 					}
 				}else{
 					//usuario não cadastrado
@@ -108,18 +110,20 @@ public class LoginBean implements Serializable{
 		this.senha = senha;
 	}
 
+
 	@SuppressWarnings("unchecked")
 	private void queryAluno(){
 		Query queryAluno = hSession.getNamedQuery("findAluno");
-		queryAluno.setInteger("rm",  Integer.parseInt(rm));
+		queryAluno.setInteger("rmAluno",  Integer.parseInt(rm));
 		queryAluno.setString("senha", senha);
 		alunoList = queryAluno.list();
 	}
 
+
 	@SuppressWarnings("unchecked")
 	private void queryProfessor(){
 		Query queryProfessor = hSession.getNamedQuery("findProfessor");
-		queryProfessor.setInteger("rm", Integer.parseInt(rm));
+		queryProfessor.setInteger("rmProfessor", Integer.parseInt(rm));
 		queryProfessor.setString("senha", senha);
 		professorList = queryProfessor.list();
 	}

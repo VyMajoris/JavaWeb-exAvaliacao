@@ -21,7 +21,12 @@ import br.com.fiap.converter.BaseEntity;
 	@NamedQuery(
 			name = "findAluno",
 			query = "from Aluno a where a.rmAluno = :rmAluno and a.senha = :senha"
-			)
+			),
+	@NamedQuery(name = "findAlunoPorProfessor", query = "SELECT DISTINCT a " +
+		    "FROM Aluno a, Curso c, Disciplina d, Professor p " +
+		    "JOIN c.disciplinas cDisciplinas " +
+		    "JOIN d.cursos dCursos " +
+		    "WHERE a.curso.idCurso = c.idCurso AND c.idCurso = dCursos.idCurso AND cDisciplinas.professor.rmProfessor = :rmProfessor")
 })
 
 @Entity
@@ -31,7 +36,7 @@ public class Aluno implements BaseEntity, Serializable{
 	 */
 	private static final long serialVersionUID = -7548628467768295659L;
 
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	@Id 
 	private Long rmAluno;
 
 	private String senha;

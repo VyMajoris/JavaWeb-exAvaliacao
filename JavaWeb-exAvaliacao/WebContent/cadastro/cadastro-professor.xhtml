@@ -98,7 +98,6 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-
 								<h:outputLabel value="Data de Nascimento"
 									style="font-weight:bold" />
 								<h:inputText pa:placeholder="Data de Nascimento" styleClass="form-control date"
@@ -108,19 +107,20 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+
+								<h:outputLabel value="CPF" style="font-weight:bold" />
+								<h:inputText pa:placeholder="CPF"
+									value="#{professorCadastroBean.professor.cpf}"
+									styleClass="form-control cpf" />
+							</div>
+						</div>
+					
+					</div>
 				
 
-					<script type="text/javascript">
-								$(document).ready(function() {
-									$("select").select2({
-										
-									});
-									$(function() {
-										   $(".date").inputmask( 'dd/mm/yyyy' );
-										   $(".tel").inputmask( '9999-99999' );
-									});
-								});
-							</script>
 
 
 					<div class="row">
@@ -145,6 +145,20 @@
 					</div>
 				</h:form>
 			</div>
+			
+			
+					<script type="text/javascript">
+								$(document).ready(function() {
+									$("select").select2({
+										
+									});
+									$(function() {
+										   $(".date").inputmask( 'dd/mm/yyyy' );
+										   $(".tel").inputmask( '9999-99999' );
+										   $(".cpf").inputmask( '999.999.999-99' );
+									});
+								});
+							</script>
 
 
 		</ui:define>

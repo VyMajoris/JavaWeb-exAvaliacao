@@ -46,11 +46,20 @@ public class AlunoCadastroBean {
 	public void cadastrarAluno() throws ParseException{
 		if (!cursoDao.listar().isEmpty()) {
 			if (aluno.getCurso() != null) {
-				alunoDao.update(aluno);
-				aluno = new Aluno();
-				generateRandomId();
-				FacesMessage msg = new FacesMessage("Aluno cadastrado!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+
+				if (aluno.getCpf().isEmpty()) {
+					FacesMessage msg = new FacesMessage("Insira um CPF!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+
+				}else{
+					aluno.setSenha(aluno.getCpf());
+					alunoDao.adicionar(aluno);
+					aluno = new Aluno();
+					generateRandomId();
+					FacesMessage msg = new FacesMessage("Aluno cadastrado!");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}
+
 			}else{
 				FacesMessage msg = new FacesMessage("Escolha um curso primeiro!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -61,11 +70,29 @@ public class AlunoCadastroBean {
 		}
 	}
 	public String atualizarAluno(){
-		alunoDao.update(aluno);
-		FacesMessage msg = new FacesMessage("Aluno atualizado!");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		if (aluno.getCurso() != null) {
 
-		return "lista-aluno";
+			if (aluno.getCpf().isEmpty()) {
+				FacesMessage msg = new FacesMessage("Insira um CPF!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return "cadastro-aluno";
+
+			}else{
+				aluno.setSenha(aluno.getCpf());
+				alunoDao.update(aluno);
+				generateRandomId();
+				FacesMessage msg = new FacesMessage("Aluno cadastrado!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return "lista-aluno";
+			}
+
+		}else{
+			FacesMessage msg = new FacesMessage("Escolha um curso primeiro!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "cadastro-aluno";
+		}
+
+
 	}
 	public List<Curso> getListCurso() {
 		return listCurso;

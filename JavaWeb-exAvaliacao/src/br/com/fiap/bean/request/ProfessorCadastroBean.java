@@ -47,27 +47,56 @@ public class ProfessorCadastroBean {
 	public void cadastrarProfessor() throws ParseException{
 
 		if (!escolaDao.listar().isEmpty()) {
-			
-			professorDao.update(professor);
-			professor = new Professor();
-			
-			
-			
-			generateRandomId();
 
-			FacesMessage msg = new FacesMessage("Professor cadastrado!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+
+			if (professor.getCpf().isEmpty()) {
+				FacesMessage msg = new FacesMessage("Insira um CPF!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+
+			}else{
+				professor.setSenha(professor.getCpf());
+				professorDao.adicionar(professor);
+				professor = new Professor();
+				generateRandomId();
+				FacesMessage msg = new FacesMessage("Professor cadastrado!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+
+			}
+
+
 		}else{
 			FacesMessage msg = new FacesMessage("Cadastre uma escola primeiro!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 	public String atualizarProfessor(){
-		professorDao.update(professor);
-		FacesMessage msg = new FacesMessage("Professor atualizado!");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+		if (!escolaDao.listar().isEmpty()) {
 
-		return "lista-professor";
+
+			if (professor.getCpf().isEmpty()) {
+				FacesMessage msg = new FacesMessage("Insira um CPF!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return "cadastro-professor";
+
+			}else{
+				professor.setSenha(professor.getCpf());
+				professorDao.adicionar(professor);
+				professor = new Professor();
+				generateRandomId();
+				FacesMessage msg = new FacesMessage("Professor cadastrado!");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				return "lista-professor";
+
+			}
+
+
+		}else{
+			FacesMessage msg = new FacesMessage("Cadastre uma escola primeiro!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "cadastro-professor";
+		}
+
+		
 	}
 	public List<Disciplina> getListDisciplina() {
 		return listDisciplina;
