@@ -9,11 +9,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:body>
-	<ui:composition template="_template.xhtml">
+	<ui:composition template="/template/_template.xhtml">
 		<ui:define name="title">
 	    Lista de Professores
 	</ui:define>
->
+
 		<ui:define name="content">
 			<div class="container top-landing">
 				<h:messages />
@@ -21,7 +21,7 @@
 					<h2>Lista de Professores</h2>
 					<div class="row">
 						<div class="col-sm-12">
-							<p:dataTable id="professorTable" widgetVar="professorTable"
+							<p:dataTable emptyMessage="Nenhum resultado encontrado" id="professorTable" widgetVar="professorTable"
 								class="table" var="prof"
 								value="#{professorListaBean.listProfessor}">
 								<p:column headerText="Nome">

@@ -9,65 +9,62 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:body>
-	<ui:composition template="_template.xhtml">
+	<ui:composition template="/template/_template.xhtml">
 		<ui:define name="title">
-	    Lista de Alunos
+	    Lista de Cursos
 	</ui:define>
 
 		<ui:define name="content">
 			<div class="container top-landing">
 				<h:messages />
 				<h:form prependId="false">
-					<h2>Lista de Alunos</h2>
+					<h2>Lista de Cursos</h2>
 					<div class="row">
 						<div class="col-sm-12">
-							<p:dataTable id="alunoTable" widgetVar="alunoTable"
-								class="table" var="alu"
-								value="#{alunoListaBean.listAluno}">
+							<p:dataTable emptyMessage="Nenhum resultado encontrado" id="cursoTable" widgetVar="cursoTable" class="table"
+								var="cur" value="#{cursoListaBean.listCurso}">
 								<p:column headerText="Nome">
-									<h:outputText value="#{alu.nome}" />
-								</p:column>
-								<p:column headerText="Email">
-									<h:outputText value="#{alu.email}" />
-								</p:column>
-								<p:column headerText="Telefone">
-									<h:outputText value="#{alu.tel}" />
+									<h:outputText value="#{cur.nome}" />
 								</p:column>
 
-								<p:column headerText="Endereco">
-									<h:outputText value="#{alu.endereco}" />
+								<p:column headerText="Data de Início">
+									<h:outputText value="#{cur.dataInicio}"></h:outputText>
 								</p:column>
 
-								<p:column headerText="Curso">
+								<p:column headerText="Data de Término">
+									<h:outputText value="#{cur.dataTermino}"></h:outputText>
+								</p:column>
+
+								<p:column headerText="Horas/Aula">
+									<h:outputText value="#{cur.duracao}" />
+								</p:column>
+								<p:column headerText="Vagas">
+									<h:outputText value="#{cur.vagas}" />
+								</p:column>
+								<p:column headerText="Escola">
 								
-									
-									<h:commandLink action="cadastro-curso"
-										styleClass="btn btn-info btn-xs">
-										
-											<h:outputText value="#{alu.curso.nome}" />
-										
-										<f:setPropertyActionListener
-											target="#{cursoCadastroBean.curso}" value="#{alu.curso}" />
-									</h:commandLink>
-									
-									
-									
-								</p:column>
-								<p:column headerText="Opções">
-									<h:commandLink id="btnsearch" action="cadastro-aluno"
+										<h:commandLink  action="cadastro-escola"
 										styleClass="btn btn-info btn-xs">
 										<i class="fa fa-pencil" style="margin-right: 3px" />
-										Editar
 										<f:setPropertyActionListener
-											target="#{alunoCadastroBean.aluno}" value="#{alu}" />
+											target="#{escolaCadastroBean.escola}" value="#{cur.escola}" />
+												<h:outputText value="#{cur.escola.nome}" />
+									</h:commandLink>
+								</p:column>
+								<p:column headerText="Opções">
+									<h:commandLink id="btnsearch" action="cadastro-curso"
+										styleClass="btn btn-info btn-xs">
+										<i class="fa fa-pencil" style="margin-right: 3px" />
+										<f:setPropertyActionListener
+											target="#{cursoCadastroBean.curso}" value="#{cur}" />
 									</h:commandLink>
 									<p:commandLink pa:data-toggle="modal" pa:data-target="#myModal"
 										style="margin-right: 3px" title="Deletar"
 										class="btn btn-danger btn-xs" type="button">
 										<i class="fa fa-trash-o" style="margin-right: 3px" /> Deletar
 									<f:setPropertyActionListener
-											target="#{alunoListaBean.idAlunoremover}"
-											value="#{alu.rmAluno}" />
+											target="#{cursoListaBean.idCursoRemover}"
+											value="#{cur.idCurso}" />
 									</p:commandLink>
 
 								</p:column>
@@ -87,15 +84,14 @@
 								<span aria-hidden="true">&#215;</span>
 							</button>
 							<h4 class="modal-title" id="myModalLabel">Deseja deletar
-								este aluno?</h4>
+								este curso?</h4>
 						</div>
-				
+						
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Não</button>
-							<p:commandLink action="#{alunoListaBean.remove()}"
-								type="button" class="btn btn-primary btn-danger"
-								pa:data-dismiss="modal">Deletar</p:commandLink>
+							<p:commandLink action="#{cursoListaBean.remove()}" type="button"
+								class="btn btn-primary btn-danger" pa:data-dismiss="modal">Deletar</p:commandLink>
 						</div>
 					</div>
 				</div>

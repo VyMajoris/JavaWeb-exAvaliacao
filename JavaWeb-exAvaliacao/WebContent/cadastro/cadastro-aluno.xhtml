@@ -12,17 +12,17 @@
 
 <h:body>
 
-	<ui:composition template="_template.xhtml">
+	<ui:composition template="/template/_template.xhtml">
 		<ui:define name="title">
 	    Cadastro de Aluno
 	</ui:define>
 
 		<ui:define name="content">
-			<div class=" container top-landing">
+			<div class="container top-landing">
+				<h:messages globalOnly="true" />
 				<h2>Cadastro de Alunos</h2>
 				<h:form>
-				<h:inputHidden
-						value="#{alunoCadastroBean.aluno.rmAluno}" />
+					<h:inputHidden value="#{alunoCadastroBean.aluno.rmAluno}" />
 
 					<div class="row">
 						<div class="col-md-6">
@@ -85,7 +85,8 @@
 								<h:outputLabel value="Endereco" style="font-weight:bold" />
 
 								<h:inputText pa:placeholder="Endereço"
-									value="#{alunoCadastroBean.aluno.endereco}" styleClass="form-control" />
+									value="#{alunoCadastroBean.aluno.endereco}"
+									styleClass="form-control" />
 
 							</div>
 						</div>
@@ -97,8 +98,9 @@
 
 								<h:inputText pa:placeholder="Data de Nascimento"
 									value="#{alunoCadastroBean.aluno.dataNasc}"
-									styleClass="form-control date" >
-									<f:convertDateTime pattern="dd/mm/yyyy" /></h:inputText>
+									styleClass="form-control date">
+									<f:convertDateTime pattern="dd/mm/yyyy" />
+								</h:inputText>
 
 							</div>
 						</div>
@@ -108,7 +110,7 @@
 
 
 					<div class="row">
-						<div class="col-sm-12">
+						<div class="col-md-6">
 
 
 
@@ -119,26 +121,30 @@
 								<h:selectOneMenu converter="#{simpleEntityConverter}"
 									styleClass="form-control select select-primary select-block mbl"
 									value="#{alunoCadastroBean.aluno.curso}">
-									
+
 									<f:selectItems value="#{alunoCadastroBean.listCurso}" var="cur"
 										itemValue="#{cur}" itemLabel="#{cur.nome}" />
 								</h:selectOneMenu>
 
 
 
-								<script type="text/javascript">
-								$(document).ready(function() {
-									$("select").select2({
-										
-									});
-									$(function() {
-										   $(".date").inputmask( 'dd/mm/yyyy' );
-										   $(".tel").inputmask( '9999-99999' );
-									});
-								});
-							</script>
+
 							</div>
 
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+
+								<h:outputLabel value="CPF" style="font-weight:bold" />
+
+								<h:inputText pa:placeholder="CPF"
+									value="#{alunoCadastroBean.aluno.cpf}"
+									styleClass="form-control cpf">
+
+								</h:inputText>
+
+							</div>
 						</div>
 					</div>
 					<div class="row">
@@ -146,35 +152,31 @@
 							<div class="form-group">
 								<c:if test="${alunoCadastroBean.aluno.nome != null}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{alunoCadastroBean.atualizarAluno()}"
-										type="submit" value="Atualizar" />
+										action="#{alunoCadastroBean.atualizarAluno()}" type="submit"
+										value="Atualizar" />
 								</c:if>
 								<c:if test="${alunoCadastroBean.aluno.nome == null}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{alunoCadastroBean.cadastrarAluno()}"
-										type="submit" value="Cadastrar" />
+										action="#{alunoCadastroBean.cadastrarAluno()}" type="submit"
+										value="Cadastrar" />
 								</c:if>
 							</div>
 						</div>
 					</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				</h:form>
 			</div>
+			<script type="text/javascript">
+								$(document).ready(function() {
+									$("select").select2({
+										
+									});
+									$(function() {
+										   $(".date").inputmask( 'dd/mm/yyyy' );
+										   $(".tel").inputmask( '9999-99999' );
+										   $(".cpf").inputmask( '999.999.999-99' );
+									});
+								});
+							</script>
 
 
 		</ui:define>
