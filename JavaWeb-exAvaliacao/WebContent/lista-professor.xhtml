@@ -13,9 +13,7 @@
 		<ui:define name="title">
 	    Lista de Professores
 	</ui:define>
-		<f:metadata>
-			<f:viewAction action="#{professorBean.listarProfessores()}" />
-		</f:metadata>
+>
 		<ui:define name="content">
 			<div class="container top-landing">
 				<h:messages />
@@ -43,7 +41,7 @@
 								<p:column headerText="Disciplinas">
 									<ui:repeat var="dis" value="#{prof.disciplinas}">
 									
-									<h:commandLink id="btnsearch" action="cadastro-disciplina"
+									<h:commandLink action="cadastro-disciplina"
 										styleClass="btn btn-info btn-xs">
 										
 											<h:outputText value="#{dis.nome}" />

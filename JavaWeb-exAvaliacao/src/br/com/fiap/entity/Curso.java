@@ -40,13 +40,10 @@ public class Curso implements BaseEntity, Serializable {
 	@NotNull(message = "O curso deve ter uma descrição")
 	private String descricaoCompleta;
 	@NotNull(message = "O curso deve ter uma duração")
-
 	private Double duracao;
-	
 
 	@Temporal(TemporalType.DATE)
 	private Date dataInicio;
-
 
 	@Temporal(TemporalType.DATE)
 	private Date dataTermino;
@@ -59,7 +56,14 @@ public class Curso implements BaseEntity, Serializable {
 
 	@ManyToMany( fetch=FetchType.EAGER, mappedBy="cursos")
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	
+	@ManyToMany( fetch=FetchType.EAGER, mappedBy="curso")
+	private List<Aluno> alunos = new ArrayList<Aluno>();
 
+	@Override
+	public Long getId() {
+		return new Long(idCurso);  
+	}
 
 	@Override
 	public int hashCode() {
@@ -72,29 +76,37 @@ public class Curso implements BaseEntity, Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-
 		if (this == o){
-
 			return true;
 		} 
 		if (o == null || getClass() != o.getClass()){
-
 			return false;
 		}
 		Curso curso = (Curso) o;
 		if (idCurso != null ? !idCurso.equals(curso.idCurso) : curso.idCurso != null) {
-
 			return false;
 		}
 		return true;
 	}
 
 
-
-
+	
+	
 	@Override
 	public String toString() {
 		return String.format("%s[id=%d]", getClass().getSimpleName(), getIdCurso());
+	}
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
 	}
 	public Long getIdCurso() {
 		return idCurso;
@@ -144,12 +156,6 @@ public class Curso implements BaseEntity, Serializable {
 	}
 	public void setEscola(Escola escola) {
 		this.escola = escola;
-	}
-
-
-	@Override
-	public Long getId() {
-		return new Long(idCurso);  
 	}
 
 

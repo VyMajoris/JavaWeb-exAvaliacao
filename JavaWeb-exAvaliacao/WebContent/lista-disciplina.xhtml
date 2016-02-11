@@ -38,7 +38,7 @@
 
 								<p:column headerText="Cursos Relacionados">
 									<ui:repeat var="cur" value="#{dis.cursos}">
-										<h:commandLink id="btnsearch" action="cadastro-curso"
+										<h:commandLink  action="cadastro-curso"
 											styleClass="btn btn-info btn-xs">
 											<f:setPropertyActionListener
 												target="#{cursoCadastroBean.curso}" value="#{cur}" />

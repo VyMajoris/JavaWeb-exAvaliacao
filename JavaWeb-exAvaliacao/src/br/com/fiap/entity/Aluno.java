@@ -4,13 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.fiap.converter.BaseEntity;
 
 @NamedQueries({
 	@NamedQuery(
@@ -20,7 +25,12 @@ import javax.persistence.TemporalType;
 })
 
 @Entity
-public class Aluno implements Serializable{
+public class Aluno implements BaseEntity, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7548628467768295659L;
+
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long rmAluno;
 
@@ -34,46 +44,63 @@ public class Aluno implements Serializable{
 	private String tel;
 	private String endereco;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date dataNasc;
 	
-	
-	
-	
-	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="idCurso")
+	private Curso curso;
 	
 	 @Override
-	    public int hashCode() {
-	        final int prime = 31;
-	        int result = 1;
-	        result = prime * result + ((rmAluno == null) ? 0 : rmAluno.hashCode());
-	        return result;
-	    }
-	
+	public int hashCode() {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + ((rmAluno == null) ? 0 : rmAluno.hashCode());
+	    return result;
+	}
 
-	    @Override
-	    public boolean equals(Object o) {
+
+	@Override
+	public boolean equals(Object o) {
+	
+	    if (this == o){
 	    
-	        if (this == o){
-	        
-	        	return true;
-	        } 
-	        if (o == null || getClass() != o.getClass()){
-	        	
-	        	 return false;
-	        }
-	        Aluno aluno = (Aluno) o;
-	        if (rmAluno != null ? !rmAluno.equals(aluno.rmAluno) : aluno.rmAluno != null) {
-	        	
-	        	return false;
-	        }
-	        return true;
+	    	return true;
+	    } 
+	    if (o == null || getClass() != o.getClass()){
+	    	
+	    	 return false;
 	    }
+	    Aluno aluno = (Aluno) o;
+	    if (rmAluno != null ? !rmAluno.equals(aluno.rmAluno) : aluno.rmAluno != null) {
+	    	
+	    	return false;
+	    }
+	    return true;
+	}
+
 
 	@Override
 	public String toString() {
 		return String.format("%s[id=%d]", getClass().getSimpleName(), getRmAluno());
 	}
+
+
+	@Override
+	public Long getId() {
+		return new Long(rmAluno);  
+	}
+
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
 
 	public String getSenha() {
 		return senha;
@@ -140,7 +167,6 @@ public class Aluno implements Serializable{
 	public void setRmAluno(Long rmAluno) {
 		this.rmAluno = rmAluno;
 	}
-
 
 }
 
