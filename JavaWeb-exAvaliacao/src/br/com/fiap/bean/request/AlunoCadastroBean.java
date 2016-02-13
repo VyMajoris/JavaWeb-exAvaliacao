@@ -81,7 +81,7 @@ public class AlunoCadastroBean {
 				aluno.setSenha(aluno.getCpf());
 				alunoDao.update(aluno);
 				generateRandomId();
-				FacesMessage msg = new FacesMessage("Aluno cadastrado!");
+				FacesMessage msg = new FacesMessage("Aluno Atualizado!!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return "lista-aluno";
 			}

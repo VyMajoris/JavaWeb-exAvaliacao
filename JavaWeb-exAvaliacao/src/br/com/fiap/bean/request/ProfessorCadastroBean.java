@@ -83,7 +83,7 @@ public class ProfessorCadastroBean {
 				professorDao.adicionar(professor);
 				professor = new Professor();
 				generateRandomId();
-				FacesMessage msg = new FacesMessage("Professor cadastrado!");
+				FacesMessage msg = new FacesMessage("Professor Atualizado!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return "lista-professor";
 
