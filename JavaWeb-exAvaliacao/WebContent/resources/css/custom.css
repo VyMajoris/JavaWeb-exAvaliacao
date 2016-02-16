@@ -43,6 +43,9 @@
 	overflow: scroll;
 }
 
+.list-header{
+	background-color: #1abc9c; 
+}
 
 .ribbon {
 	background:
@@ -52,7 +55,7 @@
 }
 
 .top-landing {
-	padding-top: 106px;
+	padding-top: 60px;
 	color: #1abc9c;
 }
 
