@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,7 +27,13 @@ import br.com.fiap.helpers.FormatadorData;
 
 
 
-
+@NamedQueries({
+	@NamedQuery(name = "findCursoPorProfessor", query = "SELECT DISTINCT c " +
+		    "FROM Curso c, Disciplina d, Professor p " +
+		    "JOIN c.disciplinas cDisciplinas " +
+		    "JOIN d.cursos dCursos " +
+		    "WHERE c.idCurso = dCursos.idCurso AND cDisciplinas.professor.rmProfessor = :rmProfessor")
+})
 @Entity
 public class Curso implements BaseEntity, Serializable {
 
