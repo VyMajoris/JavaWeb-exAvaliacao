@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:body>
+	<ui:composition template="/template/_template-professor.xhtml">
+		<ui:define name="title">
+	    Lista de todos meus alunos
+	</ui:define>
+
+		<ui:define name="content">
+			<div class="container top-landing">
+				<h:messages />
+				<h:form prependId="false">
+					<h2>Lista de todos meus alunos</h2>
+					<div class="row">
+						<div class="col-sm-12">
+							<p:dataTable resizableColumns="true" emptyMessage="Nenhum resultado encontrado"
+								id="alunoTable" widgetVar="alunoTable" draggableColumns="true"  class="table table-condensed" var="alu"
+								value="#{professorControleListagemBean.queryAlunosPorProfessor()}">
+								
+								<p:column headerText="Nome">
+								
+									<h:outputText value="#{alu.nome}" />
+								</p:column>
+								<p:column headerText="Email">
+									<h:outputText value="#{alu.email}" />
+								</p:column>
+								<p:column  headerText="Curso">
+									<span class="btn btn-info btn-xs"> <h:outputText
+											value="#{alu.curso.nome}" />
+									</span>
+								</p:column>
+								<p:column headerText="Opções">
+									<h:commandLink id="btnsearch" action="cadastro-aluno"
+										styleClass="btn btn-info btn-xs">
+										<i class="fa fa-pencil" style="margin-right: 3px" />
+										Notas
+										<f:setPropertyActionListener
+											target="#{alunoCadastroBean.aluno}" value="#{alu}" />
+									</h:commandLink>
+								
+								</p:column>
+							</p:dataTable>
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+	</ui:composition>
+</h:body>
+</html>
