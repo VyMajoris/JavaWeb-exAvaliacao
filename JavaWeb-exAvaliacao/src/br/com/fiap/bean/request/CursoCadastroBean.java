@@ -53,7 +53,7 @@ public class CursoCadastroBean {
 		cursoDao.update(curso);
 		FacesMessage msg = new FacesMessage("Curso " +curso.getNome()+ " Atualizado!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		return "lista-curso";
+		return "/lista/lista-curso";
 	}
 
 

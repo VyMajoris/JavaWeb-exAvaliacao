@@ -48,7 +48,7 @@ public class EscolaCadastroBean implements Serializable {
 		escolaDao.update(escola);
 		FacesMessage msg = new FacesMessage("Escola "+escola.getNome()+" Atualizada!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		return "lista-escola";
+		return "/lista/lista-escola";
 
 	}
 

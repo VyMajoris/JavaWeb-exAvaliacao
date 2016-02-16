@@ -76,7 +76,7 @@ public class ProfessorCadastroBean {
 			if (professor.getCpf().isEmpty()) {
 				FacesMessage msg = new FacesMessage("Insira um CPF!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-				return "cadastro-professor";
+				return "/cadastro/cadastro-professor";
 
 			}else{
 				professor.setSenha(professor.getCpf());
@@ -85,7 +85,7 @@ public class ProfessorCadastroBean {
 				generateRandomId();
 				FacesMessage msg = new FacesMessage("Professor Atualizado!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-				return "lista-professor";
+				return "/lista/lista-professor";
 
 			}
 
@@ -93,7 +93,7 @@ public class ProfessorCadastroBean {
 		}else{
 			FacesMessage msg = new FacesMessage("Cadastre uma escola primeiro!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "cadastro-professor";
+			return "/cadastro/cadastro-professor";
 		}
 
 		

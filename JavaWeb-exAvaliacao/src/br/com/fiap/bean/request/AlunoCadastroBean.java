@@ -75,7 +75,7 @@ public class AlunoCadastroBean {
 			if (aluno.getCpf().isEmpty()) {
 				FacesMessage msg = new FacesMessage("Insira um CPF!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-				return "cadastro-aluno";
+				return "/cadastro/cadastro-aluno";
 
 			}else{
 				aluno.setSenha(aluno.getCpf());
@@ -83,13 +83,13 @@ public class AlunoCadastroBean {
 				generateRandomId();
 				FacesMessage msg = new FacesMessage("Aluno Atualizado!!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-				return "lista-aluno";
+				return "/lista/lista-aluno";
 			}
 
 		}else{
 			FacesMessage msg = new FacesMessage("Escolha um curso primeiro!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return "cadastro-aluno";
+			return "/cadastro/cadastro-aluno";
 		}
 
 

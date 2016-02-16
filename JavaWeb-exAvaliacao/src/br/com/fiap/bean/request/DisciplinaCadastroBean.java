@@ -60,7 +60,7 @@ public class DisciplinaCadastroBean {
 		FacesMessage msg = new FacesMessage("Disciplina atualizado!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	
-		return "lista-disciplina";
+		return "/lista/lista-disciplina";
 	}
 	
 	
