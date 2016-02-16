@@ -1,5 +1,6 @@
 package br.com.fiap.bean.session;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Professor;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 // >>>OK<<<
 public class LoginBean implements Serializable{
 
@@ -38,22 +39,24 @@ public class LoginBean implements Serializable{
 		return teste;
 	}
 
-	public void setTeste(String teste) {
-		this.teste = teste;
+	public void teste() {
+		System.out.println("../professor/controle-professor?faces-redirect=true");
 	}
 
 	public LoginBean() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String logar(){
+	
+	
+	public String logar() throws IOException{
 		System.out.println("RM===" +rm +"senha===="+senha);
 
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 		//Admin
 		if (rm.equals("admin")&&senha.equals("admin")) {
-		
+
 			session.setAttribute("loginType", "admin");
 			session.setAttribute("displayName", "admin");	
 		}else{
@@ -68,6 +71,8 @@ public class LoginBean implements Serializable{
 				for (Aluno a : alunoList) {
 					System.out.println("RM DO ALUNO" + a.getRmAluno());
 					session.setAttribute("displayName", a.getNome());
+					session.setAttribute("rmAluno", a.getRmAluno());
+
 				}
 			}else{
 				//não existe aluno com esse RM e senha, vamos se existe professores com esta combinação
@@ -75,25 +80,22 @@ public class LoginBean implements Serializable{
 				queryProfessor();
 				if(!professorList.isEmpty()){
 					session.setAttribute("loginType", "professor");
-
 					//LOGIN PROFESSOR
 					for (Professor p : professorList) {
 						System.out.println("RM DO PROFESSOR" + p.getRmProfessor());
 						session.setAttribute("displayName", p.getNome());
-						session.setAttribute("professor", p);
+						session.setAttribute("rmProfessor", p.getRmProfessor());
 					}
+					System.out.println("returnaaaaaaa");
+					return "/professor/controle-professor";
 				}else{
 					//usuario não cadastrado
 				}
 			}
-
-
 		}
-
-
-		return "true";
-
+		return rm;
 	}
+	
 	public String getRm() {
 		return rm;
 	}
@@ -133,8 +135,9 @@ public class LoginBean implements Serializable{
 	}
 
 
-	public void deslogar(){
+	public String deslogar(){
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		session.invalidate();
+		return "index?faces-redirect=true";
 	}
 }
