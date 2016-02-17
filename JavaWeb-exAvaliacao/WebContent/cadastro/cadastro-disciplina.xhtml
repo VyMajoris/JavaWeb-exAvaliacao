@@ -57,14 +57,14 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Cursos" style="font-weight:bold" />
-								<h:selectManyListbox immediate="true"
+								<h:selectOneListbox immediate="true"
 									converter="#{simpleEntityConverter}"
 									styleClass="form-control multiselect multiselect-info"
-									value="#{disciplinaCadastroBean.disciplina.cursos}">
+									value="#{disciplinaCadastroBean.disciplina.curso}">
 
 									<f:selectItems value="#{disciplinaCadastroBean.listCurso}"
 										var="cur" itemValue="#{cur}" itemLabel="#{cur.nome}" />
-								</h:selectManyListbox>
+								</h:selectOneListbox>
 							</div>
 						</div>
 
