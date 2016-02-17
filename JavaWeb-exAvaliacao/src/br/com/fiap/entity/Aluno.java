@@ -25,14 +25,13 @@ import br.com.fiap.converter.BaseEntity;
 	@NamedQuery(name = "findAlunoPorProfessor", query = "SELECT DISTINCT a " +
 			"FROM Aluno a, Curso c, Disciplina d, Professor p " +
 			"JOIN c.disciplinas cDisciplinas " +
-			"JOIN d.cursos dCursos " +
-			"WHERE a.curso.idCurso = c.idCurso AND c.idCurso = dCursos.idCurso AND cDisciplinas.professor.rmProfessor = :rmProfessor"),
+			"WHERE a.curso.idCurso = c.idCurso AND c.idCurso = cDisciplinas.curso.idCurso AND cDisciplinas.professor.rmProfessor = :rmProfessor"),
 	@NamedQuery(name = "findAlunoPorCurso", query = "SELECT a FROM Aluno a JOIN a.curso b with b.idCurso = :idCurso"),
+	
 	@NamedQuery(name = "findAlunoPorDisciplina", query = "SELECT DISTINCT a " +
 			"FROM Aluno a, Curso c, Disciplina d " +
 			"JOIN c.disciplinas cDisciplinas " +
-			"JOIN d.cursos dCursos " +
-			"WHERE a.curso.idCurso = c.idCurso AND c.idCurso = dCursos.idCurso AND cDisciplinas.idDisciplina = :idDisciplina"),
+			"WHERE a.curso.idCurso = c.idCurso AND c.idCurso = cDisciplinas.curso.idCurso AND cDisciplinas.idDisciplina = :idDisciplina"),
 })
 
 	@Entity

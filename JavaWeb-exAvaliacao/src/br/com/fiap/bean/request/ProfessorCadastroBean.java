@@ -56,9 +56,9 @@ public class ProfessorCadastroBean {
 			}else{
 				professor.setSenha(professor.getCpf());
 				professorDao.adicionar(professor);
+				FacesMessage msg = new FacesMessage("Professor "+professor.getNome()+"cadastrado!");
 				professor = new Professor();
 				generateRandomId();
-				FacesMessage msg = new FacesMessage("Professor cadastrado!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 
 			}

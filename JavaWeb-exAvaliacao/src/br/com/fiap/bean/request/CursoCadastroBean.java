@@ -43,8 +43,8 @@ public class CursoCadastroBean {
 		}else{
 			System.out.println("curso escola "+curso.getEscola());
 			cursoDao.adicionar(curso);
+			FacesMessage msg = new FacesMessage("Curso "+curso.getNome()+"cadastrado!");
 			curso = new Curso();
-			FacesMessage msg = new FacesMessage("Curso cadastrado!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}

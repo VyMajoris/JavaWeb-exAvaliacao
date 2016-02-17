@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.fiap.dao.GenericDao;
+import br.com.fiap.entity.Disciplina;
 import br.com.fiap.entity.Professor;
 
 @ManagedBean
@@ -26,6 +27,15 @@ public class ProfessorListaBean {
 		System.out.println("ProfessorListBean init");
 		professorDao = new GenericDao<Professor>(Professor.class);
 		setListProfessor(professorDao.listar());
+		
+		
+		for (Professor pl : listProfessor) {
+			for (Disciplina d : pl.getDisciplinas()) {
+				System.out.println("Disciplina: " + d.getNome());
+				
+			}
+			
+		}
 	}
 
 

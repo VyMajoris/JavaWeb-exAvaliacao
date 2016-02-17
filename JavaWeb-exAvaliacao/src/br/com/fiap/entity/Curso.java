@@ -31,8 +31,7 @@ import br.com.fiap.helpers.FormatadorData;
 	@NamedQuery(name = "findCursoPorProfessor", query = "SELECT DISTINCT c " +
 		    "FROM Curso c, Disciplina d, Professor p " +
 		    "JOIN c.disciplinas cDisciplinas " +
-		    "JOIN d.cursos dCursos " +
-		    "WHERE c.idCurso = dCursos.idCurso AND cDisciplinas.professor.rmProfessor = :rmProfessor")
+		    "WHERE c.idCurso = cDisciplinas.curso.idCurso AND cDisciplinas.professor.rmProfessor = :rmProfessor")
 })
 @Entity
 public class Curso implements BaseEntity, Serializable {
@@ -62,7 +61,7 @@ public class Curso implements BaseEntity, Serializable {
 	@JoinColumn(name="idEscola")
 	private Escola escola = new Escola();
 
-	@ManyToMany( fetch=FetchType.EAGER, mappedBy="cursos")
+	@OneToMany( fetch=FetchType.EAGER, mappedBy="curso")
 	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 	
 	@ManyToMany( fetch=FetchType.EAGER, mappedBy="curso")

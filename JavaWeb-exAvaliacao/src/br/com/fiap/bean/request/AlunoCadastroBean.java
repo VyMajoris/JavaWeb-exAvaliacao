@@ -54,9 +54,9 @@ public class AlunoCadastroBean {
 				}else{
 					aluno.setSenha(aluno.getCpf());
 					alunoDao.adicionar(aluno);
+					FacesMessage msg = new FacesMessage("Aluno "+aluno.getNome()+" cadastrado!");
 					aluno = new Aluno();
 					generateRandomId();
-					FacesMessage msg = new FacesMessage("Aluno cadastrado!");
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				}
 
@@ -81,7 +81,7 @@ public class AlunoCadastroBean {
 				aluno.setSenha(aluno.getCpf());
 				alunoDao.update(aluno);
 				generateRandomId();
-				FacesMessage msg = new FacesMessage("Aluno Atualizado!!");
+				FacesMessage msg = new FacesMessage("Aluno Atualizado!");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				return "/lista/lista-aluno";
 			}

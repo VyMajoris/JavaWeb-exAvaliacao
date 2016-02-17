@@ -21,9 +21,7 @@ import br.com.fiap.converter.BaseEntity;
 
 @Entity
 public class Disciplina implements BaseEntity, Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
@@ -34,11 +32,9 @@ public class Disciplina implements BaseEntity, Serializable {
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Professor professor;
 
-	@ManyToMany(fetch=FetchType.EAGER)
-	private List<Curso> cursos = new ArrayList<Curso>();
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Curso curso;
 	
-	
-
 	@Override
     public int hashCode() {
         final int prime = 31;
@@ -88,17 +84,14 @@ public class Disciplina implements BaseEntity, Serializable {
 	}
 
 
-
-	public List<Curso> getCursos() {
-		return cursos;
+	public Curso getCurso() {
+		return curso;
 	}
 
 
-
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = cursos;
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
-
 
 
 	public Long getIdDisciplina() {

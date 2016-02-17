@@ -49,15 +49,17 @@ public class DisciplinaCadastroBean {
 		
 		
 		System.out.println("PROFESSOR: "+ disciplina.getProfessor());
-		 System.out.println("CURSO ID " +disciplina.getCursos().get(0));
+		 
 			disciplinaDao.adicionar(disciplina);
+			
+			FacesMessage msg = new FacesMessage("Disciplina "+disciplina.getNome()+" cadastrada!");
 			disciplina = new Disciplina();
-			FacesMessage msg = new FacesMessage("Disciplina cadastrada!");
+			
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	public String atualizarDisciplina(){
 		disciplinaDao.update(disciplina);
-		FacesMessage msg = new FacesMessage("Disciplina atualizado!");
+		FacesMessage msg = new FacesMessage("Disciplina atualizada!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	
 		return "/lista/lista-disciplina";

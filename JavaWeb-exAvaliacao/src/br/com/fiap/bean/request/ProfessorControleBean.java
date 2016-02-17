@@ -66,11 +66,11 @@ public class ProfessorControleBean {
 		List<Disciplina> listDisciplina = new ArrayList<Disciplina>();
 		for (Disciplina disc : professor.getDisciplinas()) {
 
-			for (Curso cur : disc.getCursos()) {
-				if (idCurso == cur.getIdCurso()) {
+			
+				if (idCurso == disc.getCurso().getIdCurso()) {
 					listDisciplina.add(disc);
 				}
-			}
+			
 
 		}
 

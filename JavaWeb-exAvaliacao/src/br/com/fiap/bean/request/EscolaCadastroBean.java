@@ -36,8 +36,8 @@ public class EscolaCadastroBean implements Serializable {
 	public void cadastrarEscola(){
 		System.out.println("CADASTRAR ESCOLA "+ escola.getNome());
 		escolaDao.adicionar(escola);
-		this.escola = new Escola();
 		FacesMessage msg = new FacesMessage("Escola "+escola.getNome()+" cadastrada!");
+		this.escola = new Escola();
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
 	}
