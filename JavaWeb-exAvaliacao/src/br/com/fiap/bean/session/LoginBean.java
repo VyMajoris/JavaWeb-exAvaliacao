@@ -23,29 +23,15 @@ import br.com.fiap.entity.Professor;
 // >>>OK<<<
 public class LoginBean implements Serializable{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	private String teste = "teste;";
 	private List<Aluno> alunoList = new ArrayList<Aluno>();
 	private List<Professor> professorList = new ArrayList<Professor>();
 	private Session hSession;
-
 	private String rm;
 	private String senha;
 
-	public String getTeste() {
-		return teste;
-	}
 
-	public void teste() {
-		System.out.println("../professor/controle-professor?faces-redirect=true");
-	}
-
-	public LoginBean() {
-		// TODO Auto-generated constructor stub
-	}
 
 	
 	
@@ -74,6 +60,7 @@ public class LoginBean implements Serializable{
 					session.setAttribute("rmAluno", a.getRmAluno());
 
 				}
+				return "/aluno/aluno-dashboard";
 			}else{
 				//não existe aluno com esse RM e senha, vamos se existe professores com esta combinação
 				//chama a named query do professor
@@ -86,7 +73,7 @@ public class LoginBean implements Serializable{
 						session.setAttribute("displayName", p.getNome());
 						session.setAttribute("rmProfessor", p.getRmProfessor());
 					}
-					System.out.println("returnaaaaaaa");
+					
 					return "/professor/controle-professor";
 				}else{
 					//usuario não cadastrado

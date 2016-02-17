@@ -36,9 +36,7 @@ import br.com.fiap.converter.BaseEntity;
 
 	@Entity
 	public class Aluno implements BaseEntity, Serializable{
-		/**
-		 * 
-		 */
+		
 		private static final long serialVersionUID = -7548628467768295659L;
 
 		@Id 
