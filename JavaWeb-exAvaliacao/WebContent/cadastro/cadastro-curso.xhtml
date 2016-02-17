@@ -94,9 +94,9 @@
 
 								<h:outputLabel value="Escola" style="font-weight:bold" />
 								<h:selectOneMenu
-									styleClass="form-control select select-primary select-block mbl"
+									styleClass="form-control multiselect multiselect-info"
 									value="#{cursoCadastroBean.curso.escola}">
-									<f:selectItem itemValue="null" itemLabel="Sel. classe" />
+									
 									<f:selectItems value="#{cursoCadastroBean.listEscolaTotal}"
 										var="esc" itemValue="#{esc}" itemLabel="#{esc.nome}" />
 								</h:selectOneMenu>

@@ -165,7 +165,7 @@
 
 					<script type="text/javascript">
 					$(document).ready(function() {
-					    $('.nav').navgoco({accordion: true});
+					    $('.nav').navgoco();
 					});
 					</script>
 
@@ -181,8 +181,9 @@
 										<ui:repeat
 											value="#{professorControleBean.professor.disciplinas}"
 											var="disc">
-
-
+											
+											 <p>Curso id: #{disc.curso.idCurso} Curso nome: #{disc.curso.nome}</p>
+											
 											<li><h:commandLink title="Ver alunos desta disciplina"
 													action="/professor/professor-alunosPorDisciplina"
 													actionListener="#{professorControleListagemBean.updateDisciplinaSession(disc)}"
