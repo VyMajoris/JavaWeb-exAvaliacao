@@ -4,87 +4,68 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.fiap.converter.BaseEntity;
-import br.com.fiap.helpers.FormatadorData;
-
-
 @NamedQueries({
-	@NamedQuery(
-			name = "findProfessor",
-			query = "from Professor p where p.rmProfessor = :rmProfessor and p.senha = :senha"
-			)
-})
-
+		@NamedQuery(name = "findProfessor", query = "from Professor p where p.id = :rmProfessor and p.senha = :senha") })
 
 @Entity
-public class Professor implements BaseEntity, Serializable{
-
+@PrimaryKeyJoinColumn(name = "id")
+public class Professor extends Usuario implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	
-	@Id 
-	private Long rmProfessor;
-	private String senha;
 	private String telefone;
 	private String email;
 	private String endereco;
 	private String nome;
 	private String cpf;
-	
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="professor")
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "professor")
 	private Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataNasc;
-
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((rmProfessor == null) ? 0 : rmProfessor.hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o){
+		if (this == o) {
 			return true;
-		} 
-		if (o == null || getClass() != o.getClass()){
+		}
+		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
 		Professor professor = (Professor) o;
-		if (rmProfessor != null ? !rmProfessor.equals(professor.rmProfessor) : professor.rmProfessor != null) {
+		if (getId() != null ? !getId().equals(professor.getId()) : professor.getId() != null) {
 			return false;
 		}
 		return true;
 	}
 
-
-
-
 	@Override
 	public String toString() {
-		return String.format("%s[id=%d]", getClass().getSimpleName(), getRmProfessor());
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
 
 	public Collection<Disciplina> getDisciplinas() {
@@ -94,23 +75,6 @@ public class Professor implements BaseEntity, Serializable{
 	public void setDisciplinas(Collection<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
-
-	public Long getRmProfessor() {
-		return rmProfessor;
-	}
-
-	public void setRmProfessor(Long rmProfessor) {
-		this.rmProfessor = rmProfessor;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 
 	public String getNome() {
 		return nome;
@@ -128,7 +92,6 @@ public class Professor implements BaseEntity, Serializable{
 
 		this.dataNasc = dataNasc;
 	}
-
 
 	public String getEndereco() {
 		return endereco;
@@ -152,12 +115,6 @@ public class Professor implements BaseEntity, Serializable{
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-
-	@Override
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return new Long(rmProfessor);
 	}
 
 	public String getCpf() {
