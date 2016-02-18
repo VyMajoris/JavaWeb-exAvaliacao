@@ -31,7 +31,7 @@ import br.com.fiap.helpers.FormatadorData;
 	@NamedQuery(name = "findCursoPorProfessor", query = "SELECT DISTINCT c " +
 		    "FROM Curso c, Disciplina d, Professor p " +
 		    "JOIN c.disciplinas cDisciplinas " +
-		    "WHERE c.idCurso = cDisciplinas.curso.idCurso AND cDisciplinas.professor.rmProfessor = :rmProfessor")
+		    "WHERE c.idCurso = cDisciplinas.curso.idCurso AND cDisciplinas.professor.id = :rmProfessor")
 })
 @Entity
 public class Curso implements BaseEntity, Serializable {

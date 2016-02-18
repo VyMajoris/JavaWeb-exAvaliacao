@@ -64,8 +64,6 @@ public class GenericDao<T> implements Dao<T> {
 		em.getTransaction().begin();
 		T entidade = em.find(classe, id);
 		em.getTransaction().commit();
-		
-
 		return entidade;
 	}
 

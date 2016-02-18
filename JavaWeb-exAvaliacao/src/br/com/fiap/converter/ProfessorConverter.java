@@ -22,9 +22,9 @@ public class ProfessorConverter implements Converter {
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object value) {
         if (value instanceof Professor) {
         	Professor entity= (Professor) value;
-            if (entity != null && entity instanceof Professor && entity.getRmProfessor() != null) {
-                uiComponent.getAttributes().put( entity.getRmProfessor().toString(), entity);
-                return entity.getRmProfessor().toString();
+            if (entity != null && entity instanceof Professor && entity.getId() != null) {
+                uiComponent.getAttributes().put( entity.getId().toString(), entity);
+                return entity.getId().toString();
             }
         }
         return "";

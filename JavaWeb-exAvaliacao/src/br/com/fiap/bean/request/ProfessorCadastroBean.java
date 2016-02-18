@@ -10,8 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.lang3.StringUtils;
-
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.entity.Disciplina;
 import br.com.fiap.entity.Escola;
@@ -38,10 +36,10 @@ public class ProfessorCadastroBean {
 		listDisciplina = disciplinaDao.listar();
 	}
 	private void generateRandomId() {
-		if (professor.getRmProfessor() == null) {
+		if (professor.getId() == null) {
 			Random rand = new Random();
 			int randomNum = rand.nextInt((99999 - 11111) + 1) + 0;
-			professor.setRmProfessor(Long.parseLong(String.format("%05d", randomNum)));
+			professor.setId(Long.parseLong(String.format("%05d", randomNum)));
 		}
 	}
 	public void cadastrarProfessor() throws ParseException{

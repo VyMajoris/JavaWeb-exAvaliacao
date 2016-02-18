@@ -33,6 +33,10 @@ public class Professor extends Usuario implements Serializable {
 	private String endereco;
 	private String nome;
 	private String cpf;
+	
+	public Professor() {
+		this.setTipo(TipoUsuarioEnum.PROFESSOR);
+	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "professor")
 	private Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();

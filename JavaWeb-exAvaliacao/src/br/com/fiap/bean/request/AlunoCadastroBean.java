@@ -10,12 +10,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.lang3.StringUtils;
-
 import br.com.fiap.dao.GenericDao;
-import br.com.fiap.entity.Curso;
-import br.com.fiap.entity.Curso;
 import br.com.fiap.entity.Aluno;
+import br.com.fiap.entity.Curso;
 
 @ManagedBean
 @RequestScoped
@@ -33,14 +30,13 @@ public class AlunoCadastroBean {
 		generateRandomId();
 		alunoDao = new  GenericDao<Aluno>(Aluno.class);
 		cursoDao = new GenericDao<Curso>(Curso.class);
-		cursoDao = new GenericDao<Curso>(Curso.class);
 		listCurso = cursoDao.listar();
 	}
 	private void generateRandomId() {
-		if (aluno.getRmAluno() == null) {
+		if (aluno.getId() == null) {
 			Random rand = new Random();
 			int randomNum = rand.nextInt((99999 - 11111) + 1) + 0;
-			aluno.setRmAluno(Long.parseLong(String.format("%05d", randomNum)));
+			aluno.setId(Long.parseLong(String.format("%05d", randomNum)));
 		}
 	}
 	public void cadastrarAluno() throws ParseException{

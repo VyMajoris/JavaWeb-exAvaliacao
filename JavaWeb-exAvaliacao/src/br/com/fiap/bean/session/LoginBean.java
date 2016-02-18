@@ -5,82 +5,124 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.POST;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import br.com.fiap.dao.GenericDao;
 import br.com.fiap.dao.JpaUtil;
 import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Professor;
+import br.com.fiap.entity.TipoUsuarioEnum;
+import br.com.fiap.entity.Usuario;
 
 @ManagedBean
-@RequestScoped
-// >>>OK<<<
+@SessionScoped
 public class LoginBean implements Serializable{
 
-	
+
 	private static final long serialVersionUID = 1L;
-	private List<Aluno> alunoList = new ArrayList<Aluno>();
-	private List<Professor> professorList = new ArrayList<Professor>();
+	private Aluno aluno;
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	private Professor professor;
+	private GenericDao<Usuario> usuarioDao;
 	private Session hSession;
 	private String rm;
 	private String senha;
+	private Usuario usuario;
+	HttpSession session;
 
+	@PostConstruct
+	public void init(){
+		usuarioDao = new GenericDao<Usuario>(Usuario.class);
+		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		hSession = JpaUtil.getHibSession();
 
+	}
 
-	
-	
-	public String logar() throws IOException{
-		System.out.println("RM===" +rm +"senha===="+senha);
+	public Usuario buscaAluno(){
+		Usuario usuario = (Usuario) hSession.getNamedQuery("findUsuario")
+				.setLong("id", Long.parseLong(rm))
+				.setString("senha", senha)
+				.uniqueResult();
 
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-
-		//Admin
-		if (rm.equals("admin")&&senha.equals("admin")) {
-
-			session.setAttribute("loginType", "admin");
-			session.setAttribute("displayName", "admin");	
-		}else{
-			//pega a session do hibernate para o named query
-			createHsession();
-
-			//chama a named query do aluno
-			queryAluno();
-			if (!alunoList.isEmpty()) {
-				session.setAttribute("loginType", "aluno");
-				//LOGIN ALUNO
-				for (Aluno a : alunoList) {
-					System.out.println("RM DO ALUNO" + a.getRmAluno());
-					session.setAttribute("displayName", a.getNome());
-					session.setAttribute("rmAluno", a.getRmAluno());
-
-				}
-				return "/aluno/aluno-dashboard";
-			}else{
-				//não existe aluno com esse RM e senha, vamos se existe professores com esta combinação
-				//chama a named query do professor
-				queryProfessor();
-				if(!professorList.isEmpty()){
-					session.setAttribute("loginType", "professor");
-					//LOGIN PROFESSOR
-					for (Professor p : professorList) {
-						System.out.println("RM DO PROFESSOR" + p.getRmProfessor());
-						session.setAttribute("displayName", p.getNome());
-						session.setAttribute("rmProfessor", p.getRmProfessor());
-					}
-					
-					return "/professor/controle-professor";
-				}else{
-					//usuario não cadastrado
-				}
+		if (usuario != null) {
+			switch (usuario.getTipo()) {
+			case ADMIN:
+				loginAdmin();
+				break;
+			case ALUNO:
+				loginAluno();
+				break;
+			case PROFESSOR:
+				loginProfessor();
+				break;
+			default:
+				break;
 			}
 		}
-		return rm;
+		else{
+			FacesMessage msg = new FacesMessage("Usuário ou senha incorretos.");
+			FacesContext.getCurrentInstance().addMessage("login", msg);
+		}
+
+		return usuario;
+	}
+
+	private String loginProfessor() {
+		session.setAttribute("loginType", "professor");
+		session.setAttribute("displayName", professor.getNome());
+		session.setAttribute("rmProfessor", professor.getId());
+		return "/professor/professor-dashboard";
+	}
+
+	private String loginAluno() {
+		session.setAttribute("loginType", "aluno");
+		session.setAttribute("displayName", aluno.getNome());
+		session.setAttribute("rmAluno", aluno.getId());
+		return "/aluno/aluno-dashboard";
+	}
+
+	private String loginAdmin() {
+		session.setAttribute("loginType", "admin");
+		session.setAttribute("displayName", "admin");
+		return "/admin/admin-dashboard";
+	}
+
+	public String deslogar(){
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		session.invalidate();
+		return "index?faces-redirect=true";
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 	
 	public String getRm() {
@@ -98,33 +140,5 @@ public class LoginBean implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-
-	@SuppressWarnings("unchecked")
-	private void queryAluno(){
-		Query queryAluno = hSession.getNamedQuery("findAluno");
-		queryAluno.setInteger("rmAluno",  Integer.parseInt(rm));
-		queryAluno.setString("senha", senha);
-		alunoList = queryAluno.list();
-	}
-
-
-	@SuppressWarnings("unchecked")
-	private void queryProfessor(){
-		Query queryProfessor = hSession.getNamedQuery("findProfessor");
-		queryProfessor.setInteger("rmProfessor", Integer.parseInt(rm));
-		queryProfessor.setString("senha", senha);
-		professorList = queryProfessor.list();
-	}
-
-	private void createHsession(){
-		hSession = JpaUtil.getHibSession();
-	}
-
-
-	public String deslogar(){
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		session.invalidate();
-		return "index?faces-redirect=true";
-	}
+	
 }

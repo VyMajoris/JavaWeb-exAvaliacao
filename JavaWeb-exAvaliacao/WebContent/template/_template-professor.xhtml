@@ -51,12 +51,9 @@
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 
-						<!-- PROFESSOR -->
-						<c:if test="#{loginType == 'professor'}">
+					
 							<ul class="nav navbar-nav">
-								<li class="active"><a href="#fakelink">Dashboard</a></li>
-								<li><a href="#fakelink">Meus Alunos</a></li>
-								<li><a href="#fakelink">Minhas disciplinas</a></li>
+								<li class="active"><a href="../professor/professor-dashboard.xhtml">Dashboard</a></li>
 							</ul>
 
 							<h:form style="padding-right:0px; padding-left:0px;"
@@ -68,75 +65,11 @@
 							<p class="navbar-text navbar-right">
 								Bem vindo, <a href="#" class="navbar-link">#{displayName}!</a>
 							</p>
-						</c:if>
+						
 
-						<!-- ALUNO -->
-						<c:if test="#{loginType == 'aluno'}">
-							<ul class="nav navbar-nav">
-								<li><a class="active" href="#fakelink">Minhas Notas</a></li>
-							</ul>
+				
 
-							<h:form style="padding-right:0px; padding-left:0px;"
-								class="navbar-form navbar-right">
-
-								<h:commandButton class="btn btn-success" type="submit"
-									value="Sair" actionListener="#{loginBean.deslogar}" />
-							</h:form>
-							<p class="navbar-text navbar-right">
-								Bem vindo, <a href="#" class="navbar-link">#{displayName}!</a>
-							</p>
-						</c:if>
-
-						<!-- ADMIN -->
-						<c:if test="#{loginType == 'admin'}">
-							<ul class="nav navbar-nav">
-								<li class="dropdown"><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown">Cadastrar <b class="caret"></b></a> <span
-									class="dropdown-arrow"></span>
-									<ul class="dropdown-menu">
-										<li><a href="../cadastro/cadastro-escola.xhtml">Escola</a></li>
-										<li><a href="../cadastro/cadastro-aluno.xhtml">Aluno</a></li>
-										<li><a href="../cadastro/cadastro-professor.xhtml">Professor</a></li>
-										<li><a href="../cadastro/cadastro-curso.xhtml">Curso</a></li>
-										<li><a href="../cadastro/cadastro-disciplina.xhtml">Disciplina</a></li>
-									</ul></li>
-								<li class="dropdown"><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown">Listar <b class="caret"></b></a> <span
-									class="dropdown-arrow"></span>
-									<ul class="dropdown-menu">
-										<li><a href="../lista/lista-escola.xhtml">Escola</a></li>
-										<li><a href="../lista/lista-aluno.xhtml">Aluno</a></li>
-										<li><a href="../lista/lista-professor.xhtml">Professor</a></li>
-										<li><a href="../lista/lista-curso.xhtml">Curso</a></li>
-										<li><a href="../lista/lista-disciplina.xhtml">Disciplina</a></li>
-									</ul></li>
-							</ul>
-							<h:form style="padding-right:0px; padding-left:0px;"
-								class="navbar-form navbar-right">
-
-								<h:commandButton class="btn btn-success" type="submit"
-									value="Sair" actionListener="#{loginBean.deslogar}" />
-							</h:form>
-							<p class="navbar-text navbar-right">
-								Bem vindo, <a href="#" class="navbar-link">#{displayName}!</a>
-							</p>
-						</c:if>
-						<!-- NOT LOGGED -->
-						<c:if test="#{empty loginType}">
-							<h:form style="padding-right:0px; padding-left:0px;"
-								class="navbar-form navbar-right">
-								<div class="form-group">
-									<h:inputText pa:placeholder="RM:" value="#{loginBean.rm}"
-										styleClass="form-control" placeholder="RM" />
-								</div>
-								<div class="form-group">
-									<h:inputText pa:placeholder="Senha" value="#{loginBean.senha}"
-										styleClass="form-control" placeholder="RM" />
-								</div>
-								<h:commandButton class="btn btn-success" type="submit"
-									value="Login" action="#{loginBean.logar}" />
-							</h:form>
-						</c:if>
+					
 
 					</div>
 					<!--/.navbar-collapse -->
