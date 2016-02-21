@@ -1,30 +1,26 @@
 package br.com.fiap.bean.session;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.POST;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.dao.JpaUtil;
+import br.com.fiap.entity.Admin;
 import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Professor;
-import br.com.fiap.entity.TipoUsuarioEnum;
+
 import br.com.fiap.entity.Usuario;
 
-@ManagedBean
+@ManagedBean(name="LoginBean")
 @SessionScoped
 public class LoginBean implements Serializable{
 
@@ -51,7 +47,8 @@ public class LoginBean implements Serializable{
 
 	}
 
-	public Usuario buscaAluno(){
+	public String buscaUsuario(){
+		String retorno = null;
 		Usuario usuario = (Usuario) hSession.getNamedQuery("findUsuario")
 				.setLong("id", Long.parseLong(rm))
 				.setString("senha", senha)
@@ -60,15 +57,16 @@ public class LoginBean implements Serializable{
 		if (usuario != null) {
 			switch (usuario.getTipo()) {
 			case ADMIN:
-				loginAdmin();
+				retorno = loginAdmin((Admin) usuario);
 				break;
 			case ALUNO:
-				loginAluno();
+				retorno = loginAluno((Aluno) usuario);
 				break;
 			case PROFESSOR:
-				loginProfessor();
+				retorno = loginProfessor((Professor) usuario);
 				break;
 			default:
+				retorno = "index";
 				break;
 			}
 		}
@@ -76,25 +74,26 @@ public class LoginBean implements Serializable{
 			FacesMessage msg = new FacesMessage("Usuário ou senha incorretos.");
 			FacesContext.getCurrentInstance().addMessage("login", msg);
 		}
+		return retorno;
 
-		return usuario;
+
 	}
 
-	private String loginProfessor() {
+	private String loginProfessor(Professor professor) {
 		session.setAttribute("loginType", "professor");
 		session.setAttribute("displayName", professor.getNome());
 		session.setAttribute("rmProfessor", professor.getId());
 		return "/professor/professor-dashboard";
 	}
 
-	private String loginAluno() {
+	private String loginAluno(Aluno aluno) {
 		session.setAttribute("loginType", "aluno");
 		session.setAttribute("displayName", aluno.getNome());
 		session.setAttribute("rmAluno", aluno.getId());
 		return "/aluno/aluno-dashboard";
 	}
 
-	private String loginAdmin() {
+	private String loginAdmin(Admin admin) {
 		session.setAttribute("loginType", "admin");
 		session.setAttribute("displayName", "admin");
 		return "/admin/admin-dashboard";
@@ -124,7 +123,7 @@ public class LoginBean implements Serializable{
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
-	
+
 	public String getRm() {
 		return rm;
 	}
@@ -140,5 +139,5 @@ public class LoginBean implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
 }
