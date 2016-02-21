@@ -18,7 +18,7 @@
 
 	<ui:composition template="/template/_template.xhtml">
 		<ui:define name="title">
-	    Cadastro de Escolas
+	    Cadastro de Tipos de Nota
 	</ui:define>
 
 		<ui:define name="content">
@@ -62,7 +62,7 @@
 								<c:if test="${tipoNotaCadastroBean.tipoNota.id != 0}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{tipoNotaCadastroBean.atualizar}" type="submit"
-										value="Atualizar"  />
+										value="Atualizar" />
 								</c:if>
 							</div>
 						</div>
