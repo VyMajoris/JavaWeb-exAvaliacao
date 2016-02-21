@@ -59,15 +59,15 @@
 						
 							<h:form style="padding-right:0px; padding-left:0px;"  class="navbar-form navbar-right">
 								<div class="form-group">
-									<h:inputText pa:placeholder="RM:" value="#{loginBean.rm}"
+									<h:inputText pa:placeholder="RM:" value="#{LoginBean.rm}"
 										styleClass="form-control" placeholder="RM" />
 								</div>
 								<div class="form-group">
-									<h:inputText pa:placeholder="Senha" value="#{loginBean.senha}"
+									<h:inputText pa:placeholder="Senha" value="#{LoginBean.senha}"
 										styleClass="form-control" placeholder="RM" />
 								</div>
 								<h:commandLink class="btn btn-success" type="submit"
-									value="Login" action="#{loginBean.logar}" />
+									value="Login" action="#{LoginBean.buscaUsuario()}" />
 									
 							</h:form>
 						
