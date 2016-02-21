@@ -36,7 +36,7 @@ public class TipoNotaCadastroBean {
 	public void cadastrar() throws ParseException {
 
 		this.tipoNotaDao.adicionar(this.tipoNota);
-		FacesMessage msg = new FacesMessage("Tipo de Nota " + tipoNota.getDescricao() + "cadastrado!");
+		FacesMessage msg = new FacesMessage("Tipo de Nota " + tipoNota.getDescricao() + "cadastrada!");
 		this.tipoNota = new TipoNota();
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 
