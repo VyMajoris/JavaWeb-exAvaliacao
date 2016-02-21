@@ -18,36 +18,16 @@ public class Usuario implements Login, BaseEntity{
 	
 	@Id
 	private Long id;
-	private String login;
 	private String senha;
-	private boolean administrador;
-	private boolean ativo;
 	private TipoUsuarioEnum tipo;
 	
-	public String getLogin() {
-		return login;
-	}
-	public void setLogin(String login) {
-		this.login = login;
-	}
 	public String getSenha() {
 		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public boolean isAdministrador() {
-		return administrador;
-	}
-	public void setAdministrador(boolean administrador) {
-		this.administrador = administrador;
-	}
-	public boolean isAtivo() {
-		return ativo;
-	}
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
+
 	@Override
 	public boolean isLogado() {
 		// TODO Auto-generated method stub
