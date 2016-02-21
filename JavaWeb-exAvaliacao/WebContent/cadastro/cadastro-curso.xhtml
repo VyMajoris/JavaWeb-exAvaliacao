@@ -135,12 +135,12 @@
 
 								<c:if test="${empty cursoCadastroBean.curso.idCurso}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{cursoCadastroBean.cadastrarCurso()}" type="submit"
+										action="#{cursoCadastroBean.cadastrarCurso}" type="submit"
 										value="Cadastrar" />
 								</c:if>
 								<c:if test="${not empty cursoCadastroBean.curso.idCurso}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{cursoCadastroBean.atualizarCurso()}" type="submit"
+										action="#{cursoCadastroBean.atualizarCurso}" type="submit"
 										value="Atualizar" />
 								</c:if>
 							</div>

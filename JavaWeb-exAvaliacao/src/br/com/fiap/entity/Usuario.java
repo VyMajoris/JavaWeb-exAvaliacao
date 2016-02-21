@@ -10,7 +10,7 @@ import javax.persistence.NamedQuery;
 import br.com.fiap.converter.BaseEntity;
 
 @NamedQueries({
-	@NamedQuery(name = "findUsuario", query = "from Usuario u where up.id = :id and u.senha = :senha") })
+	@NamedQuery(name = "findUsuario", query = "from Usuario u where u.id = :id and u.senha = :senha") })
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)

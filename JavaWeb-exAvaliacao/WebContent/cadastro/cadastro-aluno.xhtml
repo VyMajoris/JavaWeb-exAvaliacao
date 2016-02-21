@@ -22,7 +22,7 @@
 				<h:messages globalOnly="true" />
 				<h2>Cadastro de Alunos</h2>
 				<h:form>
-					<h:inputHidden value="#{alunoCadastroBean.aluno.rmAluno}" />
+					<h:inputHidden value="#{alunoCadastroBean.aluno.id}" />
 
 					<div class="row">
 						<div class="col-md-6">
@@ -31,7 +31,7 @@
 									style="font-weight:bold" />
 								<h:inputText
 									pa:placeholder="Registro de Matrícula(Somente números)"
-									value="#{alunoCadastroBean.aluno.rmAluno}" disabled="true"
+									value="#{alunoCadastroBean.aluno.id}" disabled="true"
 									styleClass="form-control" />
 							</div>
 						</div>
