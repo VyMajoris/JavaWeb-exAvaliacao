@@ -17,6 +17,8 @@ import br.com.fiap.dao.GenericDao;
 import br.com.fiap.dao.JpaUtil;
 import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Disciplina;
+import br.com.fiap.entity.Nota;
+import br.com.fiap.entity.NotaPK;
 import br.com.fiap.entity.Professor;
 
 @ManagedBean
@@ -31,6 +33,7 @@ public class ProfessorControleListagemBean {
 	private Long idDisciplina;
 	private HttpSession session;
 	private Disciplina disciplina;
+	private Aluno aluno;
 
 	private Session hSession;
 
@@ -48,6 +51,11 @@ public class ProfessorControleListagemBean {
 		professorDao = new GenericDao<Professor>(Professor.class);
 		disciplina = (Disciplina) session.getAttribute("disciplina");
 
+	}
+	
+	public void addNota(){
+	
+		
 	}
 
 	public void updateDisciplinaSession(Disciplina disciplina){
@@ -123,6 +131,13 @@ public class ProfessorControleListagemBean {
 	}
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
+	}
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
 
