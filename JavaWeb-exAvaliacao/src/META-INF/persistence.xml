@@ -9,7 +9,6 @@
 		<class>br.com.fiap.entity.Escola</class>
 		<class>br.com.fiap.entity.Professor</class>
 		<class>br.com.fiap.entity.Administrador</class>
-		<class>br.com.fiap.entity.TipoNota</class>
 		<class>br.com.fiap.entity.Nota</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />

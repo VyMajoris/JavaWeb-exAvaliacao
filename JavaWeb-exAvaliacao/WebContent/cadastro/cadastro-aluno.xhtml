@@ -26,13 +26,16 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="form-group">
+								<div class="form-group">
 								<h:outputLabel value="Registro de Matrícula"
 									style="font-weight:bold" />
-								<h:inputText
-									pa:placeholder="Registro de Matrícula(Somente números)"
-									value="#{alunoCadastroBean.aluno.id}" disabled="true"
-									styleClass="form-control" />
+								<div class="input-group">
+									<span class="input-group-addon">RM</span>
+									<h:inputText disabled="true"
+										value="#{alunoCadastroBean.aluno.id}"
+										pa:type="number" class="form-control" />
+
+								</div>
 							</div>
 						</div>
 

@@ -10,5 +10,6 @@ public interface Dao<T> {
 	T buscar(Long id);
 	void removeById(Long id);
 	void remover(T entity);
-	void update(T entity); 
+	void update(T entity);
+	void saveOrUpdate(T entity); 
 }

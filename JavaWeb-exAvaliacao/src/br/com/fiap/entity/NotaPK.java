@@ -18,10 +18,8 @@ public class NotaPK implements Serializable {
 	@JoinColumn(name = "idDisciplina")
 	private Disciplina disciplina;
 
-	@OneToOne
-	@JoinColumn(name = "idTipoNota")
-	private TipoNota tipoNota;
-
+	private TipoNotaEnum tipo;
+	
 	@OneToOne
 	@JoinColumn(name = "idAluno")
 	private Aluno aluno;
@@ -34,13 +32,6 @@ public class NotaPK implements Serializable {
 		this.disciplina = disciplina;
 	}
 
-	public TipoNota getTipoNota() {
-		return tipoNota;
-	}
-
-	public void setTipoNota(TipoNota tipoNota) {
-		this.tipoNota = tipoNota;
-	}
 
 	public Aluno getAluno() {
 		return aluno;
@@ -49,5 +40,17 @@ public class NotaPK implements Serializable {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
+
+	public TipoNotaEnum getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoNotaEnum tipo) {
+		this.tipo = tipo;
+	}
+
+
+
+
 
 }

@@ -20,6 +20,8 @@ import br.com.fiap.entity.Disciplina;
 import br.com.fiap.entity.Nota;
 import br.com.fiap.entity.NotaPK;
 import br.com.fiap.entity.Professor;
+import br.com.fiap.entity.TipoNota;
+import br.com.fiap.entity.TipoNotaEnum;
 
 @ManagedBean
 @ViewScoped
@@ -34,8 +36,12 @@ public class ProfessorControleListagemBean {
 	private HttpSession session;
 	private Disciplina disciplina;
 	private Aluno aluno;
+	private Nota notaP1;
+	private Nota notaAtvd;
+	private Nota notaP2;
 
 	private Session hSession;
+	private GenericDao<Nota> notaDao;
 
 	public List<Disciplina> getListDisciplina() {
 		return listDisciplina;
@@ -45,18 +51,88 @@ public class ProfessorControleListagemBean {
 	}
 	@PostConstruct
 	public void init(){
+		
+
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		System.out.println("CONTROLE list BEAN");
 		createHsession();
 		professorDao = new GenericDao<Professor>(Professor.class);
 		disciplina = (Disciplina) session.getAttribute("disciplina");
+		setNotaDao(new GenericDao<Nota>(Nota.class));
+
+
+
 
 	}
-	
+
 	public void addNota(){
-	
-		
+
+
+		if (notaP1.getValor() != null) {
+			NotaPK notaPK = new NotaPK();
+			notaPK.setAluno(aluno);
+			notaPK.setDisciplina(disciplina);
+			notaPK.setTipo(TipoNotaEnum.PROJETO_1);
+			notaP1.setNotapk(notaPK);
+			notaDao.saveOrUpdate(notaP1);
+		}
+		if (notaAtvd.getValor() != null) {
+			NotaPK notaPK = new NotaPK();
+			notaPK.setAluno(aluno);
+			notaPK.setDisciplina(disciplina);
+			notaPK.setTipo(TipoNotaEnum.ATIVIDADE_PRATICA);
+			notaAtvd.setNotapk(notaPK);
+			notaDao.saveOrUpdate(notaAtvd);
+
+
+
+		}
+		if (notaP2.getValor() != null) {
+			NotaPK notaPK = new NotaPK();
+			notaPK.setAluno(aluno);
+			notaPK.setDisciplina(disciplina);
+			notaPK.setTipo(TipoNotaEnum.PROJETO_2);
+			notaP2.setNotapk(notaPK);
+			notaDao.update(notaP2);
+		}
+
 	}
+
+	public void prepNota(Aluno aluno){
+		createHsession();
+		
+		
+		Query findNotaPorAlunoEDisciplina = hSession.getNamedQuery("findNotaPorAlunoEDisciplina");
+		findNotaPorAlunoEDisciplina.setLong("rmAluno", (Long) aluno.getId());
+		findNotaPorAlunoEDisciplina.setLong("idDisciplina", disciplina.getId());
+		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_1);
+
+
+		if ((Nota) findNotaPorAlunoEDisciplina.uniqueResult() != null ) {
+			notaP1 = (Nota) findNotaPorAlunoEDisciplina.uniqueResult();
+		}else{
+			notaP1 = new Nota();
+		}
+
+		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_2);
+		
+
+		if ((Nota) findNotaPorAlunoEDisciplina.uniqueResult()  != null ) {
+			notaP2 = (Nota) findNotaPorAlunoEDisciplina.uniqueResult();
+		}else{
+			notaP2 = new Nota();
+		}
+
+		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.ATIVIDADE_PRATICA);
+
+
+		if ((Nota) findNotaPorAlunoEDisciplina.uniqueResult()  != null ) {
+			notaAtvd = (Nota) findNotaPorAlunoEDisciplina.uniqueResult();
+		}else{
+			notaAtvd = new Nota();
+		}
+	}
+
 
 	public void updateDisciplinaSession(Disciplina disciplina){
 		session.setAttribute("disciplina", disciplina);
@@ -68,7 +144,7 @@ public class ProfessorControleListagemBean {
 		queryAlunosPorProfessor.setLong("rmProfessor", (Long) session.getAttribute("rmProfessor"));
 		return listAluno = queryAlunosPorProfessor.list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Aluno> queryAlunosPorDisciplina(){
 		Query queryAlunosPorDisciplina = hSession.getNamedQuery("findAlunoPorDisciplina");
@@ -138,6 +214,32 @@ public class ProfessorControleListagemBean {
 	}
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+
+
+	public Nota getNotaAtvd() {
+		return notaAtvd;
+	}
+	public void setNotaAtvd(Nota notaAtvd) {
+		this.notaAtvd = notaAtvd;
+	}
+	public Nota getNotaP1() {
+		return notaP1;
+	}
+	public void setNotaP1(Nota notaP1) {
+		this.notaP1 = notaP1;
+	}
+	public Nota getNotaP2() {
+		return notaP2;
+	}
+	public void setNotaP2(Nota notaP2) {
+		this.notaP2 = notaP2;
+	}
+	public GenericDao<Nota> getNotaDao() {
+		return notaDao;
+	}
+	public void setNotaDao(GenericDao<Nota> notaDao) {
+		this.notaDao = notaDao;
 	}
 
 
