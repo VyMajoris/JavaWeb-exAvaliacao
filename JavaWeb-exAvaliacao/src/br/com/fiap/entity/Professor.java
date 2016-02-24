@@ -1,62 +1,83 @@
 package br.com.fiap.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @NamedQueries({
-	@NamedQuery(
-			name = "findProfessor",
-			query = "from Professor p where p.rmProfessor = :rmProfessor and p.senha = :senha"
-			)
-})
-
+		@NamedQuery(name = "findProfessor", query = "from Professor p where p.id = :rmProfessor and p.senha = :senha") })
 
 @Entity
-public class Professor {
+@PrimaryKeyJoinColumn(name = "id")
+public class Professor extends Usuario implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int rmProfessor;
-
-	private String senha;
-
-	private String cpf;
-
-	private String nome;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataNasc;
 	
+	private String telefone;
+	private String email;
+	private String endereco;
+	private String nome;
+	private String cpf;
+	
+	public Professor() {
+		this.setTipo(TipoUsuarioEnum.PROFESSOR);
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "professor")
+	private Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();
+
+	@Temporal(TemporalType.DATE)
+	private Date dataNasc;
 
 	@Override
-	 public String toString() {
-	     return String.format("%s[id=%d]", getClass().getSimpleName(), getRmProfessor());
-	 }
-
-	public String getSenha() {
-		return senha;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		return result;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Professor professor = (Professor) o;
+		if (getId() != null ? !getId().equals(professor.getId()) : professor.getId() != null) {
+			return false;
+		}
+		return true;
 	}
 
-	public String getCpf() {
-		return cpf;
+	@Override
+	public String toString() {
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public Collection<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(Collection<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 
 	public String getNome() {
@@ -72,16 +93,40 @@ public class Professor {
 	}
 
 	public void setDataNasc(Date dataNasc) {
+
 		this.dataNasc = dataNasc;
 	}
 
-	public int getRmProfessor() {
-		return rmProfessor;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setRmProfessor(int rmProfessor) {
-		this.rmProfessor = rmProfessor;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
 }

@@ -1,34 +1,23 @@
 package br.com.fiap.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.persistence.Column;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.CascadeType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
-
+import javax.persistence.OneToMany;
 
 
 @Entity
-public class Escola {
+public class Escola implements Serializable {
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private int idEscola;
+	private Long idEscola;
 
 	private String nome;
 
@@ -36,31 +25,62 @@ public class Escola {
 
 	private String endereco;
 
-	private Double lat;
-
-	private Double lng;
 
 	private int salas;
 
-	@JoinColumn
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "escola_curso", joinColumns = { 
-			@JoinColumn(name = "ESCOLA_ID", nullable = false, updatable = false) }, 
-	inverseJoinColumns = { @JoinColumn(name = "CURSO_ID") })
-	private List<Curso> listCurso = new ArrayList<Curso>();
-	
-	@Override
-	 public String toString() {
-	     return String.format("%s[id=%d]", getClass().getSimpleName(), getIdEscola());
-	 }
 
-	public List<Curso> getListCurso() {
-		return listCurso;
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="escola")
+	private Collection<Curso> cursos = new ArrayList<Curso>();
+	
+	   @Override
+	    public int hashCode() {
+	        final int prime = 31;
+	        int result = 1;
+	        result = prime * result + ((idEscola == null) ? 0 : idEscola.hashCode());
+	        return result;
+	    }
+	
+
+	    @Override
+	    public boolean equals(Object o) {
+	    
+	        if (this == o){
+	        
+	        	return true;
+	        } 
+	        if (o == null || getClass() != o.getClass()){
+	        	
+	        	 return false;
+	        }
+	        Escola escola = (Escola) o;
+	        if (idEscola != null ? !idEscola.equals(escola.idEscola) : escola.idEscola != null) {
+	        	
+	        	return false;
+	        }
+	        return true;
+	    }
+	    @Override
+	    public String toString() {
+	        return "Escola: [id=" + idEscola + ", nome=" + nome + "]";
+	    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public Collection<Curso> getCursos() {
+		return cursos;
 	}
 
-	public void setListCurso(List<Curso> listCurso) {
-		this.listCurso = listCurso;
+
+	public void setCursos(Collection<Curso> cursos) {
+		this.cursos = cursos;
 	}
 
 
@@ -73,29 +93,17 @@ public class Escola {
 	}
 
 
-	public Double getLat() {
-		return lat;
-	}
 
-	public void setLat(Double lat) {
-		this.lat = lat;
-	}
 
-	public Double getLng() {
-		return lng;
-	}
-
-	public int getIdEscola() {
+	public Long getIdEscola() {
 		return idEscola;
 	}
 
-	public void setIdEscola(int idEscola) {
+	public void setIdEscola(Long idEscola) {
 		this.idEscola = idEscola;
 	}
 
-	public void setLng(Double lng) {
-		this.lng = lng;
-	}
+
 
 	public String getNome() {
 		return nome;

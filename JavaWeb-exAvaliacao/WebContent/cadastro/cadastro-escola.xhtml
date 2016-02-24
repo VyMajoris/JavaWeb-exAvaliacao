@@ -1,0 +1,111 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+<h:body>
+
+	<ui:composition template="/template/_template.xhtml">
+		<ui:define name="title">
+	    Cadastro de Escolas
+	</ui:define>
+
+		<ui:define name="content">
+
+			<div class=" container top-landing">
+				<h:messages globalOnly="true" />
+				<h2>Cadastro de Escolas</h2>
+				<h:form prependId="false">
+					<h:inputHidden value="#{escolaCadastroBean.escola.idEscola}" />
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group has-warning">
+								<h:outputLabel value="Nome" style="font-weight:bold" />
+								<h:inputText pa:placeholder="Nome"
+									value="#{escolaCadastroBean.escola.nome}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Salas" style="font-weight:bold" />
+								<h:inputText pa:placeholder="Salas" pa:type="number"
+									value="#{escolaCadastroBean.escola.salas}"
+									styleClass="form-control" />
+							</div>
+						</div>
+
+						<!-- row -->
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Descrição Curta" style="font-weight:bold" />
+								<h:inputText pa:placeholder="Descrição Curta"
+									value="#{escolaCadastroBean.escola.descricao}"
+									styleClass="form-control" />
+							</div>
+
+							<!-- col-md-6 -->
+						</div>
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<h:outputLabel value="Endereço" style="font-weight:bold" />
+								<h:inputText id="address" pa:placeholder="Endereço"
+									value="#{escolaCadastroBean.escola.endereco}"
+									styleClass="form-control" />
+							</div>
+							<!-- col-md-6 -->
+						</div>
+						<!-- row -->
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+
+								<c:if test="${empty escolaCadastroBean.escola.idEscola}">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+										action="#{escolaCadastroBean.cadastrarEscola}" type="submit"
+										value="Cadastrar" />
+								</c:if>
+								<c:if test="${not empty escolaCadastroBean.escola.idEscola}">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+										action="#{escolaCadastroBean.atualizarEscola}" type="submit"
+										value="Atualizar"  />
+								</c:if>
+							</div>
+						</div>
+					</div>
+
+				</h:form>
+			</div>
+
+
+		</ui:define>
+		<ui:define name="footer"></ui:define>
+	</ui:composition>
+
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+
+
+
+	<!--JavaScript
+    ================================================== -->
+
+
+</h:body>
+</html>

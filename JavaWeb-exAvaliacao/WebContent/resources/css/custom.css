@@ -43,6 +43,9 @@
 	overflow: scroll;
 }
 
+.list-header{
+	background-color: #1abc9c; 
+}
 
 .ribbon {
 	background:
@@ -52,7 +55,7 @@
 }
 
 .top-landing {
-	padding-top: 106px;
+	padding-top: 60px;
 	color: #1abc9c;
 }
 
@@ -132,4 +135,7 @@ corresponding value from the list below*/
 }
 textarea{
 	max-width: 100%;
+}
+.form-control[disabled]{
+	color:#97a4a4;
 }

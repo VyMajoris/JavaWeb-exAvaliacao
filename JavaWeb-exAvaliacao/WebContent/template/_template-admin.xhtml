@@ -1,0 +1,225 @@
+
+
+
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf/"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<meta charset="utf-8" />
+	<title>Grupo **** - Pós Graduações</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet"
+		href="https://designmodo.github.io/Flat-UI/dist/css/flat-ui.min.css" />
+	<link rel="stylesheet" href="../resources/css/custom.css" />
+	<link rel="stylesheet" href="../resources/css/sidemenu.css" />
+	<link rel="stylesheet" href="../resources/css/jquery.navgoco.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/js/flat-ui.js" />
+
+	<script src="../resources/js/maps.js" />
+	<script src="../resources/js/custom.js" />
+	<script src="../resources/js/inputmask.js" />
+	<script src="../resources/js/jquery.inputmask.js" />
+	<script src="../resources/js/inputmask.date.extensions.js" />
+	<script src="../resources/js/sidemenu.js" />
+	<script src="../resources/js/jquery.navgoco.min.js" />
+
+</h:head>
+<body>
+	<div id="header">
+		<ui:insert name="header">
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed"
+							data-toggle="collapse" data-target="#navbar"
+							aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+						</button>
+						<a class="navbar-brand" href="#">Pós Graduações XYZ</a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+
+					
+
+						
+							<ul class="nav navbar-nav">
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown">Cadastrar <b class="caret"></b></a> <span
+									class="dropdown-arrow"></span>
+									<ul class="dropdown-menu">
+										<li><a href="../cadastro/cadastro-escola.xhtml">Escola</a></li>
+										<li><a href="../cadastro/cadastro-aluno.xhtml">Aluno</a></li>
+										<li><a href="../cadastro/cadastro-professor.xhtml">Professor</a></li>
+										<li><a href="../cadastro/cadastro-curso.xhtml">Curso</a></li>
+										<li><a href="../cadastro/cadastro-disciplina.xhtml">Disciplina</a></li>
+									</ul></li>
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown">Listar <b class="caret"></b></a> <span
+									class="dropdown-arrow"></span>
+									<ul class="dropdown-menu">
+										<li><a href="../lista/lista-escola.xhtml">Escola</a></li>
+										<li><a href="../lista/lista-aluno.xhtml">Aluno</a></li>
+										<li><a href="../lista/lista-professor.xhtml">Professor</a></li>
+										<li><a href="../lista/lista-curso.xhtml">Curso</a></li>
+										<li><a href="../lista/lista-disciplina.xhtml">Disciplina</a></li>
+									</ul></li>
+							</ul>
+							<h:form style="padding-right:0px; padding-left:0px;"
+								class="navbar-form navbar-right">
+
+								<h:commandButton class="btn btn-success" type="submit"
+									value="Sair" actionListener="#{loginBean.deslogar}" />
+							</h:form>
+							<p class="navbar-text navbar-right">
+								Bem vindo, <a href="#" class="navbar-link">#{displayName}!  </a>
+							</p>
+						
+
+					</div>
+					<!--/.navbar-collapse -->
+				</div>
+			</nav>
+		</ui:insert>
+	</div>
+
+
+
+
+
+
+
+
+
+
+	<ui:insert name="sidemenu">
+		<div class="top-landing">
+
+
+			<div class="container-fluid">
+
+				<div class="row row-offcanvas row-offcanvas-left">
+
+
+					<script type="text/javascript">
+					$(document).ready(function() {
+					    $('.nav').navgoco();
+					});
+					</script>
+
+
+
+					<div class="col-xs-2  sidebar-offcanvas " id="sidebar">
+						<h:form>
+
+							<ul id="demo2" class="nav">
+								<li class="active"><a href="#">Menu</a></li>
+								<li><a href="#">Disciplinas</a>
+									<ul>
+										<ui:repeat
+											value="#{professorControleBean.professor.disciplinas}"
+											var="disc">
+											
+											 <p>Curso id: #{disc.curso.idCurso} Curso nome: #{disc.curso.nome}</p>
+											
+											<li><h:commandLink title="Ver alunos desta disciplina"
+													action="/professor/professor-alunosPorDisciplina"
+													actionListener="#{professorControleListagemBean.updateDisciplinaSession(disc)}"
+													value="#{disc.nome}">
+
+												</h:commandLink></li>
+
+										</ui:repeat>
+									</ul></li>
+								<li><a href="#">Turmas</a>
+									<ul>
+										<ui:repeat
+											value="#{professorControleBean.queryfindCursoPorProfessor()}"
+											var="cur">
+											<li><a href="#">#{cur.nome}</a>
+												<ul>
+													<ui:repeat
+														value="#{professorControleBean.disciplinaPorCursoPorProfessor(cur.idCurso)}"
+														var="disc">
+														<li><h:commandLink
+																title="Ver alunos desta disciplina"
+																action="/professor/professor-alunosPorDisciplina"
+																actionListener="#{professorControleListagemBean.updateDisciplinaSession(disc)}"
+																value="#{disc.nome}">
+
+															</h:commandLink></li>
+													</ui:repeat>
+												</ul></li>
+
+										</ui:repeat>
+									</ul></li>
+
+								<li><h:commandLink title="Todos meus alunos"
+										action="/professor/professor-todosAlunos"
+										value="Todos meus alunos">
+
+									</h:commandLink></li>
+
+
+
+							</ul>
+						</h:form>
+					</div>
+					<div class="col-xs-1 " id="toggle-canvas">
+						<p class="pull-left">
+							<button type="button" id="" class="btn btn-primary btn-md"
+								data-toggle="offcanvas">
+								<i class="fa fa-bars fa-lg"></i>
+							</button>
+						</p>
+
+					</div>
+
+					<div class="col-xs-9">
+						<div class="container">
+							<div class="row">
+								<ui:insert name="content">
+								</ui:insert>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<!--/row-->
+
+			<hr />
+		</div>
+		<!--/.container-->
+	</ui:insert>
+
+
+
+
+
+
+
+
+	<div id="footer">
+		<ui:insert name="footer">
+    	Footer area.  See comments below this line in the source.
+    	<!--  include your header file or uncomment the include below and create footer.xhtml in this directory -->
+			<!--<ui:include src="footer.xhtml"/>  -->
+		</ui:insert>
+	</div>
+
+</body>
+
+</html>
