@@ -19,5 +19,8 @@ $(document).ready(function(){
     
     $("#wow").removeClass("ui-datatable");
     $("table").addClass("table table-bordered table-hover table-condensed");
+    
+    
+
 
 }); 

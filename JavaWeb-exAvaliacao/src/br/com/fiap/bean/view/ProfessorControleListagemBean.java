@@ -51,7 +51,7 @@ public class ProfessorControleListagemBean {
 	}
 	@PostConstruct
 	public void init(){
-		
+
 
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		System.out.println("CONTROLE list BEAN");
@@ -68,16 +68,17 @@ public class ProfessorControleListagemBean {
 	public void addNota(){
 
 
-		if (notaP1.getValor() != null) {
+	
 			NotaPK notaPK = new NotaPK();
 			notaPK.setAluno(aluno);
 			notaPK.setDisciplina(disciplina);
 			notaPK.setTipo(TipoNotaEnum.PROJETO_1);
 			notaP1.setNotapk(notaPK);
 			notaDao.saveOrUpdate(notaP1);
-		}
-		if (notaAtvd.getValor() != null) {
-			NotaPK notaPK = new NotaPK();
+			
+		
+	
+			 notaPK = new NotaPK();
 			notaPK.setAluno(aluno);
 			notaPK.setDisciplina(disciplina);
 			notaPK.setTipo(TipoNotaEnum.ATIVIDADE_PRATICA);
@@ -86,27 +87,24 @@ public class ProfessorControleListagemBean {
 
 
 
-		}
-		if (notaP2.getValor() != null) {
-			NotaPK notaPK = new NotaPK();
+			 notaPK = new NotaPK();
 			notaPK.setAluno(aluno);
 			notaPK.setDisciplina(disciplina);
 			notaPK.setTipo(TipoNotaEnum.PROJETO_2);
 			notaP2.setNotapk(notaPK);
 			notaDao.update(notaP2);
-		}
+		
 
 	}
 
 	public void prepNota(Aluno aluno){
 		createHsession();
-		
-		
-		Query findNotaPorAlunoEDisciplina = hSession.getNamedQuery("findNotaPorAlunoEDisciplina");
-		findNotaPorAlunoEDisciplina.setLong("rmAluno", (Long) aluno.getId());
-		findNotaPorAlunoEDisciplina.setLong("idDisciplina", disciplina.getId());
-		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_1);
 
+		Query findNotaPorAlunoEDisciplina = hSession.getNamedQuery("findNotaPorAlunoEDisciplina");
+		findNotaPorAlunoEDisciplina.setLong("idAluno", (Long) aluno.getId());
+		findNotaPorAlunoEDisciplina.setLong("idDisciplina", disciplina.getId());
+		
+		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_1);
 
 		if ((Nota) findNotaPorAlunoEDisciplina.uniqueResult() != null ) {
 			notaP1 = (Nota) findNotaPorAlunoEDisciplina.uniqueResult();
@@ -115,7 +113,7 @@ public class ProfessorControleListagemBean {
 		}
 
 		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_2);
-		
+
 
 		if ((Nota) findNotaPorAlunoEDisciplina.uniqueResult()  != null ) {
 			notaP2 = (Nota) findNotaPorAlunoEDisciplina.uniqueResult();
@@ -141,7 +139,7 @@ public class ProfessorControleListagemBean {
 	@SuppressWarnings("unchecked")
 	public List<Aluno> queryAlunosPorProfessor(){
 		Query queryAlunosPorProfessor = hSession.getNamedQuery("findAlunoPorProfessor");
-		queryAlunosPorProfessor.setLong("rmProfessor", (Long) session.getAttribute("rmProfessor"));
+		queryAlunosPorProfessor.setLong("idProfessor", (Long) session.getAttribute("idProfessor"));
 		return listAluno = queryAlunosPorProfessor.list();
 	}
 
@@ -150,7 +148,7 @@ public class ProfessorControleListagemBean {
 		Query queryAlunosPorDisciplina = hSession.getNamedQuery("findAlunoPorDisciplina");
 		Disciplina disciplina = (Disciplina) session.getAttribute("disciplina");
 		this.disciplina = disciplina;
-		queryAlunosPorDisciplina.setLong("idDisciplina", disciplina.getIdDisciplina());
+		queryAlunosPorDisciplina.setLong("idDisciplina", disciplina.getId());
 		List<Aluno> listaluno = queryAlunosPorDisciplina.list();
 		return this.listAluno = listaluno;
 	}

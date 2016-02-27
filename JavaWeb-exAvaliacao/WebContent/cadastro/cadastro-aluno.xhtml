@@ -8,6 +8,7 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf/"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
+
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 <h:body>
@@ -21,19 +22,23 @@
 			<div class="container top-landing">
 				<h:messages globalOnly="true" />
 				<h2>Cadastro de Alunos</h2>
-				<h:form>
+				<h:form prependId="false"> 
 					<h:inputHidden value="#{alunoCadastroBean.aluno.id}" />
+					<h:selectBooleanCheckbox style="display: none;"  id="rmAuto" />
 
 					<div class="row">
 						<div class="col-md-6">
-								<div class="form-group">
+							<div class="form-group">
 								<h:outputLabel value="Registro de Matrícula"
 									style="font-weight:bold" />
 								<div class="input-group">
-									<span class="input-group-addon">RM</span>
-									<h:inputText disabled="true"
-										value="#{alunoCadastroBean.aluno.id}"
-										pa:type="number" class="form-control" />
+									<span style="padding-bottom: 0px; padding-top: 0px;"
+										class="input-group-addon">
+										RM
+									</span>
+									<h:inputText 
+										id="inputRM" value="#{alunoCadastroBean.aluno.rm}"
+										class="form-control" />
 
 								</div>
 							</div>
@@ -169,17 +174,24 @@
 				</h:form>
 			</div>
 			<script type="text/javascript">
-								$(document).ready(function() {
-									$("select").select2({
-										
-									});
-									$(function() {
-										   $(".date").inputmask( 'dd/mm/yyyy' );
-										   $(".tel").inputmask( '9999-99999' );
-										   $(".cpf").inputmask( '999.999.999-99' );
-									});
-								});
-							</script>
+				$(document).ready(function() {
+					$("select").select2();
+					
+					
+					
+					
+						$(".date").inputmask('dd/mm/yyyy');
+						$(".tel").inputmask('9999-99999');
+						$(".cpf").inputmask('999.999.999-99');
+				
+					
+		
+					
+					
+					
+					
+				});
+			</script>
 
 
 		</ui:define>

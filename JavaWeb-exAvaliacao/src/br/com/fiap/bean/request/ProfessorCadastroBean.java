@@ -29,7 +29,7 @@ public class ProfessorCadastroBean {
 	public void init(){
 		System.out.println("Professor Bean init");
 		professor = new Professor();
-		generateRandomId();
+		//generateRandomId();
 		professorDao = new  GenericDao<Professor>(Professor.class);
 		disciplinaDao = new GenericDao<Disciplina>(Disciplina.class);
 		escolaDao = new GenericDao<Escola>(Escola.class);
@@ -56,7 +56,7 @@ public class ProfessorCadastroBean {
 				professorDao.adicionar(professor);
 				FacesMessage msg = new FacesMessage("Professor "+professor.getNome()+"cadastrado!");
 				professor = new Professor();
-				generateRandomId();
+				//generateRandomId();
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 
 			}

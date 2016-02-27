@@ -27,7 +27,7 @@
 				<h2>Cadastro de Cursos</h2>
 
 				<h:form id="cursoForm" prependId="false">
-					<h:inputHidden value="#{cursoCadastroBean.curso.idCurso}"/>
+					<h:inputHidden value="#{cursoCadastroBean.curso.id}"/>
 				
 					<div class="row">
 						<div class="col-md-6">
@@ -93,7 +93,8 @@
 
 
 								<h:outputLabel value="Escola" style="font-weight:bold" />
-								<h:selectOneMenu
+								<h:selectOneMenu immediate="true"
+									converter="#{simpleEntityConverter}"
 									styleClass="form-control multiselect multiselect-info"
 									value="#{cursoCadastroBean.curso.escola}">
 									
@@ -133,12 +134,12 @@
 						<div class="col-sm-12">
 							<div class="form-group">
 
-								<c:if test="${empty cursoCadastroBean.curso.idCurso}">
+								<c:if test="${empty cursoCadastroBean.curso.id}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{cursoCadastroBean.cadastrarCurso}" type="submit"
 										value="Cadastrar" />
 								</c:if>
-								<c:if test="${not empty cursoCadastroBean.curso.idCurso}">
+								<c:if test="${not empty cursoCadastroBean.curso.id}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{cursoCadastroBean.atualizarCurso}" type="submit"
 										value="Atualizar" />

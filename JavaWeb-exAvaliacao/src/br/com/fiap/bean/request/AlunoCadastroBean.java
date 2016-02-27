@@ -16,7 +16,7 @@ import br.com.fiap.entity.Curso;
 
 @ManagedBean
 @RequestScoped
-public class AlunoCadastroBean {
+public class AlunoCadastroBean implements DatabaseListener {
 
 	Aluno aluno;
 	private GenericDao<Aluno> alunoDao;
@@ -27,7 +27,7 @@ public class AlunoCadastroBean {
 	public void init(){
 		System.out.println("Aluno Bean init");
 		aluno = new Aluno();
-		generateRandomId();
+		//generateRandomId();
 		alunoDao = new  GenericDao<Aluno>(Aluno.class);
 		cursoDao = new GenericDao<Curso>(Curso.class);
 		listCurso = cursoDao.listar();
@@ -37,6 +37,7 @@ public class AlunoCadastroBean {
 			Random rand = new Random();
 			int randomNum = rand.nextInt((99999 - 11111) + 1) + 0;
 			aluno.setId(Long.parseLong(String.format("%05d", randomNum)));
+			
 		}
 	}
 	public void cadastrarAluno() throws ParseException{
@@ -52,7 +53,7 @@ public class AlunoCadastroBean {
 					alunoDao.adicionar(aluno);
 					FacesMessage msg = new FacesMessage("Aluno "+aluno.getNome()+" cadastrado!");
 					aluno = new Aluno();
-					generateRandomId();
+					//generateRandomId();
 					FacesContext.getCurrentInstance().addMessage(null, msg);
 				}
 
@@ -101,6 +102,11 @@ public class AlunoCadastroBean {
 	}
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+	@Override
+	public void onSave() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -12,12 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import br.com.fiap.converter.Identifiable;
+
 
 @Entity
-public class Escola implements Serializable {
+public class Escola extends BaseEntity{
 
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private Long idEscola;
 
 	private String nome;
 
@@ -25,49 +25,17 @@ public class Escola implements Serializable {
 
 	private String endereco;
 
-
 	private int salas;
 
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="escola")
 	private Collection<Curso> cursos = new ArrayList<Curso>();
 	
-	   @Override
-	    public int hashCode() {
-	        final int prime = 31;
-	        int result = 1;
-	        result = prime * result + ((idEscola == null) ? 0 : idEscola.hashCode());
-	        return result;
-	    }
 	
-
-	    @Override
-	    public boolean equals(Object o) {
-	    
-	        if (this == o){
-	        
-	        	return true;
-	        } 
-	        if (o == null || getClass() != o.getClass()){
-	        	
-	        	 return false;
-	        }
-	        Escola escola = (Escola) o;
-	        if (idEscola != null ? !idEscola.equals(escola.idEscola) : escola.idEscola != null) {
-	        	
-	        	return false;
-	        }
-	        return true;
-	    }
 	    @Override
 	    public String toString() {
-	        return "Escola: [id=" + idEscola + ", nome=" + nome + "]";
+	        return "Escola: [id=" + getId() + ", nome=" + nome + "]";
 	    }
-	
-	
-	
-	
-	
 	
 	
 	
@@ -90,17 +58,6 @@ public class Escola implements Serializable {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
-	}
-
-
-
-
-	public Long getIdEscola() {
-		return idEscola;
-	}
-
-	public void setIdEscola(Long idEscola) {
-		this.idEscola = idEscola;
 	}
 
 
@@ -128,5 +85,7 @@ public class Escola implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
+
 
 }

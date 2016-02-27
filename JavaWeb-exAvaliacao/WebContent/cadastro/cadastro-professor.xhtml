@@ -24,18 +24,21 @@
 				<h:messages />
 				<h2>Cadastro de Professor</h2>
 				<h:form prependId="false">
-					<h:inputHidden
-						value="#{professorCadastroBean.professor.id}" />
+					<h:inputHidden value="#{professorCadastroBean.professor.id}" />
+						<h:selectBooleanCheckbox style="display: none;"  id="rmAuto" />
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Registro de Matrícula"
 									style="font-weight:bold" />
 								<div class="input-group">
-									<span class="input-group-addon">RM</span>
-									<h:inputText disabled="true"
-										value="#{professorCadastroBean.professor.id}"
-										pa:type="number" class="form-control" />
+									<span style="padding-bottom: 0px; padding-top: 0px;"
+										class="input-group-addon">
+										RM
+									</span>
+									<h:inputText id="inputRM" 
+										value="#{professorCadastroBean.professor.rm}" 
+										class="form-control" />
 
 								</div>
 							</div>
@@ -100,7 +103,8 @@
 							<div class="form-group">
 								<h:outputLabel value="Data de Nascimento"
 									style="font-weight:bold" />
-								<h:inputText pa:placeholder="Data de Nascimento" styleClass="form-control date"
+								<h:inputText pa:placeholder="Data de Nascimento"
+									styleClass="form-control date"
 									value="#{professorCadastroBean.professor.dataNasc}">
 									<f:convertDateTime pattern="dd/mm/yyyy" />
 								</h:inputText>
@@ -117,26 +121,22 @@
 									styleClass="form-control cpf" />
 							</div>
 						</div>
-					
+
 					</div>
-				
+
 
 
 
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<c:if
-									test="${professorCadastroBean.professor.nome != null}">
+								<c:if test="${professorCadastroBean.professor.nome != null}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{professorCadastroBean.atualizarProfessor}"
 										type="submit" value="Atualizar" />
 								</c:if>
-								<c:if
-									test="${professorCadastroBean.professor.nome == null}">
-									<h:commandButton
-										
-										styleClass="btn btn-block btn-lg btn-primary"
+								<c:if test="${professorCadastroBean.professor.nome == null}">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{professorCadastroBean.cadastrarProfessor}"
 										type="submit" value="Cadastrar" />
 								</c:if>
@@ -145,18 +145,17 @@
 					</div>
 				</h:form>
 			</div>
-			
-			
-					<script type="text/javascript">
+
+
+			<script type="text/javascript">
 								$(document).ready(function() {
-									$("select").select2({
-										
-									});
-									$(function() {
-										   $(".date").inputmask( 'dd/mm/yyyy' );
-										   $(".tel").inputmask( '9999-99999' );
-										   $(".cpf").inputmask( '999.999.999-99' );
-									});
+									$("select").select2();
+							
+									
+								    $(".date").inputmask( 'dd/mm/yyyy' );
+								    $(".tel").inputmask( '9999-99999' );
+									$(".cpf").inputmask( '999.999.999-99' );
+								
 								});
 							</script>
 

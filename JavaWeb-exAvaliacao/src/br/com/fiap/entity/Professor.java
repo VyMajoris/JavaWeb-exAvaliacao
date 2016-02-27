@@ -15,17 +15,13 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@NamedQueries({
-		@NamedQuery(name = "findProfessor", query = "from Professor p where p.id = :rmProfessor and p.senha = :senha") })
+
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-public class Professor extends Usuario implements Serializable {
+public class Professor extends Usuario  {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
 
 	
 	private String telefone;

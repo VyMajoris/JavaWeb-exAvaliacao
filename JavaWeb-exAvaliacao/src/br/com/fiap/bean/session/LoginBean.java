@@ -50,7 +50,7 @@ public class LoginBean implements Serializable{
 	public String buscaUsuario(){
 		String retorno = null;
 		Usuario usuario = (Usuario) hSession.getNamedQuery("findUsuario")
-				.setLong("id", Long.parseLong(rm))
+				.setLong("rm", Long.parseLong(rm))
 				.setString("senha", senha)
 				.uniqueResult();
 
@@ -82,14 +82,14 @@ public class LoginBean implements Serializable{
 	private String loginProfessor(Professor professor) {
 		session.setAttribute("loginType", "professor");
 		session.setAttribute("displayName", professor.getNome());
-		session.setAttribute("rmProfessor", professor.getId());
+		session.setAttribute("idProfessor", professor.getId());
 		return "/professor/professor-dashboard";
 	}
 
 	private String loginAluno(Aluno aluno) {
 		session.setAttribute("loginType", "aluno");
 		session.setAttribute("displayName", aluno.getNome());
-		session.setAttribute("rmAluno", aluno.getId());
+		session.setAttribute("idAluno", aluno.getId());
 		return "/aluno/aluno-dashboard";
 	}
 

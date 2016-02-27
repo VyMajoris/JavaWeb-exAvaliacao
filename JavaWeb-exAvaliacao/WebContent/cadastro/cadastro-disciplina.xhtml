@@ -27,7 +27,7 @@
 				<h2>Cadastro de Disciplina</h2>
 				<h:form>
 					<h:inputHidden
-						value="#{disciplinaCadastroBean.disciplina.idDisciplina}" />
+						value="#{disciplinaCadastroBean.disciplina.id}" />
 
 					<div class="row">
 						<div class="col-md-6">
@@ -110,13 +110,13 @@
 				<div class="col-sm-12">
 					<div class="form-group">
 						<c:if
-							test="${empty disciplinaCadastroBean.disciplina.idDisciplina}">
+							test="${empty disciplinaCadastroBean.disciplina.id}">
 							<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 								action="#{disciplinaCadastroBean.cadastrarDisciplina()}"
 								type="submit" value="Cadastrar" />
 						</c:if>
 						<c:if
-							test="${not empty disciplinaCadastroBean.disciplina.idDisciplina }">
+							test="${not empty disciplinaCadastroBean.disciplina.id }">
 							<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 								action="#{disciplinaCadastroBean.atualizarDisciplina()}"
 								type="submit" value="Atualizar" />

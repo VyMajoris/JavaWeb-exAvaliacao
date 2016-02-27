@@ -42,7 +42,7 @@ public class AlunoControleBean {
 		createHsession();
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		alunoDao = new GenericDao<Aluno>(Aluno.class);
-		aluno = alunoDao.buscar( (Long) session.getAttribute("rmAluno"));
+		aluno = alunoDao.buscar( (Long) session.getAttribute("idAluno"));
 
 
 	}

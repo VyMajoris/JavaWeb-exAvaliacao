@@ -13,21 +13,21 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@NamedQueries({ @NamedQuery(name = "findAluno", query = "from Aluno a where a.id = :rmAluno and a.senha = :senha"),
+@NamedQueries({ @NamedQuery(name = "findAluno", query = "from Aluno a where a.id = :idAluno and a.senha = :senha"),
 		@NamedQuery(name = "findAlunoPorProfessor", query = "SELECT DISTINCT a "
 				+ "FROM Aluno a, Curso c, Disciplina d, Professor p " + "JOIN c.disciplinas cDisciplinas "
-				+ "WHERE a.curso.idCurso = c.idCurso AND c.idCurso = cDisciplinas.curso.idCurso AND cDisciplinas.professor.id = :rmProfessor"),
-		@NamedQuery(name = "findAlunoPorCurso", query = "SELECT a FROM Aluno a JOIN a.curso b with b.idCurso = :idCurso"),
+				+ "WHERE a.curso.id = c.id AND c.id = cDisciplinas.curso.id AND cDisciplinas.professor.id = :idProfessor"),
+		@NamedQuery(name = "findAlunoPorCurso", query = "SELECT a FROM Aluno a JOIN a.curso b with b.id = :idCurso"),
 
 		@NamedQuery(name = "findAlunoPorDisciplina", query = "SELECT DISTINCT a "
 				+ "FROM Aluno a, Curso c, Disciplina d " + "JOIN c.disciplinas cDisciplinas "
-				+ "WHERE a.curso.idCurso = c.idCurso AND c.idCurso = cDisciplinas.curso.idCurso AND cDisciplinas.idDisciplina = :idDisciplina"), })
+				+ "WHERE a.curso.id = c.id AND c.id = cDisciplinas.curso.id AND cDisciplinas.id = :idDisciplina"), })
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-public class Aluno extends Usuario implements Serializable {
+public class Aluno extends Usuario {
 
-	private static final long serialVersionUID = -7548628467768295659L;
+	
 
 	private String cpf;
 	private String nome;
@@ -44,7 +44,7 @@ public class Aluno extends Usuario implements Serializable {
 	private Date dataNasc;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "idCurso")
+	@JoinColumn(name = "idCurso", nullable = true, columnDefinition = "bigint(20)")
 	private Curso curso;
 
 	@Override

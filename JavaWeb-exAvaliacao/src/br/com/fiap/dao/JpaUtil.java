@@ -17,12 +17,15 @@ public class JpaUtil {
 	public static EntityManager getEntityManager() {
 		return emf.createEntityManager();
 
+		
 
 	}
 
 	public static Session getHibSession() {
-		return  (Session) getEntityManager().getDelegate();
+		return  (Session) getEntityManager().getDelegate() ;
 	}
+	
+	
 
 
 

@@ -28,6 +28,7 @@ public class GenericDao<T> implements Dao<T> {
 		transaction.commit();
 		session.flush();
 		
+		
 	
 	}
 

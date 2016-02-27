@@ -1,26 +1,44 @@
 package br.com.fiap.entity;
 
+import java.io.Serializable;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.TableGenerator;
+import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlAttribute;
 
-import br.com.fiap.converter.BaseEntity;
+import org.hibernate.annotations.GenericGenerator;
+
+import br.com.fiap.converter.Identifiable;
 
 @NamedQueries({
-	@NamedQuery(name = "findUsuario", query = "from Usuario u where u.id = :id and u.senha = :senha") })
+	@NamedQuery(name = "findUsuario", query = "from Usuario u where u.rm = :rm and u.senha = :senha")
+})
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Usuario implements Login, BaseEntity{
-	
-	@Id
-	private Long id;
+public class Usuario extends BaseEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7656098653486072443L;
+
+	@Column(unique = true)
+	private String rm;
 	private String senha;
 	private TipoUsuarioEnum tipo;
-	
+
+
 	public String getSenha() {
 		return senha;
 	}
@@ -28,29 +46,6 @@ public class Usuario implements Login, BaseEntity{
 		this.senha = senha;
 	}
 
-	@Override
-	public boolean isLogado() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean logaUsuario() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean deslogaUsuario() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public TipoUsuarioEnum getTipo() {
 		return tipo;
 	}
@@ -58,5 +53,13 @@ public class Usuario implements Login, BaseEntity{
 		this.tipo = tipo;
 	}
 
-	
+
+	public String getRm() {
+		return rm;
+	}
+	public void setRm(String rm) {
+		this.rm = rm;
+	}
+
+
 }
