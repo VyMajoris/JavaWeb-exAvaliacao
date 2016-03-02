@@ -8,6 +8,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.fiap.dao.GenericDao;
@@ -15,6 +16,8 @@ import br.com.fiap.dao.JpaUtil;
 import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Curso;
 import br.com.fiap.entity.Disciplina;
+import br.com.fiap.entity.Nota;
+import br.com.fiap.entity.TipoNotaEnum;
 
 @ManagedBean
 @RequestScoped
@@ -24,7 +27,7 @@ public class AlunoControleBean {
 	private List<Aluno> listAluno;
 	private List<Disciplina> listDisciplina;
 	private GenericDao<Aluno> alunoDao;
-	
+
 	private Aluno aluno;
 	private Session hSession;
 	HttpSession session;
@@ -46,7 +49,11 @@ public class AlunoControleBean {
 
 
 	}
+	
+	
 
+	
+	
 	public Aluno getAluno() {
 		return aluno;
 	}

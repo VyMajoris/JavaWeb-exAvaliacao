@@ -1,10 +1,10 @@
 package br.com.fiap.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -13,18 +13,24 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@NamedQueries({ @NamedQuery(name = "findAluno", query = "from Aluno a where a.id = :idAluno and a.senha = :senha"),
+@NamedQueries({ @NamedQuery(name = "findAluno", query = "from Aluno a where a.rm= :rmAluno and a.senha = :senha"),
 		@NamedQuery(name = "findAlunoPorProfessor", query = "SELECT DISTINCT a "
 				+ "FROM Aluno a, Curso c, Disciplina d, Professor p " + "JOIN c.disciplinas cDisciplinas "
-				+ "WHERE a.curso.id = c.id AND c.id = cDisciplinas.curso.id AND cDisciplinas.professor.id = :idProfessor"),
+				+ "WHERE a.curso.id = c.id AND c.id = cDisciplinas.curso.id AND cDisciplinas.professor.rm = :rmProfessor"),
 		@NamedQuery(name = "findAlunoPorCurso", query = "SELECT a FROM Aluno a JOIN a.curso b with b.id = :idCurso"),
 
 		@NamedQuery(name = "findAlunoPorDisciplina", query = "SELECT DISTINCT a "
 				+ "FROM Aluno a, Curso c, Disciplina d " + "JOIN c.disciplinas cDisciplinas "
-				+ "WHERE a.curso.id = c.id AND c.id = cDisciplinas.curso.id AND cDisciplinas.id = :idDisciplina"), })
+				+ "WHERE a.curso.id = c.id AND c.id = cDisciplinas.curso.id AND cDisciplinas.id = :idDisciplina"),
+		@NamedQuery(name = "findTotalAlunosPorCurso", query = "SELECT Count(a) "
+				+ "FROM Aluno a, Curso c "
+				+ "WHERE a.curso.id = c.id AND c.id = :idCurso"),
+		
+
+} )
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "rm")
 public class Aluno extends Usuario {
 
 	
@@ -38,7 +44,6 @@ public class Aluno extends Usuario {
 	public Aluno() {
 		this.setTipo(TipoUsuarioEnum.ALUNO);
 	}
-
 
 	@Temporal(TemporalType.DATE)
 	private Date dataNasc;

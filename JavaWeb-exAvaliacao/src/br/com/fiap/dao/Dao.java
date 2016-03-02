@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public interface Dao<T> {
-	void adicionar(T entidade);
+	T adicionar(T entidade);
 	List<T> listar();
 	T buscar(Long id);
 	void removeById(Long id);

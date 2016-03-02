@@ -114,9 +114,6 @@
 										<ui:repeat
 											value="#{professorControleBean.professor.disciplinas}"
 											var="disc">
-											
-											 <p>Curso id: #{disc.curso.idCurso} Curso nome: #{disc.curso.nome}</p>
-											
 											<li><h:commandLink title="Ver alunos desta disciplina"
 													action="/professor/professor-alunosPorDisciplina"
 													actionListener="#{professorControleListagemBean.updateDisciplinaSession(disc)}"
@@ -134,7 +131,7 @@
 											<li><a href="#">#{cur.nome}</a>
 												<ul>
 													<ui:repeat
-														value="#{professorControleBean.disciplinaPorCursoPorProfessor(cur.idCurso)}"
+														value="#{professorControleBean.disciplinaPorCursoPorProfessor(cur.id)}"
 														var="disc">
 														<li><h:commandLink
 																title="Ver alunos desta disciplina"

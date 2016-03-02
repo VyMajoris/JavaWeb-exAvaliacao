@@ -19,7 +19,7 @@ public class AlunoListaBean {
 	private GenericDao<Aluno> alunoDao;
 
 
-	private Long idAlunoremover;
+	private Long rmAlunoremover;
 
 	@PostConstruct
 	public void init(){
@@ -32,8 +32,8 @@ public class AlunoListaBean {
 
 
 	public String remove(){
-		System.out.println("REMOVE " +idAlunoremover);
-		alunoDao.removeById(idAlunoremover);
+		System.out.println("REMOVE " +rmAlunoremover);
+		alunoDao.removeById(rmAlunoremover);
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage("Aluno Removido!"));
 		listAluno = alunoDao.listar();
@@ -48,14 +48,14 @@ public class AlunoListaBean {
 	public void setListAluno(List<Aluno> listAluno) {
 		this.listAluno = listAluno;
 	}
-	public Long getIdAlunoremover() {
-		return idAlunoremover;
+	public Long getRmAlunoremover() {
+		return rmAlunoremover;
 	}
 
 
 
-	public void setIdAlunoremover(Long idAlunoremover) {
-		this.idAlunoremover = idAlunoremover;
+	public void setRmAlunoremover(Long rmAlunoremover) {
+		this.rmAlunoremover = rmAlunoremover;
 	}
 
 

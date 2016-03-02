@@ -139,7 +139,7 @@ public class ProfessorControleListagemBean {
 	@SuppressWarnings("unchecked")
 	public List<Aluno> queryAlunosPorProfessor(){
 		Query queryAlunosPorProfessor = hSession.getNamedQuery("findAlunoPorProfessor");
-		queryAlunosPorProfessor.setLong("idProfessor", (Long) session.getAttribute("idProfessor"));
+		queryAlunosPorProfessor.setLong("rmProfessor", (Long) session.getAttribute("rmProfessor"));
 		return listAluno = queryAlunosPorProfessor.list();
 	}
 

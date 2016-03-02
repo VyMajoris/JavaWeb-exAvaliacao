@@ -51,21 +51,21 @@
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 
-					
-							<ul class="nav navbar-nav">
-								<li><a class="active" href="../aluno/aluno-dashboard.xhtml">Dashboard</a></li>
-							</ul>
 
-							<h:form style="padding-right:0px; padding-left:0px;"
-								class="navbar-form navbar-right">
+						<ul class="nav navbar-nav">
+							<li><a class="active" href="../aluno/aluno-dashboard.xhtml">Dashboard</a></li>
+						</ul>
 
-								<h:commandButton class="btn btn-success" type="submit"
-									value="Sair" actionListener="#{loginBean.deslogar}" />
-							</h:form>
-							<p class="navbar-text navbar-right">
-								Bem vindo, <a href="#" class="navbar-link">#{displayName}! </a>
-							</p>
-						
+						<h:form style="padding-right:0px; padding-left:0px;"
+							class="navbar-form navbar-right">
+
+							<h:commandButton class="btn btn-success" type="submit"
+								value="Sair" actionListener="#{loginBean.deslogar}" />
+						</h:form>
+						<p class="navbar-text navbar-right">
+							Bem vindo, <a href="#" class="navbar-link">#{displayName}! </a>
+						</p>
+
 
 					</div>
 					<!--/.navbar-collapse -->
@@ -106,43 +106,8 @@
 							<ul id="demo2" class="nav">
 								<li class="active"><a href="#">Menu</a></li>
 
-								<li><a title="Ver Disciplinas deste curso" href="#">#{alunoControleBean.aluno.curso.nome}</a>
-									<ul>
-										<ui:repeat
-											value="#{alunoControleBean.aluno.curso.disciplinas}"
-											var="disc">
-
-											<li><h:commandLink title="Ver disciplinas deste curso"
-													action="/aluno/aluno-disciplinaPorCurso"
-													actionListener="#{alunoControleListagemBean.updateDisciplinaSession(disc)}"
-													value="#{disc.nome}">
-
-												</h:commandLink></li>
-										</ui:repeat>
-
-
-									</ul></li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-								<li><h:commandLink title="Todos meus alunos"
-										action="/professor/professor-todosAlunos"
-										value="Todos meus alunos">
-
-									</h:commandLink></li>
-
-
-
+								<li><h:commandLink title="Ver notas"
+										action="/aluno/aluno-disciplinaPorCurso" value="Ver Notas"/></li>
 							</ul>
 						</h:form>
 					</div>

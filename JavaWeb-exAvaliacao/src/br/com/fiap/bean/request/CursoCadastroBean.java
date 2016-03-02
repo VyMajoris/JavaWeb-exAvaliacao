@@ -2,6 +2,7 @@ package br.com.fiap.bean.request;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +25,8 @@ public class CursoCadastroBean {
 	private Curso curso;
 	private String dataInicio;
 	private String dataTermino;
+	Date terminoiAntigo;
+	Date inicioAntigo;
 
 	@PostConstruct
 	public void init() {
@@ -32,28 +35,45 @@ public class CursoCadastroBean {
 		escolaDao = new GenericDao<Escola>(Escola.class);
 		listEscolaTotal = escolaDao.listar();
 		curso = new Curso();
+		inicioAntigo = curso.getDataInicio();
+		terminoiAntigo = curso.getDataTermino();
 	}
 
 	public void cadastrarCurso() throws ParseException{
-		System.out.println("cadastro curso");
-		if (curso.getEscola() == null) {
-		
-			FacesMessage msg = new FacesMessage("Para cadastrar um curso é necessário selecionar uma escola!");
+
+
+		if ( curso.getDataInicio().after(curso.getDataTermino()) ) {
+			curso.setDataTermino(null);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"A data termíno deve ser depois que data de início! Por favor ajuste.",null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+			
 		}else{
-			System.out.println("curso escola "+curso.getEscola());
 			cursoDao.adicionar(curso);
-			FacesMessage msg = new FacesMessage("Curso "+curso.getNome()+"cadastrado!");
+			FacesMessage msg = new FacesMessage("Curso "+curso.getNome()+" cadastrado!");
 			curso = new Curso();
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
+
+
+
 	}
 	public String atualizarCurso(){
-		System.out.println("atualizarCurso curso");
-		cursoDao.update(curso);
-		FacesMessage msg = new FacesMessage("Curso " +curso.getNome()+ " Atualizado!");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-		return "/lista/lista-curso";
+		String returnString = null;
+		if ( curso.getDataInicio().after(curso.getDataTermino()) ) {
+			curso.setDataTermino(terminoiAntigo);
+			curso.setDataTermino(inicioAntigo);
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"A data termíno deve ser depois que data de início! Por favor ajuste.",null);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}else{
+
+			cursoDao.update(curso);
+			FacesMessage msg = new FacesMessage("Curso " +curso.getNome()+ " Atualizado!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			returnString= "/lista/lista-curso";
+		}
+		return returnString;
+
+
 	}
 
 
@@ -84,7 +104,7 @@ public class CursoCadastroBean {
 	public Curso getCurso() {
 		return curso;
 	}
-	
+
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}

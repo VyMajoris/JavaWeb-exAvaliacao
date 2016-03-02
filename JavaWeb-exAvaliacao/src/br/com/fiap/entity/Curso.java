@@ -30,7 +30,7 @@ import br.com.fiap.converter.Identifiable;
 	@NamedQuery(name = "findCursoPorProfessor", query = "SELECT DISTINCT c " +
 		    "FROM Curso c, Disciplina d, Professor p " +
 		    "JOIN c.disciplinas cDisciplinas " +
-		    "WHERE c.id = cDisciplinas.curso.id AND cDisciplinas.professor.id = :rmProfessor")
+		    "WHERE c.id = cDisciplinas.curso.id AND cDisciplinas.professor.rm = :rmProfessor")
 })
 @Entity
 public class Curso extends BaseEntity {

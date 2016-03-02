@@ -50,13 +50,13 @@ public class GenericDao<T> implements Dao<T> {
 
 	}
 	@Override
-	public void adicionar(T entidade) {
+	public T adicionar(T entidade) {
 
 		System.out.println("DAO persist");
 		em.getTransaction().begin();
 		em.persist(entidade);
-		
 		em.getTransaction().commit();
+		return entidade;
 
 
 	}

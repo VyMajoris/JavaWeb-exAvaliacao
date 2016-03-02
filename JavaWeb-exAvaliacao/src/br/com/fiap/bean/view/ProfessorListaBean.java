@@ -20,21 +20,21 @@ public class ProfessorListaBean {
 	private GenericDao<Professor> professorDao;
 
 
-	private Long idProfessorremover;
+	private Long rmProfessorremover;
 
 	@PostConstruct
 	public void init(){
 		System.out.println("ProfessorListBean init");
 		professorDao = new GenericDao<Professor>(Professor.class);
 		setListProfessor(professorDao.listar());
-		
-		
+
+
 		for (Professor pl : listProfessor) {
 			for (Disciplina d : pl.getDisciplinas()) {
 				System.out.println("Disciplina: " + d.getNome());
-				
+
 			}
-			
+
 		}
 	}
 
@@ -42,8 +42,8 @@ public class ProfessorListaBean {
 
 
 	public String remove(){
-		System.out.println("REMOVE " +idProfessorremover);
-		professorDao.removeById(idProfessorremover);
+
+		professorDao.removeById(rmProfessorremover);
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage("Professor Removido!"));
 		listProfessor = professorDao.listar();
@@ -58,14 +58,12 @@ public class ProfessorListaBean {
 	public void setListProfessor(List<Professor> listProfessor) {
 		this.listProfessor = listProfessor;
 	}
-	public Long getIdProfessorremover() {
-		return idProfessorremover;
+	public Long getRmProfessorremover() {
+		return rmProfessorremover;
 	}
 
-
-
-	public void setIdProfessorremover(Long idProfessorremover) {
-		this.idProfessorremover = idProfessorremover;
+	public void setRmProfessorremover(Long rmProfessorremover) {
+		this.rmProfessorremover = rmProfessorremover;
 	}
 
 

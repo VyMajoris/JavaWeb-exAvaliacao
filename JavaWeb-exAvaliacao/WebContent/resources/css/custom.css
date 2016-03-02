@@ -18,9 +18,13 @@
 	}
 }
 
-.padding-fix-right{padding-left: 0px;}
-.padding-fix-left{padding-right: 0px;}
+.padding-fix-right {
+	padding-left: 0px;
+}
 
+.padding-fix-left {
+	padding-right: 0px;
+}
 
 #parallaxBar {
 	height: 750px;
@@ -43,8 +47,8 @@
 	overflow: scroll;
 }
 
-.list-header{
-	background-color: #1abc9c; 
+.list-header {
+	background-color: #1abc9c;
 }
 
 .ribbon {
@@ -90,57 +94,87 @@ html, body {
 .dropdown-menu {
 	padding: 5px 4px 5px 4px !important;;
 }
-.overlayDialog{
+
+.overlayDialog {
 	background-color: white;
 }
-.ui-dialog-content{
-	padding: 0px !important;
-	}
 
-.ui-dialog-titlebar{
+.ui-dialog-content {
+	padding: 0px !important;
+}
+
+.ui-dialog-titlebar {
 	padding-right: 20px !important;
 }
+
 .ui-dialog-titlebar-close {
-    position: relative;
-    margin-bottom: 10px;
+	position: relative;
+	margin-bottom: 10px;
 }
- 
+
 /*replace the content value with the
 corresponding value from the list below*/
- 
 .ui-dialog-titlebar-close:before {
-    content: "\f00d";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-/*--adjust as necessary--*/
-    color: #000;
-    font-size: 18px;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+	content: "\f00d";
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: inherit;
+	/*--adjust as necessary--*/
+	color: #000;
+	font-size: 18px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
-.ui-icon  {
-    text-indent: 0;
-    padding: 0px;
-    
-    margin-right: 55px !important;
-}
-.ui-button-text{
-	line-height: 0px !important;
-	 padding: 0px 0px 0px 13px !important;
-	 margin-left: 3px;
 
+.ui-icon {
+	text-indent: 0;
+	padding: 0px;
+	margin-right: 55px !important;
 }
-textarea{
+
+.ui-button-text {
+	line-height: 0px !important;
+	padding: 0px 0px 0px 13px !important;
+	margin-left: 3px;
+}
+
+textarea {
 	max-width: 100%;
 }
-.form-control[disabled]{
-	color:#97a4a4;
+
+.form-control[disabled] {
+	color: #97a4a4;
 }
-.bootstrap-switch-info{
-	    background-color: #1ABC9C;
+
+.bootstrap-switch-info {
+	background-color: #1ABC9C;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+.alert .glyphicon {
+	display: table-cell;
+}
+
+.alert div, .alert span {
+	padding-left: 5px;
+	display: table-cell;
+}
+
+#container {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.date[readonly]{
+	background-color: #FFFFFF !important;
+	color: #34495e !important;
+	border-color: #bdc3c7 ;
+	opacity: 1; 
 
 }
-    

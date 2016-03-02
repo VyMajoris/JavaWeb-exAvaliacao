@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "rm"  )
 public class Professor extends Usuario  {
 
 	

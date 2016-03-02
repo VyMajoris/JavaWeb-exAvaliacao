@@ -1,8 +1,4 @@
-
-
 <!DOCTYPE html>
-
-
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -11,40 +7,34 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
-
 <h:body>
-
 	<ui:composition template="/template/_template.xhtml">
 		<ui:define name="title">
 	    Cadastro de Cursos
 	</ui:define>
-
 		<ui:define name="content">
-
 			<div class=" container top-landing">
-				<h:messages globalOnly="true" />
+				<h:messages id="messages" showSummary="true" />
 				<h2>Cadastro de Cursos</h2>
-
 				<h:form id="cursoForm" prependId="false">
-					<h:inputHidden value="#{cursoCadastroBean.curso.id}"/>
-				
+					<h:inputHidden value="#{cursoCadastroBean.curso.id}" />
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group has-warning">
 								<h:outputLabel value="Nome" style="font-weight:bold" />
-
 								<h:inputText pa:placeholder="Nome"
 									value="#{cursoCadastroBean.curso.nome}"
-									styleClass="form-control" />
+									styleClass="form-control" required="true"
+									requiredMessage="Insira um nome" />
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Duração" style="font-weight:bold" />
-
 								<div class="input-group">
-									<h:inputText pa:type="number" pa:placeholder="Duração"
+									<h:inputText required="true"
+										requiredMessage="Insira uma duração" pa:type="number"
+										pa:placeholder="Duração"
 										value="#{cursoCadastroBean.curso.duracao}"
 										styleClass="form-control" />
 									<span class="input-group-addon">HORAS-AULA (H/A)</span>
@@ -56,26 +46,26 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Data de Início " style="font-weight:bold" />
-
-								<h:inputText styleClass="form-control date"
+								<h:inputText required="true"
+									requiredMessage="Insira uma data de início" id="dataInicio"
+									 pa:data-language='pt-br'
+									styleClass="form-control date"
 									value="#{cursoCadastroBean.curso.dataInicio}">
 									<f:convertDateTime pattern="dd/mm/yyyy" />
 								</h:inputText>
-
-
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Previsão de Término "
 									style="font-weight:bold" />
-
-								<h:inputText styleClass="form-control date"
+								<h:inputText required="true"
+									requiredMessage="Insira uma data de término" id="dataTermino"
+									 pa:data-language='pt-br'
+									styleClass="form-control date"
 									value="#{cursoCadastroBean.curso.dataTermino}">
 									<f:convertDateTime pattern="dd/mm/yyyy" />
 								</h:inputText>
-
-
 							</div>
 						</div>
 					</div>
@@ -83,37 +73,46 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Vagas" style="font-weight:bold" />
-
-								<h:inputText value="#{cursoCadastroBean.curso.vagas}"
-									class="form-control" pa:placeholder="Vagas" pa:type="number" />
+								<h:inputText required="true"
+									requiredMessage="Insira uma quantidade de vagas"
+									value="#{cursoCadastroBean.curso.vagas}" class="form-control"
+									pa:placeholder="Vagas" pa:type="number" />
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-
-
 								<h:outputLabel value="Escola" style="font-weight:bold" />
-								<h:selectOneMenu immediate="true"
+								<h:selectOneMenu required="true"
+									requiredMessage="Insira uma escola" immediate="true"
 									converter="#{simpleEntityConverter}"
 									styleClass="form-control multiselect multiselect-info"
 									value="#{cursoCadastroBean.curso.escola}">
-									
+
 									<f:selectItems value="#{cursoCadastroBean.listEscolaTotal}"
 										var="esc" itemValue="#{esc}" itemLabel="#{esc.nome}" />
 								</h:selectOneMenu>
-
-
-
 								<script type="text/javascript">
 								$(document).ready(function() {
-									$("select").select2({
-									});
-									$(function() {
-										   $(".date").inputmask( 'dd/mm/yyyy' );
-									});
-									
+									$("select").select2();
+								    $(".date").inputmask( 'dd/mm/yyyy' );
+								    var dataTermino;
+								    $('#dataInicio').datepicker({
+								    	onSelect: function onSelect(fd, date) {
+								    		 $('#dataTermino').datepicker({
+												minDate: date 
+											 })
+											if (date >  dataTermino ){
+												 $('#dataTermino').val("");
+												 $('#dataTermino').attr("placeholder", "A data termíno deve ser depois que data de início! Por favor ajuste");
+												}
+								    	 }
+									 });
+								    $('#dataTermino').datepicker({
+								    		onSelect: function onSelect(fd, date) {
+								    			dataTermino = date;
+									    	 }
+								    } );
 								});
-							
 							</script>
 							</div>
 						</div>
@@ -123,7 +122,6 @@
 							<div class="form-group">
 								<h:outputLabel value="Descrição Completa"
 									style="font-weight:bold" />
-
 								<h:inputTextarea
 									value="#{cursoCadastroBean.curso.descricaoCompleta}"
 									styleClass="form-control" rows="3" />
@@ -133,7 +131,6 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-
 								<c:if test="${empty cursoCadastroBean.curso.id}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{cursoCadastroBean.cadastrarCurso}" type="submit"
@@ -147,22 +144,10 @@
 							</div>
 						</div>
 					</div>
-
 				</h:form>
 			</div>
-
-
 		</ui:define>
 		<ui:define name="footer"></ui:define>
 	</ui:composition>
-
-	<!-- Main jumbotron for a primary marketing message or call to action -->
-
-
-
-	<!--JavaScript
-    ================================================== -->
-
-
 </h:body>
 </html>

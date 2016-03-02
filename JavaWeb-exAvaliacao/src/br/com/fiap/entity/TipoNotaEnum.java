@@ -1,19 +1,19 @@
 package br.com.fiap.entity;
 
-public enum TipoNotaEnum {	PROJETO_1(30), ATIVIDADE_PRATICA(30),  PROJETO_2(40);
+public enum TipoNotaEnum {	PROJETO_1(.30), ATIVIDADE_PRATICA(.30),  PROJETO_2(.40);
 	
 	
 	
 	
-	  private int fator;
+	  private Double fator;
 	  
-	private TipoNotaEnum(int fator) {
+	private TipoNotaEnum(Double fator) {
 		this.setFator(fator);
 	}
-	public int getFator() {
+	public Double getFator() {
 		return fator;
 	}
-	public void setFator(int fator) {
+	public void setFator(Double fator) {
 		this.fator = fator;
 	}
 

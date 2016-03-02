@@ -9,7 +9,7 @@ import javax.persistence.NamedQuery;
 
 	@NamedQuery(name = "findNotaPorAlunoEDisciplina", query = "SELECT n "
 			+ "FROM Nota n "
-			+ "WHERE n.notapk.aluno.id = :rmAluno AND n.notapk.disciplina.id = :idDisciplina AND n.notapk.tipo = :tipo") }
+			+ "WHERE n.notapk.aluno.id = :idAluno AND n.notapk.disciplina.id = :idDisciplina AND n.notapk.tipo = :tipo") }
 
 		)
 @Entity

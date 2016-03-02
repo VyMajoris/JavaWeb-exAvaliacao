@@ -16,6 +16,8 @@ import javax.persistence.TableGenerator;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlAttribute;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 
 import br.com.fiap.converter.Identifiable;
@@ -26,18 +28,18 @@ import br.com.fiap.converter.Identifiable;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Usuario extends BaseEntity {
+public class Usuario implements Identifiable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7656098653486072443L;
 
-	@Column(unique = true)
-	private String rm;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long rm;
 	private String senha;
 	private TipoUsuarioEnum tipo;
-
 
 	public String getSenha() {
 		return senha;
@@ -52,13 +54,20 @@ public class Usuario extends BaseEntity {
 	public void setTipo(TipoUsuarioEnum tipo) {
 		this.tipo = tipo;
 	}
-
-
-	public String getRm() {
+	public Long getRm() {
 		return rm;
 	}
-	public void setRm(String rm) {
+	public void setRm(Long rm) {
 		this.rm = rm;
+	}
+	@Override
+	public Long getId() {
+		return rm;
+	}
+	@Override
+	public void setId(Long id) {
+		this.rm = id;
+
 	}
 
 

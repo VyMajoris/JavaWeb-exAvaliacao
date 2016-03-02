@@ -15,15 +15,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import br.com.fiap.converter.Identifiable;
 
+@NamedQueries({
 
+	@NamedQuery(name = "findDisciplinaPorAluno", query = "SELECT DISTINCT d "
+			+ "FROM Aluno a, Curso c, Disciplina d " + "JOIN c.disciplinas cDisciplinas "
+			+ "WHERE a.curso.id = c.id AND c.id = cDisciplinas.curso.id AND a.rm = :rmAluno") } )
 @Entity
 public class Disciplina extends BaseEntity {
 
-	
-	
+
+
 	private String nome;
 	private String descricao;
 

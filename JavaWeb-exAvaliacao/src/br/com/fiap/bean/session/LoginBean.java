@@ -6,11 +6,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
+import org.primefaces.context.RequestContext;
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.dao.JpaUtil;
@@ -19,6 +21,7 @@ import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Professor;
 
 import br.com.fiap.entity.Usuario;
+import br.com.fiap.helpers.NumericValidator;
 
 @ManagedBean(name="LoginBean")
 @SessionScoped
@@ -47,13 +50,21 @@ public class LoginBean implements Serializable{
 
 	}
 
-	public String buscaUsuario(){
-		String retorno = null;
-		Usuario usuario = (Usuario) hSession.getNamedQuery("findUsuario")
-				.setLong("rm", Long.parseLong(rm))
-				.setString("senha", senha)
-				.uniqueResult();
 
+	public boolean isNumericInputValid (String input){
+		return NumericValidator.isNumeric(input); 
+	}
+
+	public String buscaUsuario(){
+		System.out.println(isNumericInputValid(rm));
+		Usuario usuario = null;
+		String retorno = "index";
+		if (isNumericInputValid(rm)) {
+			usuario = (Usuario) hSession.getNamedQuery("findUsuario")
+					.setLong("rm", Long.parseLong(rm))
+					.setString("senha", senha)
+					.uniqueResult();
+		}
 		if (usuario != null) {
 			switch (usuario.getTipo()) {
 			case ADMIN:
@@ -71,8 +82,16 @@ public class LoginBean implements Serializable{
 			}
 		}
 		else{
-			FacesMessage msg = new FacesMessage("Usuário ou senha incorretos.");
-			FacesContext.getCurrentInstance().addMessage("login", msg);
+			FacesMessage errorMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+					"Error summary", "Error detail");
+			FacesContext.getCurrentInstance().addMessage("xssssss", errorMessage);
+			RequestContext.getCurrentInstance().execute(" $.bootstrapGrowl('RM e/ou Senha invalida', "
+					+ "{type: 'danger',"
+					+ "align: 'center',"
+					+ "width: 'auto', "
+					+ "allow_dismiss: false"
+					+ "});");
+
 		}
 		return retorno;
 
@@ -82,15 +101,15 @@ public class LoginBean implements Serializable{
 	private String loginProfessor(Professor professor) {
 		session.setAttribute("loginType", "professor");
 		session.setAttribute("displayName", professor.getNome());
-		session.setAttribute("idProfessor", professor.getId());
+		session.setAttribute("rmProfessor", professor.getId());
 		return "/professor/professor-dashboard";
 	}
 
 	private String loginAluno(Aluno aluno) {
 		session.setAttribute("loginType", "aluno");
 		session.setAttribute("displayName", aluno.getNome());
-		session.setAttribute("idAluno", aluno.getId());
-		return "/aluno/aluno-dashboard";
+		session.setAttribute("rmAluno", aluno.getId());
+		return "/aluno/aluno-disciplinaPorCurso";
 	}
 
 	private String loginAdmin(Admin admin) {

@@ -45,7 +45,7 @@ public class ProfessorControleBean {
 		createHsession();
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		professorDao = new GenericDao<Professor>(Professor.class);
-		professor = professorDao.buscar( (Long) session.getAttribute("idProfessor"));
+		professor = professorDao.buscar( (Long) session.getAttribute("rmProfessor"));
 
 
 	}
@@ -54,7 +54,7 @@ public class ProfessorControleBean {
 		Query findCursoPorProfessor = hSession.getNamedQuery("findCursoPorProfessor");
 
 
-		findCursoPorProfessor.setLong("rmProfessor", (Long) session.getAttribute("idProfessor"));
+		findCursoPorProfessor.setLong("rmProfessor", (Long) session.getAttribute("rmProfessor"));
 		List<Curso> listacurso = findCursoPorProfessor.list();
 		return this.setListaCurso(listacurso);
 	}
@@ -63,16 +63,10 @@ public class ProfessorControleBean {
 		
 		List<Disciplina> listDisciplina = new ArrayList<Disciplina>();
 		for (Disciplina disc : professor.getDisciplinas()) {
-
-			
 				if (idCurso == disc.getCurso().getId()) {
 					listDisciplina.add(disc);
 				}
-			
-
 		}
-
-
 		return listDisciplina;
 
 

@@ -13,7 +13,6 @@
 <h:head>
 	<meta charset="utf-8" />
 	<title>Grupo **** - Pós Graduações</title>
-
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 	<link rel="stylesheet"
@@ -22,10 +21,11 @@
 		href="https://designmodo.github.io/Flat-UI/dist/css/flat-ui.min.css" />
 	<link rel="stylesheet" href="../resources/css/custom.css" />
 	<link rel="stylesheet" href="../resources/css/sidemenu.css" />
-	
+	<link rel="stylesheet" href="../resources/css/datepicker.css" />
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" />
-
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.js" />
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/js/flat-ui.js" />
 	<script
@@ -36,8 +36,9 @@
 	<script src="../resources/js/jquery.inputmask.js" />
 	<script src="../resources/js/inputmask.date.extensions.js" />
 	<script src="../resources/js/sidemenu.js" />
-
-
+	<script src="../resources/js/datepicker.min.js"></script>
+	<!-- Include English language -->
+	<script src="../resources/js/datepicker.en.js" />
 
 
 
@@ -58,21 +59,28 @@
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 
-						
-							<h:form style="padding-right:0px; padding-left:0px;"  class="navbar-form navbar-right">
-								<div class="form-group">
-									<h:inputText pa:placeholder="RM:" value="#{LoginBean.rm}"
-										styleClass="form-control" placeholder="RM" />
-								</div>
-								<div class="form-group">
-									<h:inputText pa:placeholder="Senha" value="#{LoginBean.senha}"
-										styleClass="form-control" placeholder="RM" />
-								</div>
-								<h:commandLink class="btn btn-success" type="submit"
-									value="Login" action="#{LoginBean.buscaUsuario()}" />
-									
-							</h:form>
-						
+
+
+						<h:form style="padding-right:0px; padding-left:0px;"
+							class="navbar-form navbar-right">
+
+							<div class="form-group">
+								<h:inputText pa:type="number"
+									pa:placeholder="Registro de Matrícula" value="#{LoginBean.rm}"
+									styleClass="form-control" placeholder="RM" />
+							</div>
+							<div class="form-group">
+								<h:inputSecret pa:placeholder="Senha" value="#{LoginBean.senha}"
+									styleClass="form-control" />
+
+							</div>
+							<p:commandLink class="btn btn-success" type="submit"
+								value="Login" action="#{LoginBean.buscaUsuario()}">
+								<f:ajax render="@form" />
+							</p:commandLink>
+
+						</h:form>
+
 
 					</div>
 					<!--/.navbar-collapse -->
