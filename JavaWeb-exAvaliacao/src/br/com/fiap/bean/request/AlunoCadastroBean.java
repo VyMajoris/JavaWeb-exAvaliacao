@@ -30,7 +30,6 @@ public class AlunoCadastroBean implements DatabaseListener {
 
 	@PostConstruct
 	public void init(){
-		System.out.println("Aluno Bean init");
 		aluno = new Aluno();
 		alunoDao = new  GenericDao<Aluno>(Aluno.class);
 		cursoDao = new GenericDao<Curso>(Curso.class);
@@ -38,27 +37,28 @@ public class AlunoCadastroBean implements DatabaseListener {
 	}
 
 	public void cadastrarAluno() throws ParseException{
-		Format formatter = new SimpleDateFormat("ddMMyyyy");
-		aluno.setSenha(formatter.format(aluno.getDataNasc()));
 
 		Query findTotalAlunosPorCurso = JpaUtil.getHibSession().getNamedQuery("findTotalAlunosPorCurso");
 		findTotalAlunosPorCurso.setLong("idCurso", aluno.getCurso().getId());
 		findTotalAlunosPorCurso.uniqueResult();
 
-		if (cursoDao.buscar(aluno.getCurso().getId()).getVagas() < (Long) findTotalAlunosPorCurso.uniqueResult()) {
-			FacesMessage msg = new FacesMessage("Este curso não possui mais vagas disponíveis!: "+aluno.getRm());
+		if (cursoDao.buscar(aluno.getCurso().getId()).getVagas() <= ((Long) findTotalAlunosPorCurso.uniqueResult())) {
+			FacesMessage msg = new FacesMessage("Este curso não possui mais vagas disponíveis!: ");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}else{
+			Format formatter = new SimpleDateFormat("ddMMyyyy");
+			aluno.setSenha(formatter.format(aluno.getDataNasc()));
+			
 			aluno = alunoDao.adicionar(aluno);
 			FacesMessage msg = new FacesMessage("Aluno Cadastrado. Registro de Matrícula: "+aluno.getRm());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			aluno = new Aluno();
 		}
+
 	}
 
 
 	public String atualizarAluno(){
-
 		aluno.setSenha(aluno.getCpf());
 		alunoDao.update(aluno);
 		FacesMessage msg = new FacesMessage("Aluno Atualizado!");

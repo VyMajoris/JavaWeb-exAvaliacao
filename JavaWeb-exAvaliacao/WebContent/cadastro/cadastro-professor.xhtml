@@ -22,7 +22,8 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Nome Completo" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um nome" pa:placeholder="Nome Completo"
+								<h:inputText required="true" requiredMessage="Insira um nome"
+									pa:placeholder="Nome Completo"
 									value="#{professorCadastroBean.professor.nome}"
 									styleClass="form-control" />
 							</div>
@@ -30,7 +31,8 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Telefone" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um telefone" pa:placeholder="Telefone"
+								<h:inputText required="true"
+									requiredMessage="Insira um telefone" pa:placeholder="Telefone"
 									value="#{professorCadastroBean.professor.telefone}"
 									styleClass="form-control tel" />
 							</div>
@@ -40,7 +42,8 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Email" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um email" pa:placeholder="Email"
+								<h:inputText required="true" requiredMessage="Insira um email"
+									pa:placeholder="Email"
 									value="#{professorCadastroBean.professor.email}"
 									styleClass="form-control" />
 							</div>
@@ -49,7 +52,9 @@
 							<div class="form-group">
 								<h:outputLabel value="Data de Nascimento"
 									style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira uma data de nascimento" pa:placeholder="Data de Nascimento"
+								<h:inputText pa:data-language='pt-br' required="true"
+									requiredMessage="Insira uma data de nascimento"
+									pa:placeholder="Data de Nascimento"
 									styleClass="form-control date"
 									value="#{professorCadastroBean.professor.dataNasc}">
 									<f:convertDateTime pattern="dd/mm/yyyy" />
@@ -61,7 +66,8 @@
 						<div class="col-sm-12">
 							<div class="form-group">
 								<h:outputLabel value="CPF" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um CPF" pa:placeholder="CPF"
+								<h:inputText required="true" requiredMessage="Insira um CPF"
+									pa:placeholder="CPF"
 									value="#{professorCadastroBean.professor.cpf}"
 									styleClass="form-control cpf" />
 							</div>
@@ -71,7 +77,8 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<h:outputLabel value="Endereço" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um endereço" pa:placeholder="Endereço"
+								<h:inputText required="true"
+									requiredMessage="Insira um endereço" pa:placeholder="Endereço"
 									value="#{professorCadastroBean.professor.endereco}"
 									styleClass="form-control" />
 							</div>
@@ -80,12 +87,12 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<c:if test="${professorCadastroBean.professor.nome != null}">
+								<c:if test="${professorCadastroBean.professor.rm != null}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{professorCadastroBean.atualizarProfessor}"
 										type="submit" value="Atualizar" />
 								</c:if>
-								<c:if test="${professorCadastroBean.professor.nome == null}">
+								<c:if test="${professorCadastroBean.professor.rm == null}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
 										action="#{professorCadastroBean.cadastrarProfessor}"
 										type="submit" value="Cadastrar" />
@@ -101,6 +108,9 @@
 								    $(".date").inputmask( 'dd/mm/yyyy' );
 								    $(".tel").inputmask( '9999-99999' );
 									$(".cpf").inputmask( '999.999.999-99' );
+									$('.date').datepicker({
+										maxDate: new Date()
+									});
 								});
 							</script>
 		</ui:define>

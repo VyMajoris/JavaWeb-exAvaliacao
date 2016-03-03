@@ -1,4 +1,5 @@
 package br.com.fiap.bean.request;
+import java.io.IOException;
 import java.io.Serializable;
 
 import java.util.List;
@@ -10,11 +11,11 @@ import javax.faces.bean.RequestScoped;
 
 import javax.faces.context.FacesContext;
 
-
-
-
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.entity.Escola;
+import br.com.fiap.latlng.AddressConverter;
+import br.com.fiap.latlng.GoogleResponse;
+import br.com.fiap.latlng.Result;
 
 @ManagedBean
 @RequestScoped
@@ -24,7 +25,7 @@ public class EscolaCadastroBean implements Serializable {
 	private GenericDao<Escola> escolaDao;
 	private Escola escola;
 
-	
+
 
 	@PostConstruct
 	public void init() {
@@ -34,25 +35,35 @@ public class EscolaCadastroBean implements Serializable {
 	}
 
 	public void cadastrarEscola(){
-		System.out.println("CADASTRAR ESCOLA "+ escola.getNome());
+		try {
+			getLatLng(escola.getEndereco());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		escolaDao.adicionar(escola);
 		FacesMessage msg = new FacesMessage("Escola "+escola.getNome()+" cadastrada!");
 		this.escola = new Escola();
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	private void getLatLng(String endereco) throws IOException {
+		GoogleResponse res = new AddressConverter().convertToLatLong(endereco);
+		if(res.getStatus().equals("OK")){
+			Result result = res.getResults()[0];
+				System.out.println("Lattitude of address is :"  +result.getGeometry().getLocation().getLat());
+				System.out.println("Longitude of address is :" + result.getGeometry().getLocation().getLng());
+				System.out.println("Location is " + result.getGeometry().getLocation_type());
+				escola.setLatLong(result.getGeometry().getLocation().getLat()+","+result.getGeometry().getLocation().getLng());
+		}
 
 	}
-	
-	
+
 	public String atualizarEscola(){
-		System.out.println("ATUALIZAR ESCOLA: "+ escola.getNome());
 		escolaDao.update(escola);
 		FacesMessage msg = new FacesMessage("Escola "+escola.getNome()+" Atualizada!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		return "/lista/lista-escola";
-
 	}
-
-
 
 
 	//getter setters

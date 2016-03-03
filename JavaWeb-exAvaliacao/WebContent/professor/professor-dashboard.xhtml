@@ -11,73 +11,17 @@
 <h:body>
 	<ui:composition template="/template/_template-professor.xhtml">
 		<ui:define name="title">
-	    Lista de Professores
+	    Portal do Professor
 	</ui:define>
-
-
 		<ui:define name="content">
-			
-<f:metadata>
-   
-    <f:viewAction action="#{professorControleBean.buscaProfessor(rmProfessor)}" />
-</f:metadata>
-	
 			<div class="col-sm-12">
 				<h:form prependId="false">
-					<h2>Lista de Professores</h2>
+					<h2>Dashboard</h2>
 					<div class="row">
 						<div class=" col-xl-12 ">
-							<p:dataTable rows="5" emptyMessage="Nenhum resultado encontrado"
-								id="professorTable" widgetVar="professorTable" class="table"
-								var="prof" value="#{professorListaBean.listProfessor}">
-								<p:column priority="1" headerText="Nome">
-									<h:outputText value="#{prof.nome}" />
-								</p:column>
-								<p:column priority="3" headerText="Email">
-									<h:outputText value="#{prof.email}" />
-								</p:column>
-								<p:column priority="4" headerText="Telefone">
-									<h:outputText value="#{prof.telefone}" />
-								</p:column>
-
-								<p:column priority="6" headerText="Endereco">
-									<h:outputText value="#{prof.endereco}" />
-								</p:column>
-
-								<p:column priority="5" headerText="Disciplinas">
-									<ui:repeat var="dis" value="#{prof.disciplinas}">
-
-										<h:commandLink action="cadastro-disciplina"
-											styleClass="btn btn-info btn-xs">
-
-											<h:outputText value="#{dis.nome}" />
-
-											<f:setPropertyActionListener
-												target="#{disciplinaCadastroBean.disciplina}" value="#{dis}" />
-										</h:commandLink>
-
-
-									</ui:repeat>
-								</p:column>
-								<p:column priority="1" headerText="Opções">
-									<h:commandLink id="btnsearch" action="cadastro-professor"
-										styleClass="btn btn-info btn-xs">
-										<i class="fa fa-pencil" style="margin-right: 3px" />
-										Editar
-										<f:setPropertyActionListener
-											target="#{professorCadastroBean.professor}" value="#{prof}" />
-									</h:commandLink>
-									<p:commandLink pa:data-toggle="modal" pa:data-target="#myModal"
-										style="margin-right: 3px" title="Deletar"
-										class="btn btn-danger btn-xs" type="button">
-										<i class="fa fa-trash-o" style="margin-right: 3px" /> Deletar
-									<f:setPropertyActionListener
-											target="#{professorListaBean.idProfessorremover}"
-											value="#{prof.rmProfessor}" />
-									</p:commandLink>
-
-								</p:column>
-							</p:dataTable>
+							<p:chart id="notaChart" widgetVar="notaChart" type="bar"
+								model="#{chartView.barModel}" style="height:400px"
+								responsive="true" />
 						</div>
 					</div>
 				</h:form>
@@ -92,7 +36,27 @@
 
 
 
-
+			<script type="text/javascript">
+			function notaExtender  () {
+				     
+				this.cfg.legend = {
+				        // This renderer is needed for advance legends.
+				        renderer: jQuery.jqplot.EnhancedLegendRenderer,
+				        show: true, 
+				        location: 's', 
+				       
+				        // Breaks the ledgend into horizontal.
+				        rendererOptions: {
+				          numberRows: '1',
+				          numberColumns: '3'
+				        },
+				        seriesToggle: true
+				      }
+			      this.cfg.grid = {
+			         background: '#FFF' //Set background to white
+			      };
+			    }
+							</script>
 
 
 

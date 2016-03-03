@@ -1,6 +1,8 @@
 package br.com.fiap.bean.request;
 
+import java.text.Format;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Random;
 
@@ -34,33 +36,15 @@ public class ProfessorCadastroBean {
 		escolaDao = new GenericDao<Escola>(Escola.class);
 		listDisciplina = disciplinaDao.listar();
 	}
-	private void generateRandomId() {
-		if (professor.getId() == null) {
-			Random rand = new Random();
-			int randomNum = rand.nextInt((99999 - 11111) + 1) + 0;
-			professor.setId(Long.parseLong(String.format("%05d", randomNum)));
-		}
-	}
+
 	public void cadastrarProfessor() throws ParseException{
-
 		if (!escolaDao.listar().isEmpty()) {
-
-
-			if (professor.getCpf().isEmpty()) {
-				FacesMessage msg = new FacesMessage("Insira um CPF!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-
-			}else{
-				professor.setSenha(professor.getCpf());
-				professorDao.adicionar(professor);
-				FacesMessage msg = new FacesMessage("Professor "+professor.getNome()+"cadastrado!");
-				professor = new Professor();
-				
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-
-			}
-
-
+			Format formatter = new SimpleDateFormat("ddMMyyyy");
+			professor.setSenha(formatter.format(professor.getDataNasc()));
+			professorDao.adicionar(professor);
+			FacesMessage msg = new FacesMessage("Professor "+professor.getNome()+" cadastrado!");
+			professor = new Professor();
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}else{
 			FacesMessage msg = new FacesMessage("Cadastre uma escola primeiro!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -68,33 +52,18 @@ public class ProfessorCadastroBean {
 	}
 	public String atualizarProfessor(){
 		if (!escolaDao.listar().isEmpty()) {
-
-
-			if (professor.getCpf().isEmpty()) {
-				FacesMessage msg = new FacesMessage("Insira um CPF!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-				return "/cadastro/cadastro-professor";
-
-			}else{
-				professor.setSenha(professor.getCpf());
-				professorDao.adicionar(professor);
-				professor = new Professor();
-				generateRandomId();
-				FacesMessage msg = new FacesMessage("Professor Atualizado!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
-				return "/lista/lista-professor";
-
-			}
-
-
+			professorDao.adicionar(professor);
+			professor = new Professor();
+			FacesMessage msg = new FacesMessage("Professor Atualizado!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return "/lista/lista-professor";
 		}else{
 			FacesMessage msg = new FacesMessage("Cadastre uma escola primeiro!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			return "/cadastro/cadastro-professor";
 		}
-
-		
 	}
+	
 	public List<Disciplina> getListDisciplina() {
 		return listDisciplina;
 	}

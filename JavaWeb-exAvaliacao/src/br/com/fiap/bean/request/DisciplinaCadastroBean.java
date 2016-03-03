@@ -8,16 +8,19 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.entity.Disciplina;
 import br.com.fiap.entity.Professor;
+import br.com.fiap.entity.Usuario;
 import br.com.fiap.entity.Curso;
 import br.com.fiap.entity.Disciplina;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class DisciplinaCadastroBean {
 
 	Disciplina disciplina;
@@ -26,7 +29,6 @@ public class DisciplinaCadastroBean {
 	private GenericDao<Professor> profDao;
 	private List<Curso> listCurso;
 	private List<Professor> listProf;
-
 
 	public List<Professor> getListProf() {
 		return listProf;
@@ -46,15 +48,9 @@ public class DisciplinaCadastroBean {
 		
 	}
 	public void cadastrarDisciplina() throws ParseException{
-		
-		
-		System.out.println("PROFESSOR: "+ disciplina.getProfessor());
-		 
 			disciplinaDao.adicionar(disciplina);
-			
 			FacesMessage msg = new FacesMessage("Disciplina "+disciplina.getNome()+" cadastrada!");
 			disciplina = new Disciplina();
-			
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	public String atualizarDisciplina(){

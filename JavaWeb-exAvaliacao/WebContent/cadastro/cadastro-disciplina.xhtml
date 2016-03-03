@@ -41,7 +41,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Cursos" style="font-weight:bold" />
-								<h:selectOneListbox required="true"
+								<h:selectOneListbox id="selectCurso" required="true"
 									requiredMessage="Insira um curso" immediate="true"
 									converter="#{simpleEntityConverter}"
 									styleClass="form-control multiselect multiselect-info"
@@ -54,9 +54,8 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<h:outputLabel value="Professor" style="font-weight:bold" />
-								<h:selectOneListbox required="true"
-									requiredMessage="Insira um professor" immediate="true"
-									converter="#{simpleEntityConverter}"
+								<h:selectOneListbox id="selectProf" 
+									 converter="omnifaces.SelectItemsConverter"
 									styleClass="form-control multiselect multiselect-info"
 									value="#{disciplinaCadastroBean.disciplina.professor}">
 									<f:selectItems value="#{disciplinaCadastroBean.listProf}"

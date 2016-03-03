@@ -68,7 +68,7 @@
 									style="font-weight:bold" />
 								<h:inputText required="true"
 									requiredMessage="Insira uma data de nascimento"
-									pa:placeholder="Data de Nascimento"
+									pa:data-language='pt-br' pa:placeholder="Data de Nascimento"
 									value="#{alunoCadastroBean.aluno.dataNasc}"
 									styleClass="form-control date">
 									<f:convertDateTime pattern="dd/MM/yyyy" />
@@ -100,24 +100,24 @@
 							</div>
 						</div>
 					</div>
-			<br />
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="form-group">
-						<c:if test="${alunoCadastroBean.aluno.nome != null}">
-							<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-								action="#{alunoCadastroBean.atualizarAluno()}" type="submit"
-								value="Atualizar" />
-						</c:if>
-						<c:if test="${alunoCadastroBean.aluno.nome == null}">
-							<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-								action="#{alunoCadastroBean.cadastrarAluno()}" type="submit"
-								value="Cadastrar" />
-						</c:if>
+					<br />
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<c:if test="${alunoCadastroBean.aluno.rm != null}">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+										action="#{alunoCadastroBean.atualizarAluno()}" type="submit"
+										value="Atualizar" />
+								</c:if>
+								<c:if test="${alunoCadastroBean.aluno.rm == null}">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+										action="#{alunoCadastroBean.cadastrarAluno()}" type="submit"
+										value="Cadastrar" />
+								</c:if>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			</h:form>
+				</h:form>
 			</div>
 			<script type="text/javascript">
 				$(document).ready(function() {
@@ -125,6 +125,9 @@
 					$(".date").inputmask('dd/mm/yyyy');
 					$(".tel").inputmask('9999-99999');
 					$(".cpf").inputmask('999.999.999-99');
+					$('.date').datepicker({
+						maxDate : new Date()
+					});
 				});
 			</script>
 		</ui:define>

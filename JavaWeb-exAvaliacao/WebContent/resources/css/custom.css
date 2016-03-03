@@ -111,16 +111,12 @@ html, body {
 	position: relative;
 	margin-bottom: 10px;
 }
-
-/*replace the content value with the
-corresponding value from the list below*/
 .ui-dialog-titlebar-close:before {
 	content: "\f00d";
 	font-family: FontAwesome;
 	font-style: normal;
 	font-weight: normal;
 	text-decoration: inherit;
-	/*--adjust as necessary--*/
 	color: #000;
 	font-size: 18px;
 	position: absolute;
@@ -177,4 +173,7 @@ ul {
 	border-color: #bdc3c7 ;
 	opacity: 1; 
 
+}
+.multiselect.form-control{
+	border-color: #BDC3C7;
 }

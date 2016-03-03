@@ -8,7 +8,7 @@
 		<class>br.com.fiap.entity.Disciplina</class>
 		<class>br.com.fiap.entity.Escola</class>
 		<class>br.com.fiap.entity.Professor</class>
-		<class>br.com.fiap.entity.Administrador</class>
+		<class>br.com.fiap.entity.Admin</class>
 		<class>br.com.fiap.entity.Nota</class>
 		<class>br.com.fiap.entity.Admin</class>
 		<properties>

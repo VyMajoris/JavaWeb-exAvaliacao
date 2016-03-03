@@ -17,31 +17,21 @@ import br.com.fiap.converter.Identifiable;
 
 @Entity
 public class Escola extends BaseEntity{
-
-
 	private String nome;
-
 	private String descricao;
-
 	private String endereco;
-
+	private String latLong;
 	private int salas;
 
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="escola")
 	private Collection<Curso> cursos = new ArrayList<Curso>();
 	
-	
 	    @Override
 	    public String toString() {
 	        return "Escola: [id=" + getId() + ", nome=" + nome + "]";
 	    }
 	
-	
-	
-	
-	
-
 	public Collection<Curso> getCursos() {
 		return cursos;
 	}
@@ -51,7 +41,6 @@ public class Escola extends BaseEntity{
 		this.cursos = cursos;
 	}
 
-
 	public String getEndereco() {
 		return endereco;
 	}
@@ -59,8 +48,6 @@ public class Escola extends BaseEntity{
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
-
 
 	public String getNome() {
 		return nome;
@@ -86,6 +73,12 @@ public class Escola extends BaseEntity{
 		this.descricao = descricao;
 	}
 
+	public String getLatLong() {
+		return latLong;
+	}
 
+	public void setLatLong(String latLong) {
+		this.latLong = latLong;
+	}
 
 }

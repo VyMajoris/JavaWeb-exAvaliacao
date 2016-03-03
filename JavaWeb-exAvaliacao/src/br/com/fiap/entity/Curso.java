@@ -39,11 +39,10 @@ public class Curso extends BaseEntity {
 	 * 
 	 */
 
-	@NotNull(message = "O curso deve ter um nome")
 	private String nome;
-	@NotNull(message = "O curso deve ter uma descrição")
+
 	private String descricaoCompleta;
-	@NotNull(message = "O curso deve ter uma duração")
+
 	private Double duracao;
 
 	@Temporal(TemporalType.DATE)
@@ -51,7 +50,7 @@ public class Curso extends BaseEntity {
 
 	@Temporal(TemporalType.DATE)
 	private Date dataTermino;
-	@NotNull(message = "O curso deve ter uma quantidade de vagas")
+
 	private int vagas;
 
 	@ManyToOne(fetch=FetchType.EAGER)

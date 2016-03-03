@@ -12,6 +12,7 @@ public class SimpleEntityConverter implements Converter {
   
     public Object getAsObject(FacesContext ctx, UIComponent component, String value) {  
         if (value != null) {  
+        	System.out.println("GETASOBJECT"+ value.toString());
             return this.getAttributesFrom(component).get(value);  
         }  
         return null;  
@@ -38,6 +39,7 @@ public class SimpleEntityConverter implements Converter {
   
     protected void addAttribute(UIComponent component, Identifiable o) {  
         String key = o.getId().toString(); 
+        System.out.println("ID CONVERTER = " +key);
         this.getAttributesFrom(component).put(key, o);  
     }  
   

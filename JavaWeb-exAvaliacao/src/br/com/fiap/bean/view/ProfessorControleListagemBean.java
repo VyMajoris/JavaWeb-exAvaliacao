@@ -8,6 +8,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Query;
@@ -39,73 +40,51 @@ public class ProfessorControleListagemBean {
 	private Nota notaP1;
 	private Nota notaAtvd;
 	private Nota notaP2;
-
-	private Session hSession;
 	private GenericDao<Nota> notaDao;
 
-	public List<Disciplina> getListDisciplina() {
-		return listDisciplina;
-	}
-	public void setListDisciplina(List<Disciplina> listDisciplina) {
-		this.listDisciplina = listDisciplina;
-	}
+
 	@PostConstruct
 	public void init(){
-
-
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		System.out.println("CONTROLE list BEAN");
-		createHsession();
 		professorDao = new GenericDao<Professor>(Professor.class);
 		disciplina = (Disciplina) session.getAttribute("disciplina");
-		setNotaDao(new GenericDao<Nota>(Nota.class));
-
-
-
+		notaDao = new GenericDao<Nota>(Nota.class);
 
 	}
-
+	
 	public void addNota(){
+		System.out.println("Add nota");
+		NotaPK notaPK = new NotaPK();
+		notaPK.setAluno(aluno);
+		notaPK.setDisciplina(disciplina);
+		notaPK.setTipo(TipoNotaEnum.PROJETO_1);
+		notaP1.setNotapk(notaPK);
+		notaDao.saveOrUpdate(notaP1);
 
+		notaPK = new NotaPK();
+		notaPK.setAluno(aluno);
+		notaPK.setDisciplina(disciplina);
+		notaPK.setTipo(TipoNotaEnum.ATIVIDADE_PRATICA);
+		notaAtvd.setNotapk(notaPK);
+		notaDao.saveOrUpdate(notaAtvd);
 
-	
-			NotaPK notaPK = new NotaPK();
-			notaPK.setAluno(aluno);
-			notaPK.setDisciplina(disciplina);
-			notaPK.setTipo(TipoNotaEnum.PROJETO_1);
-			notaP1.setNotapk(notaPK);
-			notaDao.saveOrUpdate(notaP1);
-			
-		
-	
-			 notaPK = new NotaPK();
-			notaPK.setAluno(aluno);
-			notaPK.setDisciplina(disciplina);
-			notaPK.setTipo(TipoNotaEnum.ATIVIDADE_PRATICA);
-			notaAtvd.setNotapk(notaPK);
-			notaDao.saveOrUpdate(notaAtvd);
-
-
-
-			 notaPK = new NotaPK();
-			notaPK.setAluno(aluno);
-			notaPK.setDisciplina(disciplina);
-			notaPK.setTipo(TipoNotaEnum.PROJETO_2);
-			notaP2.setNotapk(notaPK);
-			notaDao.update(notaP2);
-		
-
+		notaPK = new NotaPK();
+		notaPK.setAluno(aluno);
+		notaPK.setDisciplina(disciplina);
+		notaPK.setTipo(TipoNotaEnum.PROJETO_2);
+		notaP2.setNotapk(notaPK);
+		notaDao.update(notaP2);
 	}
 
 	public void prepNota(Aluno aluno){
-		createHsession();
-
-		Query findNotaPorAlunoEDisciplina = hSession.getNamedQuery("findNotaPorAlunoEDisciplina");
+		System.out.println("Prep nota");
+		System.out.println(aluno.getNome());
+		Query findNotaPorAlunoEDisciplina = JpaUtil.getHibSession().getNamedQuery("findNotaPorAlunoEDisciplina");
 		findNotaPorAlunoEDisciplina.setLong("idAluno", (Long) aluno.getId());
 		findNotaPorAlunoEDisciplina.setLong("idDisciplina", disciplina.getId());
-		
-		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_1);
 
+		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_1);
 		if ((Nota) findNotaPorAlunoEDisciplina.uniqueResult() != null ) {
 			notaP1 = (Nota) findNotaPorAlunoEDisciplina.uniqueResult();
 		}else{
@@ -113,8 +92,6 @@ public class ProfessorControleListagemBean {
 		}
 
 		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_2);
-
-
 		if ((Nota) findNotaPorAlunoEDisciplina.uniqueResult()  != null ) {
 			notaP2 = (Nota) findNotaPorAlunoEDisciplina.uniqueResult();
 		}else{
@@ -122,8 +99,6 @@ public class ProfessorControleListagemBean {
 		}
 
 		findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.ATIVIDADE_PRATICA);
-
-
 		if ((Nota) findNotaPorAlunoEDisciplina.uniqueResult()  != null ) {
 			notaAtvd = (Nota) findNotaPorAlunoEDisciplina.uniqueResult();
 		}else{
@@ -131,21 +106,20 @@ public class ProfessorControleListagemBean {
 		}
 	}
 
-
 	public void updateDisciplinaSession(Disciplina disciplina){
 		session.setAttribute("disciplina", disciplina);
-
 	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Aluno> queryAlunosPorProfessor(){
-		Query queryAlunosPorProfessor = hSession.getNamedQuery("findAlunoPorProfessor");
+		Query queryAlunosPorProfessor = JpaUtil.getHibSession().getNamedQuery("findAlunoPorProfessor");
 		queryAlunosPorProfessor.setLong("rmProfessor", (Long) session.getAttribute("rmProfessor"));
 		return listAluno = queryAlunosPorProfessor.list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Aluno> queryAlunosPorDisciplina(){
-		Query queryAlunosPorDisciplina = hSession.getNamedQuery("findAlunoPorDisciplina");
+		Query queryAlunosPorDisciplina = JpaUtil.getHibSession().getNamedQuery("findAlunoPorDisciplina");
 		Disciplina disciplina = (Disciplina) session.getAttribute("disciplina");
 		this.disciplina = disciplina;
 		queryAlunosPorDisciplina.setLong("idDisciplina", disciplina.getId());
@@ -153,32 +127,15 @@ public class ProfessorControleListagemBean {
 		return this.listAluno = listaluno;
 	}
 
-
-	public void buscaProfessor(Long rmProfessor){
-		System.out.println("PROFESSOR CONTROLE "+rmProfessor);
-		professor = professorDao.buscar(rmProfessor);
-		System.out.println("PROFESSOR CONTROLE "+professor);
-	}
-	private void createHsession(){
-		hSession = JpaUtil.getHibSession();
-
-	}
+	
 
 
-
-
-
-
-
-
-
-
-
-
+	
+	
+	//
 	public Professor getProfessor() {
 		return professor;
 	}
-
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
@@ -213,8 +170,6 @@ public class ProfessorControleListagemBean {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
-
-
 	public Nota getNotaAtvd() {
 		return notaAtvd;
 	}
@@ -239,7 +194,18 @@ public class ProfessorControleListagemBean {
 	public void setNotaDao(GenericDao<Nota> notaDao) {
 		this.notaDao = notaDao;
 	}
-
+	public GenericDao<Professor> getProfessorDao() {
+		return professorDao;
+	}
+	public void setProfessorDao(GenericDao<Professor> professorDao) {
+		this.professorDao = professorDao;
+	}
+	public List<Disciplina> getListDisciplina() {
+		return listDisciplina;
+	}
+	public void setListDisciplina(List<Disciplina> listDisciplina) {
+		this.listDisciplina = listDisciplina;
+	}
 
 
 }
