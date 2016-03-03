@@ -48,6 +48,9 @@ public class LoginBean implements Serializable{
 		usuarioDao = new GenericDao<Usuario>(Usuario.class);
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		hSession = JpaUtil.getHibSession();
+		Admin admin = new Admin();
+		admin.setSenha("admin");
+		usuarioDao.adicionar(admin);
 
 	}
 
@@ -56,14 +59,9 @@ public class LoginBean implements Serializable{
 		return NumericValidator.isNumeric(input); 
 	}
 
-	
-	
-	
-	
 	public String buscaUsuario(){
-		Admin admin = new Admin();
-		admin.setSenha("admin");
-		usuarioDao.adicionar(admin);
+		
+		
 		
 		System.out.println(isNumericInputValid(rm));
 		Usuario usuario = null;
