@@ -35,12 +35,13 @@ public class LoginBean implements Serializable{
 	}
 
 	private Professor professor;
-	private GenericDao<Usuario> usuarioDao;
+	private static GenericDao<Usuario> usuarioDao;
 	private Session hSession;
 	private String rm;
 	private String senha;
 	private Usuario usuario;
 	HttpSession session;
+	
 
 	@PostConstruct
 	public void init(){
@@ -55,10 +56,20 @@ public class LoginBean implements Serializable{
 		return NumericValidator.isNumeric(input); 
 	}
 
+	
+	
+	
+	
 	public String buscaUsuario(){
+		Admin admin = new Admin();
+		admin.setSenha("admin");
+		usuarioDao.adicionar(admin);
+		
 		System.out.println(isNumericInputValid(rm));
 		Usuario usuario = null;
 		String retorno = "index";
+		System.out.println(rm +" a " + senha);
+		
 		if (isNumericInputValid(rm)) {
 			usuario = (Usuario) hSession.getNamedQuery("findUsuario")
 					.setLong("rm", Long.parseLong(rm))
@@ -102,20 +113,20 @@ public class LoginBean implements Serializable{
 		session.setAttribute("loginType", "professor");
 		session.setAttribute("displayName", professor.getNome());
 		session.setAttribute("rmProfessor", professor.getId());
-		return "/professor/professor-dashboard";
+		return "/professor/professor-dashboard?faces-redirect=true";
 	}
 
 	private String loginAluno(Aluno aluno) {
 		session.setAttribute("loginType", "aluno");
 		session.setAttribute("displayName", aluno.getNome());
 		session.setAttribute("rmAluno", aluno.getId());
-		return "/aluno/aluno-disciplinaPorCurso";
+		return "/aluno/aluno-disciplinaPorCurso?faces-redirect=true";
 	}
 
 	private String loginAdmin(Admin admin) {
 		session.setAttribute("loginType", "admin");
 		session.setAttribute("displayName", "admin");
-		return "/admin/admin-dashboard";
+		return "/admin/admin-dashboard?faces-redirect=true";
 	}
 
 	public String deslogar(){
