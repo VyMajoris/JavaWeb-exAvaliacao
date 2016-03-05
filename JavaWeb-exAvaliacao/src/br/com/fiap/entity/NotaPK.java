@@ -14,13 +14,14 @@ public class NotaPK implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne
+
+	
 	@JoinColumn(name = "idDisciplina", nullable = true, columnDefinition = "bigint(20)")
 	private Disciplina disciplina;
 
 	private TipoNotaEnum tipo;
 	
-	@OneToOne
+	
 	@JoinColumn(name = "idAluno", nullable = true, columnDefinition = "bigint(20)")
 	private Aluno aluno;
 

@@ -1,15 +1,17 @@
 package br.com.fiap.bean.request;
 
+import java.io.IOException;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.hibernate.Query;
@@ -20,20 +22,40 @@ import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Curso;
 
 @ManagedBean
-@RequestScoped
-public class AlunoCadastroBean implements DatabaseListener {
+@ViewScoped
+public class AlunoCadastroBean {
 
-	Aluno aluno;
+	private Aluno aluno;
 	private GenericDao<Aluno> alunoDao;
 	private GenericDao<Curso> cursoDao;
 	private List<Curso> listCurso;
+	private Long idAluno;
 
-	@PostConstruct
-	public void init(){
-		aluno = new Aluno();
+
+	public void init() throws IOException{
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		alunoDao = new  GenericDao<Aluno>(Aluno.class);
 		cursoDao = new GenericDao<Curso>(Curso.class);
 		listCurso = cursoDao.listar();
+		if (idAluno != null) {
+			aluno = alunoDao.buscar(idAluno);
+			System.out.println("22222");
+		}else{
+			aluno = new Aluno();
+			System.out.println("11111");
+		}
+		if (aluno == null && idAluno != null) {
+			System.out.println("333333");
+			String message = "Bad request. Unknown user.";
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+			System.out.println(ec.getRequestContextPath());
+			ec.invalidateSession();
+			ec.redirect(ec.getRequestContextPath());
+		}
+
+
 	}
 
 	public void cadastrarAluno() throws ParseException{
@@ -48,7 +70,7 @@ public class AlunoCadastroBean implements DatabaseListener {
 		}else{
 			Format formatter = new SimpleDateFormat("ddMMyyyy");
 			aluno.setSenha(formatter.format(aluno.getDataNasc()));
-			
+
 			aluno = alunoDao.adicionar(aluno);
 			FacesMessage msg = new FacesMessage("Aluno Cadastrado. Registro de Matrícula: "+aluno.getRm());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -78,11 +100,17 @@ public class AlunoCadastroBean implements DatabaseListener {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
-	@Override
-	public void onSave() {
-		// TODO Auto-generated method stub
+	
 
+	public Long getIdAluno() {
+		return idAluno;
 	}
+
+	public void setIdAluno(Long idAluno) {
+		this.idAluno = idAluno;
+	}
+
+
 
 
 

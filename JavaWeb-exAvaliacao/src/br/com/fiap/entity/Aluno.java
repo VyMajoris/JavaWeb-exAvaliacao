@@ -2,6 +2,7 @@ package br.com.fiap.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 
@@ -9,9 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+
 
 @NamedQueries({ @NamedQuery(name = "findAluno", query = "from Aluno a where a.rm= :rmAluno and a.senha = :senha"),
 		@NamedQuery(name = "findAlunoPorProfessor", query = "SELECT DISTINCT a "
@@ -41,6 +45,7 @@ public class Aluno extends Usuario {
 	private String tel;
 	private String endereco;
 	
+
 	public Aluno() {
 		this.setTipo(TipoUsuarioEnum.ALUNO);
 	}
@@ -52,6 +57,8 @@ public class Aluno extends Usuario {
 	@JoinColumn(name = "idCurso", nullable = true, columnDefinition = "bigint(20)")
 	private Curso curso;
 
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -17,6 +17,11 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+
+
+
+
+
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
@@ -30,6 +35,10 @@
 		<param-value>false</param-value>
 	</context-param>
 	<context-param>
+		<param-name>com.ocpsoft.pretty.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
 		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
 		<param-value>true</param-value>
 	</context-param>
@@ -39,9 +48,9 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>AdminFilter</filter-name>
-		<url-pattern>/faces/admin/*</url-pattern>
-		<url-pattern>/faces/cadastro/*</url-pattern>
-		<url-pattern>/faces/lista/*</url-pattern>
+		<url-pattern>/admin/*</url-pattern>
+		<url-pattern>/cadastro/*</url-pattern>
+		<url-pattern>/lista/*</url-pattern>
 	</filter-mapping>
 	<filter>
 		<filter-name>AlunoFilter</filter-name>
@@ -49,7 +58,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>AlunoFilter</filter-name>
-		<url-pattern>/faces/aluno/*</url-pattern>
+		<url-pattern>/aluno/*</url-pattern>
 	</filter-mapping>
 	<filter>
 		<filter-name>ProfessorFilter</filter-name>
@@ -59,4 +68,22 @@
 		<filter-name>ProfessorFilter</filter-name>
 		<url-pattern>/faces/professor/*</url-pattern>
 	</filter-mapping>
+	
+	
+	
+	
+
+	<filter>
+		<filter-name>Pretty Filter</filter-name>
+		<filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Pretty Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+	
 </web-app>

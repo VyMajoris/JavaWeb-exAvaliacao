@@ -10,10 +10,21 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name = "findNotaPorAlunoEDisciplina", query = "SELECT n "
 			+ "FROM Nota n "
 			+ "WHERE n.notapk.aluno.id = :idAluno AND n.notapk.disciplina.id = :idDisciplina AND n.notapk.tipo = :tipo"),
-	
+
 	@NamedQuery(name = "findNotaPorDisciplinaETipo", query = "SELECT n "
 			+ "FROM Nota n "
-			+ "WHERE n.notapk.disciplina.id = :idDisciplina and n.notapk.tipo = :tipo")}
+			+ "WHERE n.notapk.disciplina.id = :idDisciplina and n.notapk.tipo = :tipo"),
+
+	@NamedQuery(name = "deleteNotaPorAlunoEDisciplina", query = "DELETE FROM Nota n WHERE n.notapk.aluno.id = :idAluno AND n.notapk.disciplina.id = :idDisciplina")
+
+
+
+
+
+
+
+
+}
 
 		)
 @Entity
@@ -22,8 +33,7 @@ public class Nota {
 	@EmbeddedId
 	private NotaPK notapk;
 	private Double valor;
-	private double valorTest;
-	
+
 	public NotaPK getNotapk() {
 		return notapk;
 	}
@@ -40,18 +50,12 @@ public class Nota {
 		this.valor = valor;
 	}
 
-	public double getValorTest() {
-		return valorTest;
-	}
 
-	public void setValorTest(double valorTest) {
-		this.valorTest = valorTest;
-	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 
 }

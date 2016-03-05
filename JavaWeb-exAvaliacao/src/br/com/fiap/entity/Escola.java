@@ -1,30 +1,31 @@
 package br.com.fiap.entity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-import br.com.fiap.converter.Identifiable;
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 
 @Entity
 public class Escola extends BaseEntity{
+	
 	private String nome;
 	private String descricao;
 	private String endereco;
-	private String latLong;
+	private String latLng;
+	
 	private int salas;
 
 
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="escola")
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch=FetchType.EAGER, mappedBy="escola")
 	private Collection<Curso> cursos = new ArrayList<Curso>();
 	
 	    @Override
@@ -73,12 +74,14 @@ public class Escola extends BaseEntity{
 		this.descricao = descricao;
 	}
 
-	public String getLatLong() {
-		return latLong;
+	public String getLatLng() {
+		return latLng;
 	}
 
-	public void setLatLong(String latLong) {
-		this.latLong = latLong;
+	public void setLatLng(String latLng) {
+		this.latLng = latLng;
 	}
+
+
 
 }

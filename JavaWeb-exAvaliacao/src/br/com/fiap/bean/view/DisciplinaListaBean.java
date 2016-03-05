@@ -19,7 +19,7 @@ public class DisciplinaListaBean {
 	private GenericDao<Disciplina> disciplinaDao;
 
 
-	private Long idDisciplinaremover;
+	private Disciplina disciplinaremover;
 
 	@PostConstruct
 	public void init(){
@@ -29,20 +29,22 @@ public class DisciplinaListaBean {
 	}
 
 
-	
-
-
-
-
-
 	public String remove(){
-		System.out.println("REMOVE " +idDisciplinaremover);
-		disciplinaDao.removeById(idDisciplinaremover);
+		System.out.println("REMOVE d" );
+		if (disciplinaremover.getCurso() !=null) {
+			disciplinaremover.getCurso().getDisciplinas().remove(disciplinaremover);
+			disciplinaremover.setCurso(null);
+		}
+		if (disciplinaremover.getProfessor() != null) {
+			disciplinaremover.getProfessor().getDisciplinas().remove(disciplinaremover);
+			disciplinaremover.setProfessor(null);
+		}
+		disciplinaDao.removeById(disciplinaremover.getId());
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage("Disciplina Removido!"));
 		listDisciplina = disciplinaDao.listar();
 		return "lista-disciplina?faces-redirect=true";
-		
+
 	}
 
 	public List<Disciplina> getListDisciplina() {
@@ -52,15 +54,18 @@ public class DisciplinaListaBean {
 	public void setListDisciplina(List<Disciplina> listDisciplina) {
 		this.listDisciplina = listDisciplina;
 	}
-	public Long getIdDisciplinaremover() {
-		return idDisciplinaremover;
+
+
+
+	public Disciplina getDisciplinaremover() {
+		return disciplinaremover;
 	}
 
 
 
 
-	public void setIdDisciplinaremover(Long idDisciplinaremover) {
-		this.idDisciplinaremover = idDisciplinaremover;
+	public void setDisciplinaremover(Disciplina disciplinaremover) {
+		this.disciplinaremover = disciplinaremover;
 	}
 
 

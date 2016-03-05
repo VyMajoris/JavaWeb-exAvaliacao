@@ -1,0 +1,97 @@
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.2.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.2.1
+http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.1.xsd">
+
+	<url-mapping id="home">
+		<pattern value="/" />
+		<view-id value="/faces/index.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="cadAluno">
+		<pattern value="/cadastro/aluno" />
+		<view-id value="/faces/cadastro/cadastro-aluno.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="cadProf">
+		<pattern value="/cadastro/professor" />
+		<view-id value="/faces/cadastro/cadastro-professor.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="cadCurso">
+		<pattern value="/cadastro/curso" />
+		<view-id value="/faces/cadastro/cadastro-curso.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="cadDisciplina">
+		<pattern value="/cadastro/disciplina" />
+		<view-id value="/faces/cadastro/cadastro-disciplina.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="cadEscola">
+		<pattern value="/cadastro/escola" />
+		<view-id value="/faces/cadastro/cadastro-escola.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="listAluno">
+		<pattern value="/lista/aluno" />
+		<view-id value="/faces/lista/lista-aluno.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="listProf">
+		<pattern value="/lista/professor" />
+		<view-id value="/faces/lista/lista-professor.xhtml" />
+	</url-mapping>
+
+
+	<url-mapping id="listCurso">
+		<pattern value="/lista/curso" />
+		<view-id value="/faces/lista/lista-curso.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="listDisciplina">
+		<pattern value="/lista/disciplina" />
+		<view-id value="/faces/lista/lista-disciplina.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="listEscola">
+		<pattern value="/lista/escola" />
+		<view-id value="/faces/lista/lista-escola.xhtml" />
+	</url-mapping>
+
+
+	<url-mapping id="dashboardProf">
+		<pattern value="/professor/" />
+		<view-id value="/faces/professor/professor-dashboard.xhtml"/>
+	</url-mapping>
+	
+		<url-mapping id="dashboardAdmin">
+			<pattern value="/admin/" />
+			<view-id value="/faces/admin/admin-dashboard.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="notasAluno">
+		<pattern value="/aluno/notas" />
+		<view-id value="/faces/aluno/aluno/disciplinaPorCurso.xhtml" />
+	</url-mapping>
+
+
+
+	<url-mapping id="submit">
+		<pattern value="/submit/" />
+		<view-id value="/faces/submit.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="authors">
+		<pattern value="/authors/" />
+		<view-id value="/faces/authors.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="credits">
+		<pattern value="/credits/" />
+		<view-id value="/faces/credits.xhtml" />
+	</url-mapping>
+
+
+
+</pretty-config>

@@ -14,12 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import br.com.fiap.converter.Identifiable;
 
-/**
- * @author Erik Paulsson
- *         Date: 7/10/13
- */
 @MappedSuperclass
-
 public abstract class BaseEntity implements Serializable, Identifiable {
 
 	/**
@@ -34,11 +29,6 @@ public abstract class BaseEntity implements Serializable, Identifiable {
 
 
 
-
-
-	@Version
-	private Date modified;
-
 	@Override
 	public Long getId() {
 		return id;
@@ -47,14 +37,6 @@ public abstract class BaseEntity implements Serializable, Identifiable {
 	@Override
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Date getModified() {
-		return modified;
-	}
-
-	public void setModified(Date modified) {
-		this.modified = modified;
 	}
 
 

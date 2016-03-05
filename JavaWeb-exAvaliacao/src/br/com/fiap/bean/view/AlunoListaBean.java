@@ -8,8 +8,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.hibernate.Query;
+
 import br.com.fiap.dao.GenericDao;
+import br.com.fiap.dao.JpaUtil;
 import br.com.fiap.entity.Aluno;
+import br.com.fiap.entity.Disciplina;
 
 @ManagedBean
 @ViewScoped
@@ -17,9 +21,7 @@ public class AlunoListaBean {
 
 	private List<Aluno> listAluno;
 	private GenericDao<Aluno> alunoDao;
-
-
-	private Long rmAlunoremover;
+	private Aluno alunoRemover;
 
 	@PostConstruct
 	public void init(){
@@ -32,8 +34,25 @@ public class AlunoListaBean {
 
 
 	public String remove(){
-		System.out.println("REMOVE " +rmAlunoremover);
-		alunoDao.removeById(rmAlunoremover);
+		alunoRemover.setCurso(null);
+
+
+		Query deleteNotaPorAlunoEDisciplina = JpaUtil.getHibSession().getNamedQuery("deleteNotaPorAlunoEDisciplina");
+		deleteNotaPorAlunoEDisciplina.setLong("idAluno", (Long) alunoRemover.getId());
+		
+		for (Disciplina disc : alunoRemover.getCurso().getDisciplinas()) {
+			
+			deleteNotaPorAlunoEDisciplina.setLong("idDisciplina", disc.getId());
+			System.out.println("DISCIPLINAD ELETE"+ disc.getNome());
+			deleteNotaPorAlunoEDisciplina.executeUpdate();
+		}
+		
+		
+		
+
+
+
+		alunoDao.removeById(alunoRemover.getId());
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage("Aluno Removido!"));
 		listAluno = alunoDao.listar();
@@ -48,14 +67,18 @@ public class AlunoListaBean {
 	public void setListAluno(List<Aluno> listAluno) {
 		this.listAluno = listAluno;
 	}
-	public Long getRmAlunoremover() {
-		return rmAlunoremover;
+
+
+
+	public Aluno getAlunoRemover() {
+		return alunoRemover;
 	}
 
 
 
-	public void setRmAlunoremover(Long rmAlunoremover) {
-		this.rmAlunoremover = rmAlunoremover;
+
+	public void setAlunoRemover(Aluno alunoRemover) {
+		this.alunoRemover = alunoRemover;
 	}
 
 

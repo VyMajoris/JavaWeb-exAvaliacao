@@ -1,4 +1,4 @@
-package br.com.fiap.entity;
+									package br.com.fiap.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,9 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
-import br.com.fiap.converter.Identifiable;
 
 
 
@@ -54,7 +52,7 @@ public class Curso extends BaseEntity {
 	private int vagas;
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "idEscola", nullable = true, columnDefinition = "bigint(20)")
+	@JoinColumn(name = "idEscola", updatable=true,  nullable=true, columnDefinition = "bigint(20)")
 	private Escola escola = new Escola();
 
 	@OneToMany( fetch=FetchType.EAGER, mappedBy="curso")

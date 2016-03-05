@@ -4,15 +4,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
-
 import org.hibernate.Query;
-import org.hibernate.Session;
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.dao.JpaUtil;
@@ -21,7 +16,7 @@ import br.com.fiap.entity.Disciplina;
 import br.com.fiap.entity.Nota;
 import br.com.fiap.entity.NotaPK;
 import br.com.fiap.entity.Professor;
-import br.com.fiap.entity.TipoNota;
+
 import br.com.fiap.entity.TipoNotaEnum;
 
 @ManagedBean
@@ -52,7 +47,7 @@ public class ProfessorControleListagemBean {
 		notaDao = new GenericDao<Nota>(Nota.class);
 
 	}
-	
+
 	public void addNota(){
 		System.out.println("Add nota");
 		NotaPK notaPK = new NotaPK();
@@ -109,7 +104,7 @@ public class ProfessorControleListagemBean {
 	public void updateDisciplinaSession(Disciplina disciplina){
 		session.setAttribute("disciplina", disciplina);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Aluno> queryAlunosPorProfessor(){
 		Query queryAlunosPorProfessor = JpaUtil.getHibSession().getNamedQuery("findAlunoPorProfessor");
@@ -127,11 +122,11 @@ public class ProfessorControleListagemBean {
 		return this.listAluno = listaluno;
 	}
 
-	
 
 
-	
-	
+
+
+
 	//
 	public Professor getProfessor() {
 		return professor;

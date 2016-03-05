@@ -20,7 +20,15 @@ public class ProfessorListaBean {
 	private GenericDao<Professor> professorDao;
 
 
-	private Long rmProfessorremover;
+	public Professor getProfessorRemover() {
+		return professorRemover;
+	}
+
+	public void setProfessorRemover(Professor professorRemover) {
+		this.professorRemover = professorRemover;
+	}
+
+	private Professor professorRemover;
 
 	@PostConstruct
 	public void init(){
@@ -38,17 +46,17 @@ public class ProfessorListaBean {
 		}
 	}
 
-
-
-
 	public String remove(){
-
-		professorDao.removeById(rmProfessorremover);
+		
+		for (Disciplina disciplina : professorRemover.getDisciplinas()) {
+			disciplina.setProfessor(null);
+		}
+		
+		professorDao.removeById(professorRemover.getId());
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage("Professor Removido!"));
 		listProfessor = professorDao.listar();
 		return "lista-professor?faces-redirect=true";
-
 	}
 
 	public List<Professor> getListProfessor() {
@@ -57,13 +65,6 @@ public class ProfessorListaBean {
 
 	public void setListProfessor(List<Professor> listProfessor) {
 		this.listProfessor = listProfessor;
-	}
-	public Long getRmProfessorremover() {
-		return rmProfessorremover;
-	}
-
-	public void setRmProfessorremover(Long rmProfessorremover) {
-		this.rmProfessorremover = rmProfessorremover;
 	}
 
 

@@ -13,15 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.TableGenerator;
-import javax.persistence.UniqueConstraint;
-import javax.xml.bind.annotation.XmlAttribute;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-import org.hibernate.annotations.GenericGenerator;
-
-import br.com.fiap.converter.Identifiable;
 
 @NamedQueries({
 	@NamedQuery(name = "findUsuario", query = "from Usuario u where u.rm = :rm and u.senha = :senha")
@@ -30,7 +22,7 @@ import br.com.fiap.converter.Identifiable;
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @SequenceGenerator(name="seq", initialValue=10000, allocationSize=1)
-public class Usuario {
+public class Usuario implements Serializable {
 
 	/**
 	 * 

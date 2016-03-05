@@ -9,11 +9,11 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:body>
-	<ui:composition template="/template/_template.xhtml">
+	<ui:composition template="/template/_template-admin.xhtml">
 		<ui:define name="title">
 	    Lista de Escolas
 	</ui:define>
-	
+
 		<ui:define name="content">
 
 			<div class="container top-landing">
@@ -22,8 +22,9 @@
 					<h2>Lista de Escolas</h2>
 					<div class="row">
 						<div class="col-sm-12">
-							<p:dataTable emptyMessage="Nenhum resultado encontrado" id="escolaTable" widgetVar="escolaTable"
-								class="table" var="esc" value="#{escolaListaBean.listEscola}">
+							<p:dataTable emptyMessage="Nenhum resultado encontrado"
+								id="escolaTable" widgetVar="escolaTable" class="table" var="esc"
+								value="#{escolaListaBean.listEscola}">
 								<p:column headerText="Nome">
 									<h:outputText value="#{esc.nome}" />
 								</p:column>
@@ -39,10 +40,10 @@
 								<p:column headerText="Descrição">
 									<h:outputText value="#{esc.descricao}" />
 								</p:column>
-								
+
 								<p:column headerText="Cursos Relacionados">
 									<ui:repeat var="cur" value="#{esc.cursos}">
-										<h:commandLink  action="/cadastro/cadastro-curso"
+										<h:commandLink action="/cadastro/cadastro-curso"
 											styleClass="btn btn-info btn-xs">
 											<f:setPropertyActionListener
 												target="#{cursoCadastroBean.curso}" value="#{cur}" />
@@ -50,20 +51,22 @@
 										</h:commandLink>
 									</ui:repeat>
 								</p:column>
-								
+
 								<p:column headerText="Opções">
-									<h:commandLink id="btnsearch" action="/cadastro/cadastro-escola"
+									<h:link id="btnsearch"
+										outcome="/cadastro/cadastro-escola"
 										styleClass="btn btn-info btn-xs">
 										<i class="fa fa-pencil" style="margin-right: 3px" />
-										<f:setPropertyActionListener
-											target="#{escolaCadastroBean.escola}" value="#{esc}" />
-									</h:commandLink>
+										  
+										  Editar
+										 <f:param name="idEscola" value="#{esc.id}"/>     
+									</h:link>
 									<p:commandLink pa:data-toggle="modal" pa:data-target="#myModal"
 										style="margin-right: 3px" title="Deletar"
 										class="btn btn-danger btn-xs" type="button">
 										<i class="fa fa-trash-o" style="margin-right: 3px" /> Deletar
-									<f:setPropertyActionListener 
-							target="#{escolaListaBean.idEscolaremover}" value="#{esc.id}"/>
+									<f:setPropertyActionListener
+											target="#{escolaListaBean.escolaremover}" value="#{esc}" />
 									</p:commandLink>
 
 								</p:column>
@@ -85,13 +88,18 @@
 							<h4 class="modal-title" id="myModalLabel">Deseja deletar
 								esta escola?</h4>
 						</div>
-				
+						<div class="modal-body">
+
+							<h4 class="modal-title" id="myModalLabel">Atenção:</h4>
+							<p>Ao deletar esta escola você irá deletar todas as entides
+								relacionadas. Deseja continuar?</p>
+						</div>
+
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Não</button>
-							<p:commandLink action="#{escolaListaBean.remove()}"
-								type="button" class="btn btn-primary btn-danger"
-								pa:data-dismiss="modal" >Deletar</p:commandLink>
+							<p:commandLink action="#{escolaListaBean.remove()}" type="button"
+								class="btn btn-primary btn-danger" pa:data-dismiss="modal">Deletar</p:commandLink>
 						</div>
 					</div>
 				</div>

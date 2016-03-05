@@ -8,17 +8,21 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:body>
-	<ui:composition template="/template/_template.xhtml">
+	<ui:composition template="/template/_template-admin.xhtml">
 		<ui:define name="title">
 	    Cadastro de Aluno
 	</ui:define>
 		<ui:define name="content">
+			<f:metadata>
+				<f:viewParam name="idAluno" value="#{alunoCadastroBean.idAluno}" />
+				<f:event type="preRenderView" listener="#{alunoCadastroBean.init}" />
+			</f:metadata>
 			<div class="container top-landing">
 				<h:messages id="messages" showSummary="true" />
 				<h2>Cadastro de Alunos</h2>
 				<h:form prependId="false">
 					<h:inputHidden value="#{alunoCadastroBean.aluno.rm}" />
-					<h:selectBooleanCheckbox style="display: none;" id="rmAuto" />
+
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
@@ -104,15 +108,22 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
-								<c:if test="${alunoCadastroBean.aluno.rm != null}">
+								<c:if
+									test="${empty param.idAluno and empty alunoCadastroBean.aluno.id}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{alunoCadastroBean.atualizarAluno()}" type="submit"
+										action="#{alunoCadastroBean.cadastrarAluno}" type="submit"
+										value="Cadastrar" />
+								</c:if>
+								<c:if test="${not empty param.idAluno}">
+									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+										action="#{alunoCadastroBean.atualizarAluno}" type="submit"
 										value="Atualizar" />
 								</c:if>
-								<c:if test="${alunoCadastroBean.aluno.rm == null}">
+								<c:if
+									test="${empty param.idAluno and not empty alunoCadastroBean.aluno.id}">
 									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{alunoCadastroBean.cadastrarAluno()}" type="submit"
-										value="Cadastrar" />
+										action="#{alunoCadastroBean.atualizarAluno}" type="submit"
+										value="Atualizar" />
 								</c:if>
 							</div>
 						</div>

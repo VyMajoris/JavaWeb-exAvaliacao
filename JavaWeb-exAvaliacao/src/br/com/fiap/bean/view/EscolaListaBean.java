@@ -8,12 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
-
 import br.com.fiap.dao.GenericDao;
+import br.com.fiap.entity.Curso;
 import br.com.fiap.entity.Escola;
 
 @ManagedBean
@@ -22,9 +18,7 @@ public class EscolaListaBean {
 
 	private List<Escola> listEscola;
 	private GenericDao<Escola> escolaDao;
-
-
-	private Long idEscolaremover;
+	private Escola escolaremover;
 
 	@PostConstruct
 	public void init(){
@@ -36,27 +30,21 @@ public class EscolaListaBean {
 
 
 
-	public Long getIdEscolaremover() {
-		return idEscolaremover;
-	}
-
-
-
-
-	public void setIdEscolaremover(Long idEscolaremover) {
-		this.idEscolaremover = idEscolaremover;
-	}
-
-
-
+	
 
 	public String remove(){
-		System.out.println("REMOVE " +idEscolaremover);
-		escolaDao.removeById(idEscolaremover);
+		System.out.println("REMOVE " +escolaremover.getNome());
+		
+		for (Curso curso : escolaremover.getCursos()) {
+			curso.setEscola(null);
+		}
+		
+		escolaremover.getCursos().clear();
+		escolaDao.remover(escolaremover);
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage("Escola Removida!"));
 		listEscola = escolaDao.listar();
-		return "lista-escola";
+		return "lista-escola?faces-redirect=true";
 		
 	}
 
@@ -66,6 +54,20 @@ public class EscolaListaBean {
 
 	public void setListEscola(List<Escola> listEscola) {
 		this.listEscola = listEscola;
+	}
+
+
+
+
+	public Escola getEscolaremover() {
+		return escolaremover;
+	}
+
+
+
+
+	public void setEscolaremover(Escola escolaremover) {
+		this.escolaremover = escolaremover;
 	}
 
 }

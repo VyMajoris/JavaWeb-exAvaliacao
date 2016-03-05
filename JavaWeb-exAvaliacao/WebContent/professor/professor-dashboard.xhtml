@@ -26,30 +26,17 @@
 					</div>
 				</h:form>
 			</div>
-
-
-
-
 			<h:messages />
-
-
-
-
-
 			<script type="text/javascript">
 			function notaExtender  () {
-				     
 				this.cfg.legend = {
 				        // This renderer is needed for advance legends.
 				        renderer: jQuery.jqplot.EnhancedLegendRenderer,
 				        show: true, 
-				        location: 's', 
-				       
+				        location: 'se', 
+				        placement: 'outside', 
 				        // Breaks the ledgend into horizontal.
-				        rendererOptions: {
-				          numberRows: '1',
-				          numberColumns: '3'
-				        },
+				        
 				        seriesToggle: true
 				      }
 			      this.cfg.grid = {

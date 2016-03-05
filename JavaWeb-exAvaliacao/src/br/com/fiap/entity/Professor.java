@@ -21,26 +21,26 @@ import javax.persistence.TemporalType;
 @PrimaryKeyJoinColumn(name = "rm"  )
 public class Professor extends Usuario  {
 
-	
 
-	
+
+
 	private String telefone;
 	private String email;
 	private String endereco;
 	private String nome;
 	private String cpf;
-	
+
 	public Professor() {
 		this.setTipo(TipoUsuarioEnum.PROFESSOR);
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "professor")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "professor")
 	private Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
 	@Temporal(TemporalType.DATE)
 	private Date dataNasc;
 
-	
+
 
 	@Override
 	public String toString() {

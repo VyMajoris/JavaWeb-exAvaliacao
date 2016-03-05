@@ -1,5 +1,6 @@
 package br.com.fiap.bean.session;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -7,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIInput;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -45,9 +47,7 @@ public class LoginBean implements Serializable{
 	public void init(){
 		usuarioDao = new GenericDao<Usuario>(Usuario.class);
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		Admin admin = new Admin();
-		admin.setSenha("admin");
-		usuarioDao.adicionar(admin);
+		
 	}
 
 	public boolean isNumericInputValid (String input){
@@ -117,8 +117,11 @@ public class LoginBean implements Serializable{
 		return "/admin/admin-dashboard?faces-redirect=true";
 	}
 
-	public String deslogar(){
-		return "index?faces-redirect=true";
+	public void deslogar() throws IOException{
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		System.out.println(ec.getRequestContextPath());
+	    ec.invalidateSession();
+	    ec.redirect(ec.getRequestContextPath());
 	}
 
 	public Usuario getUsuario() {

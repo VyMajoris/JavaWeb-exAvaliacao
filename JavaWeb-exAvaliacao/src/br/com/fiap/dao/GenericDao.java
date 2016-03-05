@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +14,18 @@ public class GenericDao<T> implements Dao<T> {
 
 	private final Class<T> classe;
 	protected EntityManager em = JpaUtil.getEntityManager();
-	SessionFactory sessionFactory = JpaUtil.getHibSession().getSessionFactory();
+	static SessionFactory sessionFactory = JpaUtil.getHibSession().getSessionFactory();
+	
+	
+	public static Session getSession() throws HibernateException {         
+		   Session sess = null;       
+		   try {         
+		       sess = sessionFactory.getCurrentSession();  
+		   } catch (org.hibernate.HibernateException he) {  
+		       sess = sessionFactory.openSession();     
+		   }             
+		   return sess;
+		} 
 
 	public GenericDao(Class<T> classe) {
 		this.classe = classe;
@@ -22,14 +34,21 @@ public class GenericDao<T> implements Dao<T> {
 
 	@Override
 	public void saveOrUpdate(T entity){
-		Session session = sessionFactory.openSession();
+		
+		Session session = getSession();
 		Transaction transaction = session.beginTransaction();
 		session.saveOrUpdate(entity);
 		transaction.commit();
 		session.flush();
 		
+	}
+	public void hibernateDelete(T entity){
+		Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+		session.delete(em.contains(entity) ? entity : em.merge(entity));
+		transaction.commit();
+		session.flush();
 		
-	
 	}
 
 	@Override
@@ -45,19 +64,17 @@ public class GenericDao<T> implements Dao<T> {
 		em.getTransaction().begin();
 		//para forçar a entidade ser gerenciada pelo em
 		em.merge(entity);
-		em.remove(entity);
+		em.remove(em.contains(entity) ? entity : em.merge(entity));
 		em.getTransaction().commit();
 
 	}
 	@Override
 	public T adicionar(T entidade) {
-
 		System.out.println("DAO persist");
 		em.getTransaction().begin();
 		em.persist(entidade);
 		em.getTransaction().commit();
 		return entidade;
-
 
 	}
 	@Override

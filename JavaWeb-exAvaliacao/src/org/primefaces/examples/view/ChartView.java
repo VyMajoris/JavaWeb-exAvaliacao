@@ -123,7 +123,7 @@ public class ChartView implements Serializable {
 		Axis yAxis = barModel.getAxis(AxisType.Y);
 		yAxis.setLabel("Nota");
 		yAxis.setMin(0);
-		yAxis.setMax(11);
+		yAxis.setMax(10);
 	}
 
 
