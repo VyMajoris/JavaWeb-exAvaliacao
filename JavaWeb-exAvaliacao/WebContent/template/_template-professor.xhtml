@@ -10,140 +10,145 @@
 	xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 	<meta charset="utf-8" />
-	<title>Grupo **** - Pós Graduações</title>
+	<title>Pós Graduações XYZ</title>
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 	<link rel="stylesheet"
 		href="https://designmodo.github.io/Flat-UI/dist/css/flat-ui.min.css" />
-	<link rel="stylesheet" href="../resources/css/custom.css" />
-	<link rel="stylesheet" href="../resources/css/sidemenu.css" />
-	<link rel="stylesheet" href="../resources/css/jquery.navgoco.css" />
-	
+
+	<link rel="stylesheet"
+		href="http://www.jasny.net/bootstrap/dist/css/jasny-bootstrap.min.css" />
+
+	<h:outputStylesheet name="css/custom.css" />
+	<h:outputStylesheet name="css/jquery.navgoco.css" />
+	<h:outputStylesheet name="css/datepicker.css" />
+	<h:outputStylesheet name="css/sidemenu.css" />
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-growl/1.0.0/jquery.bootstrap-growl.js" />
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/js/flat-ui.js" />
-	<script src="../resources/js/maps.js" />
-	<script src="../resources/js/custom.js" />
-	<script src="../resources/js/inputmask.js" />
-	<script src="../resources/js/jquery.inputmask.js" />
-	<script src="../resources/js/inputmask.date.extensions.js" />
-	<script src="../resources/js/sidemenu.js" />
-	<script src="../resources/js/jquery.navgoco.min.js" />
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKwvaeHolteDKj5kKkg9z1uIXb7kfr-No" />
+
+	<script
+		src="http://www.jasny.net/bootstrap/dist/js/jasny-bootstrap.min.js" />
+
+	<h:outputScript name="js/maps.js" />
+	<h:outputScript name="js/custom.js" />
+	<h:outputScript name="js/inputmask.js" />
+	<h:outputScript name="js/jquery.inputmask.js" />
+	<h:outputScript name="js/inputmask.date.extensions.js" />
+	<h:outputScript name="js/datepicker.min.js" />
+	<h:outputScript name="js/datepicker.en.js" />
+
+	<h:outputScript name="js/jquery.navgoco.min.js" />
+
 </h:head>
 <body>
 	<div id="header">
 		<ui:insert name="header">
-			<nav class="navbar navbar-inverse navbar-fixed-top">
+			<nav class="navbar navbar-inverse navbar-fixed-top"
+				style="margin-bottom: 0px;">
 				<div class="container">
 					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed"
-							data-toggle="collapse" data-target="#navbar"
-							aria-expanded="false" aria-controls="navbar">
-							<span class="sr-only">Toggle navigation</span>
+						<button type="button" class="navbar-toggle"
+							data-toggle="offcanvas" data-target=".navmenu">
+							<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#">Pós Graduações XYZ</a>
+						<h:link styleClass="navbar-brand" outcome="/index">Pós Graduações XYZ</h:link>
+
 					</div>
-					<div id="navbar" class="navbar-collapse collapse">
-							<h:form style="padding-right:0px; padding-left:0px;"
-								class="navbar-form navbar-right">
-								<h:commandButton class="btn btn-success" type="submit"
-									value="Sair" actionListener="#{LoginBean.deslogar}" />
-							</h:form>
-							<p class="navbar-text navbar-right">
-								Bem vindo, <a href="#" class="navbar-link">#{displayName}!   </a>
-							</p>
-					</div>
+					<h:form>
+						<div id="navbar" class="navbar-collapse collapse">
+							<ul class="nav navbar-nav">
+								<li class="active"><a href="/JavaWeb-exAvaliacao/professor">Dashoard
+										<span class="sr-only">(current)</span>
+								</a></li>
+							</ul>
+
+							<ul class="nav navbar-nav navbar-right">
+
+								<li class="active"><h:commandLink
+										actionListener="#{LoginBean.deslogar()}"> Sair </h:commandLink></li>
+							</ul>
+
+							<p class="navbar-text pull-right">Bem Vindo #{displayName}</p>
+						</div>
+					</h:form>
 					<!--/.navbar-collapse -->
 				</div>
 			</nav>
 		</ui:insert>
 	</div>
+
+
+
 	<ui:insert name="sidemenu">
-		<div class="top-landing">
-			<div class="container-fluid">
-				<div class="row row-offcanvas row-offcanvas-left">
-					<script type="text/javascript">
+		<div style="margin-top: 53px"
+			class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm">
+			<script type="text/javascript">
 					$(document).ready(function() {
-					    $('.nav').navgoco();
+					    $('.navgo').navgoco();
 					});
 					</script>
-					<div class="col-xs-2  sidebar-offcanvas " id="sidebar">
-						<h:form>
-							<ul id="demo2" class="nav">
-								<li class="active"><a href="../professor/professor-dashboard.xhtml">Dashboard</a></li>
-								<li><a href="#">Disciplinas</a>
+			<h:form>
+				<ul id="demo2" class="navgo">
+					<li class="active"><a
+						href="../professor/professor-dashboard.xhtml">Dashboard</a></li>
+					<li><a href="#">Disciplinas</a>
+						<ul>
+							<ui:repeat value="#{professorControleBean.professor.disciplinas}"
+								var="disc">
+								<li><h:commandLink title="Ver alunos desta disciplina"
+										action="/professor/professor-alunosPorDisciplina"
+										actionListener="#{professorControleListagemBean.updateDisciplinaSession(disc)}"
+										value="#{disc.nome}">
+									</h:commandLink></li>
+							</ui:repeat>
+						</ul></li>
+					<li><a href="#">Turmas</a>
+						<ul>
+							<ui:repeat
+								value="#{professorControleBean.queryfindCursoPorProfessor()}"
+								var="cur">
+								<li><a href="#">#{cur.nome}</a>
 									<ul>
 										<ui:repeat
-											value="#{professorControleBean.professor.disciplinas}"
+											value="#{professorControleBean.disciplinaPorCursoPorProfessor(cur.id)}"
 											var="disc">
 											<li><h:commandLink title="Ver alunos desta disciplina"
 													action="/professor/professor-alunosPorDisciplina"
 													actionListener="#{professorControleListagemBean.updateDisciplinaSession(disc)}"
 													value="#{disc.nome}">
-
 												</h:commandLink></li>
 										</ui:repeat>
 									</ul></li>
-								<li><a href="#">Turmas</a>
-									<ul>
-										<ui:repeat
-											value="#{professorControleBean.queryfindCursoPorProfessor()}"
-											var="cur">
-											<li><a href="#">#{cur.nome}</a>
-												<ul>
-													<ui:repeat
-														value="#{professorControleBean.disciplinaPorCursoPorProfessor(cur.id)}"
-														var="disc">
-														<li><h:commandLink
-																title="Ver alunos desta disciplina"
-																action="/professor/professor-alunosPorDisciplina"
-																actionListener="#{professorControleListagemBean.updateDisciplinaSession(disc)}"
-																value="#{disc.nome}">
-
-															</h:commandLink></li>
-													</ui:repeat>
-												</ul></li>
-
-										</ui:repeat>
-									</ul></li>
-
-								<li><h:commandLink title="Todos meus alunos"
-										action="/professor/professor-todosAlunos"
-										value="Todos meus alunos">
-
-									</h:commandLink></li>
-
-							</ul>
-						</h:form>
-					</div>
-					<div class="col-xs-1 " id="toggle-canvas">
-						<p class="pull-left">
-							<button type="button" id="" class="btn btn-primary btn-md"
-								data-toggle="offcanvas">
-								<i class="fa fa-bars fa-lg"></i>
-							</button>
-						</p>
-
-					</div>
-
-					<div class="col-xs-9">
-						<div class="container">
-							<div class="row">
-								<ui:insert name="content">
-								</ui:insert>
-							</div>
-						</div>
-					</div>
-				</div>
+							</ui:repeat>
+						</ul>
+						</li>
 
 
-			</div>
-			<!--/row-->
-
-			<hr />
+						
+					<li><h:commandLink title="Todos meus alunos"
+							action="/professor/professor-todosAlunos"
+							value="Todos meus alunos">
+						</h:commandLink></li>
+						
+					
+		
+							<li class="responsiveLogin"><h:commandLink
+									actionListener="#{LoginBean.deslogar()}"> Sair </h:commandLink></li>
+						
+						
+						
+						
+				</ul>
+			</h:form>
 		</div>
-		<!--/.container-->
 	</ui:insert>
 
 
@@ -151,7 +156,14 @@
 
 
 
+	<ui:insert name="content">
 
+	</ui:insert>
+
+
+
+	<!--/row-->
+	<hr />
 
 	<div id="footer">
 		<ui:insert name="footer">

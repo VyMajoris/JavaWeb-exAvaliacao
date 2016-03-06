@@ -1,4 +1,12 @@
+
+.responsiveLogin {
+	display: none !important;
+}
+
 @media ( max-width : 992px) {
+		.responsiveLogin {
+		display: block !important;
+	}
 	.padding-fix-right {
 		padding-left: 0px;
 	}
@@ -50,6 +58,13 @@
 .list-header {
 	background-color: #1abc9c;
 }
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
 
 .ribbon {
 	background:
@@ -58,10 +73,7 @@
 	padding: 0px 0px 0px 0px;
 }
 
-.top-landing {
-	padding-top: 60px;
-	color: #1abc9c;
-}
+
 
 .top-landing::-webkit-scrollbar {
 	

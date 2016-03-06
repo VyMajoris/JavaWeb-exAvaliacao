@@ -34,10 +34,6 @@ public class AlunoListaBean {
 
 	}
 
-
-
-
-
 	public String remove(){
 		List<Nota> listNota = JpaUtil.getHibSession().getNamedQuery("findNotaPorAluno").setLong("idAluno", alunoRemover.getId()).list();
 		for (Nota nota : listNota) {
@@ -68,8 +64,4 @@ public class AlunoListaBean {
 	public void setAlunoRemover(Aluno alunoRemover) {
 		this.alunoRemover = alunoRemover;
 	}
-
-
-
-
 }

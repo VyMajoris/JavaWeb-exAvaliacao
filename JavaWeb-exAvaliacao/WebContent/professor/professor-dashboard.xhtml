@@ -14,20 +14,36 @@
 	    Portal do Professor
 	</ui:define>
 		<ui:define name="content">
-			<div class="col-sm-12">
-				<h:form prependId="false">
-					<h2>Dashboard</h2>
-					<div class="row">
-						<div class=" col-xl-12 ">
+			<div style="margin-top: 53px" class="canvas">
+
+
+				<div class="container">
+
+
+					<h:form prependId="false">
+
+						<div class="row">
+							<h2>Dashboard</h2>
+
 							<p:chart id="notaChart" widgetVar="notaChart" type="bar"
 								model="#{chartView.barModel}" style="height:400px"
 								responsive="true" />
+								<p:chart id="notaChart2" widgetVar="notaChart2" type="bar"
+								model="#{chartView.barModel}" style="height:400px"
+								responsive="true" />
+								<p:chart id="notaChart3" widgetVar="notaChart3" type="bar"
+								model="#{chartView.barModel}" style="height:400px"
+								responsive="true" />
+								<p:chart id="notaChart4" widgetVar="notaChart4" type="bar"
+								model="#{chartView.barModel}" style="height:400px"
+								responsive="true" />
+
 						</div>
-					</div>
-				</h:form>
-			</div>
-			<h:messages />
-			<script type="text/javascript">
+					</h:form>
+
+
+					<h:messages />
+					<script type="text/javascript">
 			function notaExtender  () {
 				this.cfg.legend = {
 				        // This renderer is needed for advance legends.
@@ -49,7 +65,8 @@
 
 
 
-
+				</div>
+			</div>
 
 		</ui:define>
 
