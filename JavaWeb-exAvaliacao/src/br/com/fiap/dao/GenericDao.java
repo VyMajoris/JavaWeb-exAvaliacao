@@ -3,6 +3,8 @@ package br.com.fiap.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -92,6 +94,7 @@ public class GenericDao<T> implements Dao<T> {
 		em = JpaUtil.getEntityManager();
 		return em.createQuery("From " + classe.getSimpleName()).getResultList();
 	}
+	
 
 	@Override
 	public T buscar(Long id) {
@@ -101,6 +104,7 @@ public class GenericDao<T> implements Dao<T> {
 		em.getTransaction().commit();
 		return entidade;
 	}
+	
 
 
 

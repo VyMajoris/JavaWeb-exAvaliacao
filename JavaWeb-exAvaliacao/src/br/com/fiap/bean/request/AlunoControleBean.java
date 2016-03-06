@@ -48,11 +48,7 @@ public class AlunoControleBean {
 		aluno = alunoDao.buscar( (Long) session.getAttribute("idAluno"));
 
 
-	}
-	
-	
-
-	
+	}	
 	
 	public Aluno getAluno() {
 		return aluno;

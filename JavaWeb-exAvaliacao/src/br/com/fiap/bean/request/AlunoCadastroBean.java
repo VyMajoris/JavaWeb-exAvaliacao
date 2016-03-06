@@ -6,10 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -33,7 +32,6 @@ public class AlunoCadastroBean {
 
 
 	public void init() throws IOException{
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		alunoDao = new  GenericDao<Aluno>(Aluno.class);
 		cursoDao = new GenericDao<Curso>(Curso.class);
 		listCurso = cursoDao.listar();
@@ -54,23 +52,19 @@ public class AlunoCadastroBean {
 			ec.invalidateSession();
 			ec.redirect(ec.getRequestContextPath());
 		}
-
-
 	}
 
 	public void cadastrarAluno() throws ParseException{
-
 		Query findTotalAlunosPorCurso = JpaUtil.getHibSession().getNamedQuery("findTotalAlunosPorCurso");
 		findTotalAlunosPorCurso.setLong("idCurso", aluno.getCurso().getId());
 		findTotalAlunosPorCurso.uniqueResult();
 
 		if (cursoDao.buscar(aluno.getCurso().getId()).getVagas() <= ((Long) findTotalAlunosPorCurso.uniqueResult())) {
-			FacesMessage msg = new FacesMessage("Este curso não possui mais vagas disponíveis!: ");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,"Este curso não possui mais vagas disponíveis!",null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}else{
 			Format formatter = new SimpleDateFormat("ddMMyyyy");
 			aluno.setSenha(formatter.format(aluno.getDataNasc()));
-
 			aluno = alunoDao.adicionar(aluno);
 			FacesMessage msg = new FacesMessage("Aluno Cadastrado. Registro de Matrícula: "+aluno.getRm());
 			FacesContext.getCurrentInstance().addMessage(null, msg);

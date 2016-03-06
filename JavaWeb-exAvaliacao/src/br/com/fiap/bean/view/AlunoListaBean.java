@@ -7,13 +7,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
-import org.hibernate.Query;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.dao.JpaUtil;
 import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Disciplina;
+import br.com.fiap.entity.Nota;
 
 @ManagedBean
 @ViewScoped
@@ -21,6 +22,7 @@ public class AlunoListaBean {
 
 	private List<Aluno> listAluno;
 	private GenericDao<Aluno> alunoDao;
+	private GenericDao<Nota> notaDao;
 	private Aluno alunoRemover;
 
 	@PostConstruct
@@ -28,30 +30,21 @@ public class AlunoListaBean {
 		System.out.println("AlunoListBean init");
 		alunoDao = new GenericDao<Aluno>(Aluno.class);
 		setListAluno(alunoDao.listar());
+		notaDao = new GenericDao<Nota>(Nota.class);
+
 	}
 
 
 
 
+
 	public String remove(){
-		alunoRemover.setCurso(null);
-
-
-		Query deleteNotaPorAlunoEDisciplina = JpaUtil.getHibSession().getNamedQuery("deleteNotaPorAlunoEDisciplina");
-		deleteNotaPorAlunoEDisciplina.setLong("idAluno", (Long) alunoRemover.getId());
-		
-		for (Disciplina disc : alunoRemover.getCurso().getDisciplinas()) {
-			
-			deleteNotaPorAlunoEDisciplina.setLong("idDisciplina", disc.getId());
-			System.out.println("DISCIPLINAD ELETE"+ disc.getNome());
-			deleteNotaPorAlunoEDisciplina.executeUpdate();
+		List<Nota> listNota = JpaUtil.getHibSession().getNamedQuery("findNotaPorAluno").setLong("idAluno", alunoRemover.getId()).list();
+		for (Nota nota : listNota) {
+			notaDao.remover(nota);
 		}
 		
-		
-		
-
-
-
+		alunoRemover.setCurso(null);
 		alunoDao.removeById(alunoRemover.getId());
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage("Aluno Removido!"));
@@ -68,14 +61,9 @@ public class AlunoListaBean {
 		this.listAluno = listAluno;
 	}
 
-
-
 	public Aluno getAlunoRemover() {
 		return alunoRemover;
 	}
-
-
-
 
 	public void setAlunoRemover(Aluno alunoRemover) {
 		this.alunoRemover = alunoRemover;

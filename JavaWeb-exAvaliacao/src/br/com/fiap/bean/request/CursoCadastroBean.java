@@ -60,14 +60,6 @@ public class CursoCadastroBean {
 
 	public void cadastrarCurso() throws ParseException{
 		
-		if (curso != null) {
-			System.out.println("CURSO NULL");
-			System.out.println(curso.getNome());
-			System.out.println(curso.getId());
-			System.out.println(curso.getDataInicio());
-			System.out.println(curso.getDataTermino());
-		}
-		
 		if ( curso.getDataInicio().after(curso.getDataTermino()) ) {
 			curso.setDataTermino(null);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"A data termíno deve ser depois que data de início! Por favor ajuste.",null);
