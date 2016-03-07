@@ -6,15 +6,11 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
-
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.entity.Curso;

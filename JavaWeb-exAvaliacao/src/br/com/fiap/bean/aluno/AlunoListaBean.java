@@ -7,13 +7,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.dao.JpaUtil;
 import br.com.fiap.entity.Aluno;
-import br.com.fiap.entity.Disciplina;
 import br.com.fiap.entity.Nota;
 
 @ManagedBean

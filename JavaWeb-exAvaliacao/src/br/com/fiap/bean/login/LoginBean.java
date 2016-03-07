@@ -7,21 +7,16 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
 import org.primefaces.context.RequestContext;
 
-import br.com.fiap.dao.GenericDao;
 import br.com.fiap.dao.JpaUtil;
 import br.com.fiap.entity.Admin;
 import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Professor;
-
 import br.com.fiap.entity.Usuario;
 import br.com.fiap.validator.NumericValidator;
 
@@ -34,9 +29,7 @@ public class LoginBean implements Serializable{
 	public Aluno getAluno() {
 		return aluno;
 	}
-
 	private Professor professor;
-	private static GenericDao<Usuario> usuarioDao;
 	private String rm;
 	private String senha;
 	private Usuario usuario;
@@ -44,7 +37,6 @@ public class LoginBean implements Serializable{
 
 	@PostConstruct
 	public void init(){
-		usuarioDao = new GenericDao<Usuario>(Usuario.class);
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 	}

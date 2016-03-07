@@ -6,20 +6,16 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-
 import org.hibernate.Query;
-import org.hibernate.Session;
 
 import br.com.fiap.dao.GenericDao;
 import br.com.fiap.dao.JpaUtil;
 import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Disciplina;
 import br.com.fiap.entity.Nota;
-import br.com.fiap.entity.Professor;
+
 import br.com.fiap.entity.TipoNotaEnum;
 import br.com.fiap.helpers.DisciplinaComNota;
 
