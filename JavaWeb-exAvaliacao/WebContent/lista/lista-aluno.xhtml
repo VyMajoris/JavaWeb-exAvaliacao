@@ -20,7 +20,23 @@
 					<h:messages />
 					<h:form prependId="false">
 						<h2>Lista de Alunos</h2>
+						<div style="margin-bottom: 10px;"  class="row">
+							<h:form  class="form-inline">
+								<div class="form-group">
+									<div class="col-md-6 col-sm12">
+										<h:inputText class="form-control" value="#{alunoListaBean.cursoNome}"
+											pa:placeholder="Nome do Curso" />
+									</div>
+									<div class="col-md-6 col-sm12">
+										<p:commandLink class="btn btn-block btn-primary "
+										  update=":alunoTable"	action="#{alunoListaBean.listarPorNomeCurso()}" value="Pesquisar por Curso" />
+									</div>
+								</div>
+							</h:form>
+						</div>
 						<div class="row">
+
+
 							<div class="col-sm-12">
 								<p:dataTable emptyMessage="Nenhum resultado encontrado"
 									id="alunoTable" widgetVar="alunoTable" class="table" var="alu"
@@ -57,7 +73,8 @@
 									</p:column>
 									<p:column headerText="Opções">
 										<div align="center">
-											<h:link style="margin-right: 3px" id="btnsearch" outcome="/cadastro/cadastro-aluno"
+											<h:link style="margin-right: 3px" id="btnsearch"
+												outcome="/cadastro/cadastro-aluno"
 												styleClass="btn btn-info btn-xs">
 												<i class="fa fa-pencil" style="margin-right: 3px" />
 										Editar

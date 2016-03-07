@@ -20,6 +20,8 @@ import javax.persistence.TemporalType;
 				+ "FROM Aluno a, Curso c, Disciplina d, Professor p " + "JOIN c.disciplinas cDisciplinas "
 				+ "WHERE a.curso.id = c.id AND c.id = cDisciplinas.curso.id AND cDisciplinas.professor.rm = :rmProfessor"),
 		@NamedQuery(name = "findAlunoPorCurso", query = "SELECT a FROM Aluno a JOIN a.curso b with b.id = :idCurso"),
+		
+		@NamedQuery(name = "findAlunoPorNomeCurso", query = "SELECT a FROM Aluno a where a.curso.nome LIKE lower(:nomeCurso)"),
 
 		@NamedQuery(name = "findAlunoPorDisciplina", query = "SELECT DISTINCT a "
 				+ "FROM Aluno a, Curso c, Disciplina d " + "JOIN c.disciplinas cDisciplinas "
