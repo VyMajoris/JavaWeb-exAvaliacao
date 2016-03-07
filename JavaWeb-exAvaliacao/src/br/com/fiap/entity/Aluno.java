@@ -15,8 +15,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
-
 @NamedQueries({ @NamedQuery(name = "findAluno", query = "from Aluno a where a.rm= :rmAluno and a.senha = :senha"),
 		@NamedQuery(name = "findAlunoPorProfessor", query = "SELECT DISTINCT a "
 				+ "FROM Aluno a, Curso c, Disciplina d, Professor p " + "JOIN c.disciplinas cDisciplinas "
@@ -29,15 +27,11 @@ import javax.persistence.TemporalType;
 		@NamedQuery(name = "findTotalAlunosPorCurso", query = "SELECT Count(a) "
 				+ "FROM Aluno a, Curso c "
 				+ "WHERE a.curso.id = c.id AND c.id = :idCurso"),
-		
-
 } )
 
 @Entity
 @PrimaryKeyJoinColumn(name = "rm")
 public class Aluno extends Usuario {
-
-	
 
 	private String cpf;
 	private String nome;
@@ -45,7 +39,6 @@ public class Aluno extends Usuario {
 	private String tel;
 	private String endereco;
 	
-
 	public Aluno() {
 		this.setTipo(TipoUsuarioEnum.ALUNO);
 	}
@@ -57,7 +50,6 @@ public class Aluno extends Usuario {
 	@JoinColumn(name = "idCurso", nullable = true, columnDefinition = "bigint(20)")
 	private Curso curso;
 
-	
 	
 	@Override
 	public int hashCode() {

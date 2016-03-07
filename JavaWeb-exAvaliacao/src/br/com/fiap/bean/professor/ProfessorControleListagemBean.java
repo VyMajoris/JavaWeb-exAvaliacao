@@ -41,15 +41,12 @@ public class ProfessorControleListagemBean {
 	@PostConstruct
 	public void init(){
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		System.out.println("CONTROLE list BEAN");
 		professorDao = new GenericDao<Professor>(Professor.class);
 		disciplina = (Disciplina) session.getAttribute("disciplina");
 		notaDao = new GenericDao<Nota>(Nota.class);
-
 	}
 
 	public void addNota(){
-		System.out.println("Add nota");
 		NotaPK notaPK = new NotaPK();
 		notaPK.setAluno(aluno);
 		notaPK.setDisciplina(disciplina);
@@ -73,8 +70,6 @@ public class ProfessorControleListagemBean {
 	}
 
 	public void prepNota(Aluno aluno){
-		System.out.println("Prep nota");
-		System.out.println(aluno.getNome());
 		Query findNotaPorAlunoEDisciplina = JpaUtil.getHibSession().getNamedQuery("findNotaPorAlunoEDisciplina");
 		findNotaPorAlunoEDisciplina.setLong("idAluno", (Long) aluno.getId());
 		findNotaPorAlunoEDisciplina.setLong("idDisciplina", disciplina.getId());
@@ -125,9 +120,6 @@ public class ProfessorControleListagemBean {
 		
 		return this.listAluno = listaluno;
 	}
-
-
-
 
 
 

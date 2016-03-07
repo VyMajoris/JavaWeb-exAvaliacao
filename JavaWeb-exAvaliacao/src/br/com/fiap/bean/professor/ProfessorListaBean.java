@@ -32,18 +32,8 @@ public class ProfessorListaBean {
 
 	@PostConstruct
 	public void init(){
-		System.out.println("ProfessorListBean init");
 		professorDao = new GenericDao<Professor>(Professor.class);
 		setListProfessor(professorDao.listar());
-
-
-		for (Professor pl : listProfessor) {
-			for (Disciplina d : pl.getDisciplinas()) {
-				System.out.println("Disciplina: " + d.getNome());
-
-			}
-
-		}
 	}
 
 	public String remove(){

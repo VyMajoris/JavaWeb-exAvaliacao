@@ -13,7 +13,6 @@
 		<ui:define name="title">
 	    Lista de todos meus alunos
 	</ui:define>
-
 		<ui:define name="content">
 			<div style="margin-top: 53px" class="canvas">
 				<div class="container">
@@ -29,9 +28,7 @@
 									widgetVar="alunoTable" draggableColumns="true"
 									class="table table-condensed" var="alu"
 									value="#{professorControleListagemBean.queryAlunosPorProfessor()}">
-
 									<p:column headerText="Nome">
-
 										<h:outputText value="#{alu.nome}" />
 									</p:column>
 									<p:column headerText="Email">
@@ -62,11 +59,8 @@
 					<div class="modal" id="myModal" tabindex="-1" role="dialog"
 						aria-labelledby="myModal" aria-hidden="false"
 						data-keyboard="false" data-backdrop="static">
-
 						<h:form id="modalNotaForm">
 							<div class="modal-dialog" role="document">
-
-
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal"
@@ -79,11 +73,9 @@
 												value="#{professorControleListagemBean.aluno.nome}" />
 										</h4>
 									</div>
-
 									<div class="modal-body">
 										<div class="col-md-12">
 											<div class="form-group">
-
 												<h:outputLabel for="projeto1" value="Projeto 1"
 													style="font-weight:bold" />
 												<h:inputText id="projeto1" pa:type="number"
@@ -92,10 +84,7 @@
 													styleClass="form-control" label="Projeto 1">
 													<f:validator
 														validatorId="br.com.fiap.helpers.NotaValidator" />
-
 												</h:inputText>
-
-
 												<h:outputLabel for="projetoAtvd" value="Atividade Prática"
 													style="font-weight:bold" />
 												<h:inputText id="projetoAtvd" pa:type="number"
@@ -104,10 +93,7 @@
 													styleClass="form-control" label="Atividade Prática">
 													<f:validator
 														validatorId="br.com.fiap.helpers.NotaValidator" />
-
 												</h:inputText>
-
-
 												<h:outputLabel for="projeto2" value="Projeto 2"
 													style="font-weight:bold" />
 												<h:inputText id="projeto2" pa:type="number"
@@ -116,25 +102,19 @@
 													styleClass="form-control" label="Projeto 2">
 													<f:validator
 														validatorId="br.com.fiap.helpers.NotaValidator" />
-
 												</h:inputText>
-
 											</div>
 										</div>
 									</div>
-
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">Voltar</button>
 										<h:commandLink
 											action="#{professorControleListagemBean.addNota}"
 											class="btn btn-primary" value="Enviar">
-
 										</h:commandLink>
 									</div>
-
 								</div>
-
 							</div>
 						</h:form>
 					</div>

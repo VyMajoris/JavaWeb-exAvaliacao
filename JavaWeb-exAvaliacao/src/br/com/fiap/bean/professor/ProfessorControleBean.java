@@ -28,7 +28,6 @@ public class ProfessorControleBean {
 	private List<Disciplina> listDisciplina;
 	private GenericDao<Aluno> alunoDao;
 	private Professor professor;
-	private Session hSession;
 	private HttpSession session;
 	private List<Curso> listaCurso;
 
@@ -40,22 +39,19 @@ public class ProfessorControleBean {
 	}
 	@PostConstruct
 	public void init(){
-		System.out.println("CONTROLE BEAN");
-		createHsession();
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		professorDao = new GenericDao<Professor>(Professor.class);
 		professor = professorDao.buscar( (Long) session.getAttribute("rmProfessor"));
 	}
 
 	public List<Curso> queryfindCursoPorProfessor(){
-		Query findCursoPorProfessor = hSession.getNamedQuery("findCursoPorProfessor");
+		Query findCursoPorProfessor =  JpaUtil.getHibSession().getNamedQuery("findCursoPorProfessor");
 		findCursoPorProfessor.setLong("rmProfessor", (Long) session.getAttribute("rmProfessor"));
 		List<Curso> listacurso = findCursoPorProfessor.list();
 		return this.setListaCurso(listacurso);
 	}
 
 	public List<Disciplina> disciplinaPorCursoPorProfessor(Long idCurso){
-	
 		List<Disciplina> listDisciplina = new ArrayList<Disciplina>();
 		for (Disciplina disc : professor.getDisciplinas()) {
 				if (idCurso == disc.getCurso().getId()) {
@@ -64,12 +60,8 @@ public class ProfessorControleBean {
 		}
 		return listDisciplina;
 	}
-	private void createHsession(){
-		hSession = JpaUtil.getHibSession();
 
-	}
-	
-	
+
 	
 	//
 	public Professor getProfessor() {

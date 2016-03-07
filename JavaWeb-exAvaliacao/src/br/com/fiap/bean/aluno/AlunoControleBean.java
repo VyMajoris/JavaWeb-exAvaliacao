@@ -41,7 +41,6 @@ public class AlunoControleBean {
 	}
 	@PostConstruct
 	public void init(){
-		System.out.println("CONTROLE Aluno BEAN");
 		createHsession();
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		alunoDao = new GenericDao<Aluno>(Aluno.class);

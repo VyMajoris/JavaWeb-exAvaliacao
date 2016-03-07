@@ -23,18 +23,14 @@ public class CursoListaBean {
 	@PostConstruct
 	public void init(){
 		cursoDao = new  GenericDao<Curso>(Curso.class);
-
 		listCurso = cursoDao.listar();
 
 	}
 	public String remove(){
-		System.out.println("REMOVE curso id: " +cursoRemover.getId());
-
 		if (cursoRemover.getEscola() !=null) {
 			cursoRemover.getEscola().getCursos().remove(cursoRemover);
 			cursoRemover.setEscola(null);
 		}
-		
 		for (Disciplina disciplina : cursoRemover.getDisciplinas()) {
 			disciplina.setCurso(null);
 		}
@@ -44,10 +40,7 @@ public class CursoListaBean {
 		.addMessage(null, new FacesMessage("Curso Removido!"));
 		listCurso = cursoDao.listar();
 		return "lista-curso?faces-redirect=true";
-
 	}
-
-
 
 	public Curso getCursoRemover() {
 		return cursoRemover;

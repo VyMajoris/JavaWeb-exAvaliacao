@@ -55,7 +55,6 @@ public class GenericDao<T> implements Dao<T> {
 
 	@Override
 	public void removeById(Long id){
-		System.out.println(em.isOpen());
 		em.getTransaction().begin();
 		T entity = em.find(classe,id);
 		em.remove(entity);
@@ -72,7 +71,6 @@ public class GenericDao<T> implements Dao<T> {
 	}
 	@Override
 	public T adicionar(T entidade) {
-		System.out.println("DAO persist");
 		em.getTransaction().begin();
 		em.persist(entidade);
 		em.getTransaction().commit();
@@ -81,10 +79,8 @@ public class GenericDao<T> implements Dao<T> {
 	}
 	@Override
 	public void update(T entity) {
-		System.out.println("DAO UPDATE");
 		em.getTransaction().begin();
 		em.merge(entity);
-
 		em.getTransaction().commit();
 	}
 

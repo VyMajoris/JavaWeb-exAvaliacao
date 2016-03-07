@@ -13,7 +13,6 @@
 		<ui:define name="title">
 	    Lista de Cursos
 	</ui:define>
-
 		<ui:define name="content">
 			<div style="margin-top: 53px" class="canvas">
 				<div class="container">
@@ -28,15 +27,12 @@
 									<p:column headerText="Nome">
 										<h:outputText value="#{cur.nome}" />
 									</p:column>
-
 									<p:column headerText="Data de Início">
 										<h:outputText value="#{cur.dataInicio}"></h:outputText>
 									</p:column>
-
 									<p:column headerText="Data de Término">
 										<h:outputText value="#{cur.dataTermino}"></h:outputText>
 									</p:column>
-
 									<p:column headerText="Horas/Aula">
 										<h:outputText value="#{cur.duracao}" />
 									</p:column>
@@ -82,7 +78,6 @@
 						</div>
 					</h:form>
 				</div>
-
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel">
 					<div class="modal-dialog" role="document">
@@ -95,7 +90,6 @@
 								<h4 class="modal-title" id="myModalLabel">Deseja deletar
 									este curso?</h4>
 							</div>
-
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">Não</button>

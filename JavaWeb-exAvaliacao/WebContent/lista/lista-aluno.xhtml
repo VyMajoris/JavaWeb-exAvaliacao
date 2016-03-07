@@ -19,7 +19,6 @@
 				<div class="container">
 					<h:messages />
 					<h:form prependId="false">
-
 						<h2>Lista de Alunos</h2>
 						<div class="row">
 							<div class="col-sm-12">
@@ -35,14 +34,11 @@
 									<p:column headerText="Telefone">
 										<h:outputText value="#{alu.tel}" />
 									</p:column>
-
 									<p:column headerText="Endereco">
 										<h:outputText value="#{alu.endereco}" />
 									</p:column>
-
 									<p:column headerText="Curso">
 										<div align="center">
-
 											<h:link style="margin-right: 3px;"
 												rendered="#{not empty alu.curso}"
 												outcome="/cadastro/cadastro-curso"
@@ -51,13 +47,11 @@
 											#{alu.curso.nome}
 											<f:param name="idCurso" value="#{alu.curso.id}" />
 											</h:link>
-
 											<p:commandLink rendered="#{empty alu.curso}"
 												style="margin-right: 3px" class="btn btn-danger btn-xs"
 												type="button">
 												<i class="fa fa-exclamation-triangle"
 													style="margin-right: 3px" />  Sem Curso!
-									
 									</p:commandLink>
 										</div>
 									</p:column>
@@ -83,7 +77,6 @@
 						</div>
 					</h:form>
 				</div>
-
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel">
 					<div class="modal-dialog" role="document">
@@ -96,7 +89,6 @@
 								<h4 class="modal-title" id="myModalLabel">Deseja deletar
 									este aluno?</h4>
 							</div>
-
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">Não</button>

@@ -33,14 +33,12 @@ public class EscolaCadastroBean implements Serializable {
 	private Long idEscola;
 
 	public void init() throws IOException {
-		System.out.println("EscolaCadastroBean init");
 		escolaDao = new  GenericDao<Escola>(Escola.class);
 		if (idEscola != null) {
 			escola = escolaDao.buscar(idEscola);
 		}else{
 			escola = new Escola();
 		}
-
 		if (escola == null && idEscola != null) {
 			String message = "Bad request. Unknown user.";
 			FacesContext.getCurrentInstance().addMessage(null, 
@@ -69,12 +67,9 @@ public class EscolaCadastroBean implements Serializable {
 		String latLng = null;
 		if(res.getStatus().equals("OK")){
 			Result result = res.getResults()[0];
-			System.out.println(result.getFormatted_address());
-			System.out.println(result.getGeometry().getLocation_type());
 			latLng = result.getGeometry().getLocation().getLat()+","+result.getGeometry().getLocation().getLng();
 		}
 		return latLng;
-
 	}
 
 	public String atualizarEscola() throws IOException{

@@ -24,7 +24,6 @@ import br.com.fiap.entity.Escola;
 @ViewScoped
 public class CursoCadastroBean {
 	private List<Escola> listEscolaTotal;
-
 	private GenericDao<Curso> cursoDao;
 	private GenericDao<Escola> escolaDao;
 	private Curso curso;
@@ -33,10 +32,8 @@ public class CursoCadastroBean {
 	Date terminoiAntigo;
 	Date inicioAntigo;
 	private Long idCurso;
-
 	
 	public void init() throws IOException {
-		System.out.println("Curso Cadastro Bean init");
 		cursoDao = new  GenericDao<Curso>(Curso.class);
 		escolaDao = new GenericDao<Escola>(Escola.class);
 		listEscolaTotal = escolaDao.listar();
@@ -59,24 +56,18 @@ public class CursoCadastroBean {
 	}
 
 	public void cadastrarCurso() throws ParseException{
-		
 		if ( curso.getDataInicio().after(curso.getDataTermino()) ) {
 			curso.setDataTermino(null);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"A data termíno deve ser depois que data de início! Por favor ajuste.",null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			
 		}else{
 			cursoDao.adicionar(curso);
 			FacesMessage msg = new FacesMessage("Curso "+curso.getNome()+" cadastrado!");
 			curso = new Curso();
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
-
-
-
 	}
 	public String atualizarCurso(){
-		System.out.println("atualizar CURSO!!!!!");
 		String returnString = null;
 		if ( curso.getDataInicio().after(curso.getDataTermino()) ) {
 			curso.setDataTermino(terminoiAntigo);
@@ -84,14 +75,12 @@ public class CursoCadastroBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"A data termíno deve ser depois que data de início! Por favor ajuste.",null);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}else{
-
 			cursoDao.update(curso);
 			FacesMessage msg = new FacesMessage("Curso " +curso.getNome()+ " Atualizado!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			returnString= "/lista/lista-curso";
 		}
 		return returnString;
-
 
 	}
 

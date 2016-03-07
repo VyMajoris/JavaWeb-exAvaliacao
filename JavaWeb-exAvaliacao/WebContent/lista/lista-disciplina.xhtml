@@ -35,7 +35,8 @@
 
 									<p:column headerText="Professor">
 										<div align="center">
-											<h:link style="margin-right: 3px" rendered="#{not empty dis.professor}"
+											<h:link style="margin-right: 3px"
+												rendered="#{not empty dis.professor}"
 												outcome="/cadastro/cadastro-professor"
 												styleClass="btn btn-info btn-xs">
 												<i class="fa fa-pencil" style="margin-right: 3px" />
@@ -52,7 +53,8 @@
 									</p:column>
 									<p:column headerText="Cursos Relacionados">
 										<div align="center">
-											<h:link style="margin-right: 3px" rendered="#{not empty dis.curso}"
+											<h:link style="margin-right: 3px"
+												rendered="#{not empty dis.curso}"
 												outcome="/cadastro/cadastro-curso"
 												styleClass="btn btn-info btn-xs">
 												<i class="fa fa-pencil" style="margin-right: 3px" />
@@ -64,12 +66,9 @@
 												type="button">
 												<i class="fa fa-exclamation-triangle"
 													style="margin-right: 3px" />  Sem Curso!
-									
 									</p:commandLink>
 										</div>
-
 									</p:column>
-
 									<p:column headerText="Opções">
 										<div align="center">
 											<h:link style="margin-right: 3px" id="btnsearch"

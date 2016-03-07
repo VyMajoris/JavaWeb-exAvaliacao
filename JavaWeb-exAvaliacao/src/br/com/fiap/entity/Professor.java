@@ -21,9 +21,6 @@ import javax.persistence.TemporalType;
 @PrimaryKeyJoinColumn(name = "rm"  )
 public class Professor extends Usuario  {
 
-
-
-
 	private String telefone;
 	private String email;
 	private String endereco;
@@ -39,8 +36,6 @@ public class Professor extends Usuario  {
 
 	@Temporal(TemporalType.DATE)
 	private Date dataNasc;
-
-
 
 	@Override
 	public String toString() {

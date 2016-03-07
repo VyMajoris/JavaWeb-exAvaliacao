@@ -27,22 +27,19 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<script type="text/javascript">
-				$(document).ready(function() {
-
-					var tableRow = $("td").filter(function() {
-					    return $(this).text() == "REPROVADO";
-					}).closest("tr"); tableRow.addClass('danger')
-					var tableRow = $("td").filter(function() {
-					    return $(this).text() == "APROVADO";
-					}).closest("tr"); tableRow.addClass('success')
-				});
-			</script>
+							$(document).ready(function() {
+								var tableRow = $("td").filter(function() {
+								    return $(this).text() == "REPROVADO";
+								}).closest("tr"); tableRow.addClass('danger')
+								var tableRow = $("td").filter(function() {
+								    return $(this).text() == "APROVADO";
+								}).closest("tr"); tableRow.addClass('success')
+							});
+							</script>
 							<p:dataTable emptyMessage="Nenhum resultado encontrado"
 								id="disciplinaTable" widgetVar="disciplinaTable"
 								draggableColumns="true" class="table table-condensed" var="disc"
 								value="#{alunoControleListagemBean.listDisciplinaComNota}">
-
-
 								<p:columnGroup type="header">
 									<p:row>
 										<p:column class="vcenter" rowspan="2" headerText="Disciplina" />
@@ -50,7 +47,6 @@
 										<p:column class="vcenter" rowspan="2" headerText="Média" />
 										<p:column class="vcenter" rowspan="2" headerText="Situação" />
 									</p:row>
-
 									<p:row>
 										<p:column class="vcenter" headerText="Projeto 1" />
 										<p:column class="vcenter" headerText="Projeto 2" />
@@ -58,9 +54,7 @@
 									</p:row>
 								</p:columnGroup>
 								<p:column>
-									
-										<h:outputText value="#{disc.nome}" />
-									
+									<h:outputText value="#{disc.nome}" />
 								</p:column>
 								<p:column>
 									<div align="center">
@@ -85,30 +79,23 @@
 												style="margin-right: 3px" /> Nota pendente
 									
 									</h:link>
-
-
-
-
-
-
-
 									</div>
 
 								</p:column>
 								<p:column>
-								<div align="center">
-									<h:outputText value="#{disc.notaAtvd.valor}">
-										<f:convertNumber pattern="#0.0" />
-										<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
-									</h:outputText>
+									<div align="center">
+										<h:outputText value="#{disc.notaAtvd.valor}">
+											<f:convertNumber pattern="#0.0" />
+											<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+										</h:outputText>
 									</div>
 								</p:column>
 								<p:column>
-								<div align="center">
-									<h:outputText value="#{disc.media}">
-										<f:convertNumber pattern="#0.0" />
-										<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
-									</h:outputText>
+									<div align="center">
+										<h:outputText value="#{disc.media}">
+											<f:convertNumber pattern="#0.0" />
+											<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+										</h:outputText>
 									</div>
 								</p:column>
 								<p:column>

@@ -12,8 +12,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-
-
 @Entity
 public class Escola extends BaseEntity{
 	
@@ -21,9 +19,7 @@ public class Escola extends BaseEntity{
 	private String descricao;
 	private String endereco;
 	private String latLng;
-	
 	private int salas;
-
 
 	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch=FetchType.EAGER, mappedBy="escola")
 	private Collection<Curso> cursos = new ArrayList<Curso>();

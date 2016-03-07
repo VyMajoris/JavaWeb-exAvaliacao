@@ -13,8 +13,6 @@
 		<ui:define name="title">
 	    Lista de Escolas
 	</ui:define>
-
-
 		<ui:define name="content">
 			<div style="margin-top: 53px" class="canvas">
 				<div class="container">
@@ -29,23 +27,20 @@
 									<p:column headerText="Nome">
 										<h:outputText value="#{esc.nome}" />
 									</p:column>
-
 									<p:column headerText="Endereço">
 										<h:outputText value="#{esc.endereco}" />
 									</p:column>
-
 									<p:column headerText="Qtd. Salas">
 										<h:outputText value="#{esc.salas}" />
 									</p:column>
-
 									<p:column headerText="Descrição">
 										<h:outputText value="#{esc.descricao}" />
 									</p:column>
-
 									<p:column headerText="Cursos Relacionados">
 										<div align="center">
 											<ui:repeat var="cur" value="#{esc.cursos}">
-												<h:link style="margin-right: 3px;" rendered="#{not empty cur}"
+												<h:link style="margin-right: 3px;"
+													rendered="#{not empty cur}"
 													outcome="/cadastro/cadastro-curso"
 													styleClass="btn btn-info btn-xs">
 													<i class="fa fa-pencil" style="margin-right: 3px" />
@@ -58,18 +53,16 @@
 												style="margin-right: 3px" class="btn btn-danger btn-xs"
 												type="button">
 												<i class="fa fa-exclamation-triangle"
-													style="margin-right: 3px" />  Sem Cursos!
+													style="margin-right: 3px" />Sem Cursos!
 											</p:commandLink>
 										</div>
 									</p:column>
-
 									<p:column headerText="Opções">
 										<div align="center">
-											<h:link style="margin-right: 3px;" id="btnsearch" outcome="/cadastro/cadastro-escola"
+											<h:link style="margin-right: 3px;" id="btnsearch"
+												outcome="/cadastro/cadastro-escola"
 												styleClass="btn btn-info btn-xs">
-												<i class="fa fa-pencil" style="margin-right: 3px" />
-										  
-										  Editar
+												<i class="fa fa-pencil" style="margin-right: 3px" />Editar
 										 <f:param name="idEscola" value="#{esc.id}" />
 											</h:link>
 											<p:commandLink pa:data-toggle="modal"
@@ -86,7 +79,6 @@
 						</div>
 					</h:form>
 				</div>
-
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel">
 					<div class="modal-dialog" role="document">
@@ -100,12 +92,10 @@
 									esta escola?</h4>
 							</div>
 							<div class="modal-body">
-
 								<h4 class="modal-title" id="myModalLabel">Atenção:</h4>
 								<p>Ao deletar esta escola você irá deletar todas as entides
 									relacionadas. Deseja continuar?</p>
 							</div>
-
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">Não</button>
@@ -117,7 +107,6 @@
 					</div>
 				</div>
 			</div>
-
 		</ui:define>
 		<ui:define name="footer"></ui:define>
 	</ui:composition>

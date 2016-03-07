@@ -48,48 +48,31 @@ public class ChartView implements Serializable {
 	}
 
 	private Double calculaMedia(List<Nota> listNota){
-
 		Double media = 0D;
 		int qtdNotas = 0;
-
 		for (Nota nota : listNota) {
-
 			if (nota.getValor() != null) {
-
 				media += nota.getValor();
-
 				qtdNotas++;
-
 			}
-
-
-
-
 		} 
 		if (media!=null ){
-
-
 			media = media/qtdNotas;
 			System.out.println("MEDIA = "+media);
 		}
-
 		return media;
 	}
 
 	private BarChartModel initBarModel() {
-		System.out.println("initBarModel");
 		BarChartModel model = new BarChartModel();
-
 
 		for (TipoNotaEnum tipo : TipoNotaEnum.values()) {
 			ChartSeries tipoChart = new ChartSeries();
 			tipoChart.setLabel(tipo.toString());
 			Query findNotaPorDisciplinaETipo = JpaUtil.getHibSession().getNamedQuery("findNotaPorDisciplinaETipo");
 			findNotaPorDisciplinaETipo.setParameter("tipo", tipo);
-
 			for(Disciplina disc : professor.getDisciplinas()){
 				findNotaPorDisciplinaETipo.setParameter("idDisciplina", disc.getId());
-
 				tipoChart.set(disc.getNome(), calculaMedia(findNotaPorDisciplinaETipo.list()));
 			}
 			model.addSeries(tipoChart);
@@ -98,44 +81,26 @@ public class ChartView implements Serializable {
 			model.setSeriesColors("1ABC9C, 34495E, 4D90FE");
 			model.setMouseoverHighlight(true);
 			model.setBarMargin(45);
-			
 			model.setShowPointLabels(true);
 			model.setExtender("notaExtender");
-			
 		}
-
-
 		return model;
 	}
 
 
 	private void createBarModel() {
-		System.out.println("createBarModel");
 		barModel = initBarModel();
-
 		barModel.setTitle("Média de notas dos meus alunos por disciplina");
 		barModel.setLegendPosition("ne");
 		
 		Axis xAxis = barModel.getAxis(AxisType.X);
 		xAxis.setLabel("Disciplinas");
-
 		
 		Axis yAxis = barModel.getAxis(AxisType.Y);
 		yAxis.setLabel("Nota");
 		yAxis.setMin(0);
 		yAxis.setMax(12);
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 
 

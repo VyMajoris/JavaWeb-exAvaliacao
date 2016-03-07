@@ -21,9 +21,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
-
-
 @NamedQueries({
 	@NamedQuery(name = "findCursoPorProfessor", query = "SELECT DISTINCT c " +
 		    "FROM Curso c, Disciplina d, Professor p " +
@@ -32,10 +29,6 @@ import javax.persistence.TemporalType;
 })
 @Entity
 public class Curso extends BaseEntity {
-
-	/**
-	 * 
-	 */
 
 	private String nome;
 

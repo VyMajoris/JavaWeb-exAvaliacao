@@ -37,10 +37,8 @@ public class AlunoCadastroBean {
 		listCurso = cursoDao.listar();
 		if (idAluno != null) {
 			aluno = alunoDao.buscar(idAluno);
-			System.out.println("22222");
 		}else{
 			aluno = new Aluno();
-			System.out.println("11111");
 		}
 		if (aluno == null && idAluno != null) {
 			System.out.println("333333");

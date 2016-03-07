@@ -26,13 +26,10 @@ import br.com.fiap.dao.JpaUtil;
 }
 		)
 
-
 @NamedNativeQuery(name = "deleteNotaPorAluno", query = "DELETE FROM NOTA WHERE idAluno = :idAluno", resultClass = Nota.class)
 @Entity
 public class Nota {
 
-	
-	
 	@EmbeddedId
 	private NotaPK notapk;
 	private Double valor;

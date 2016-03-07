@@ -12,8 +12,5 @@ public enum TipoUsuarioEnum {	ADMIN(1), PROFESSOR(2), ALUNO(3);
 	public void setI(int i) {
 		this.i = i;
 	}
-
-
-
 }
 

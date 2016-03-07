@@ -13,7 +13,6 @@
 		<ui:define name="title">
 	    Lista de Professores
 	</ui:define>
-
 		<ui:define name="content">
 			<div style="margin-top: 53px" class="canvas">
 				<div class="container">
@@ -34,24 +33,18 @@
 									<p:column headerText="Telefone">
 										<h:outputText value="#{prof.telefone}" />
 									</p:column>
-
 									<p:column headerText="Endereco">
 										<h:outputText value="#{prof.endereco}" />
 									</p:column>
-
 									<p:column headerText="Disciplinas">
-
 										<div align="center">
-
 											<ui:repeat var="dis" value="#{prof.disciplinas}">
-
 												<h:link style="margin-right: 3px"
 													outcome="/cadastro/cadastro-disciplina"
 													styleClass="btn btn-info btn-xs">
 													<i class="fa fa-pencil" style="margin-right: 3px" />
 														#{dis.nome}
 													<f:param name="idDisciplina" value="#{dis.id}" />
-
 												</h:link>
 											</ui:repeat>
 											<p:commandLink style="margin-right: 3px"
@@ -64,8 +57,8 @@
 									</p:column>
 									<p:column headerText="Opções">
 										<div align="center">
-
-											<h:link style="margin-right: 3px" id="btnsearch" outcome="/cadastro/cadastro-professor"
+											<h:link style="margin-right: 3px" id="btnsearch"
+												outcome="/cadastro/cadastro-professor"
 												styleClass="btn btn-info btn-xs">
 												<i class="fa fa-pencil" style="margin-right: 3px" />
 										Editar
@@ -86,7 +79,6 @@
 						</div>
 					</h:form>
 				</div>
-
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel">
 					<div class="modal-dialog" role="document">
@@ -99,7 +91,6 @@
 								<h4 class="modal-title" id="myModalLabel">Deseja deletar
 									este professor?</h4>
 							</div>
-
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">Não</button>

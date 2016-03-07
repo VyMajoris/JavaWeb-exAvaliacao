@@ -21,8 +21,6 @@ import javax.persistence.OneToOne;
 @Entity
 public class Disciplina extends BaseEntity {
 
-
-
 	private String nome;
 	private String descricao;
 

@@ -12,15 +12,11 @@ public enum TipoNotaEnum {
 		return "Atividade Prática";}
 		},
 
-
 	PROJETO_2(.30){ 
 		@Override
 		public String toString() {
 		return "Projeto 2";}
 		};
-
-
-
 
 	private Double fator;
 

@@ -28,13 +28,11 @@ public class ProfessorCadastroBean {
 	private Professor professor;
 	private GenericDao<Professor> professorDao;
 	private GenericDao<Escola> escolaDao;
-
 	private GenericDao<Disciplina> disciplinaDao;
 	private List<Disciplina> listDisciplina;
 	private Long idProf;
-
+	
 	public void init() throws IOException{
-		System.out.println("Professor Bean init");
 		professorDao = new  GenericDao<Professor>(Professor.class);
 		disciplinaDao = new GenericDao<Disciplina>(Disciplina.class);
 		escolaDao = new GenericDao<Escola>(Escola.class);
@@ -49,15 +47,9 @@ public class ProfessorCadastroBean {
 			FacesContext.getCurrentInstance().addMessage(null, 
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
 			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-			System.out.println(ec.getRequestContextPath());
 			ec.invalidateSession();
 			ec.redirect(ec.getRequestContextPath());
 		}
-
-
-
-
-
 	}
 
 	public void cadastrarProfessor() throws ParseException{
@@ -73,6 +65,7 @@ public class ProfessorCadastroBean {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
+	
 	public String atualizarProfessor(){
 		if (!escolaDao.listar().isEmpty()) {
 			professorDao.update(professor);

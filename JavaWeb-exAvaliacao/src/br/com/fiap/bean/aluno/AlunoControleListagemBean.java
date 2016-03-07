@@ -35,7 +35,6 @@ public class AlunoControleListagemBean {
 	private Long idDisciplina;
 	private HttpSession session;
 	private Disciplina disciplina;
-	private Session hSession;
 	private Aluno aluno;
 	private Nota notaP1;
 	private Nota notaAtvd;
@@ -50,10 +49,7 @@ public class AlunoControleListagemBean {
 	@PostConstruct
 	public void init(){
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		System.out.println("CONTROLE list BEAN");
-		createHsession();
 		alunoDao = new GenericDao<Aluno>(Aluno.class);
-
 		aluno = alunoDao.buscar((Long) session.getAttribute("rmAluno"));
 		listDisciplina = aluno.getCurso().getDisciplinas();
 		listDisciplinaComNota = new ArrayList<DisciplinaComNota>();
@@ -61,16 +57,13 @@ public class AlunoControleListagemBean {
 
 	}
 
-
 	public void prepNota(){
-		createHsession();
 		DisciplinaComNota dcm;
-
 		for (Disciplina disc : listDisciplina) {
 			dcm = new DisciplinaComNota();
 			dcm.setNome(disc.getNome());
 			
-			Query findNotaPorAlunoEDisciplina = hSession.getNamedQuery("findNotaPorAlunoEDisciplina");
+			Query findNotaPorAlunoEDisciplina = JpaUtil.getHibSession().getNamedQuery("findNotaPorAlunoEDisciplina");
 			findNotaPorAlunoEDisciplina.setLong("idAluno", (Long) aluno.getId());
 			findNotaPorAlunoEDisciplina.setLong("idDisciplina",disc.getId());
 			
@@ -99,28 +92,11 @@ public class AlunoControleListagemBean {
 	}
 
 
-
-
-
-
-
 	public void updateDisciplinaSession(Disciplina disciplina){
 		session.setAttribute("disciplina", disciplina);
 	}
 
-	private void createHsession(){
-		hSession = JpaUtil.getHibSession();
-	}
-
-
-
-
-
-
-
-
-
-
+	
 
 	public GenericDao<Aluno> getAlunoDao() {
 		return alunoDao;

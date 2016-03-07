@@ -16,19 +16,12 @@ import br.com.fiap.converter.Identifiable;
 
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable, Identifiable {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 4753063709154715875L;
-
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-
-
+	
 	@Override
 	public Long getId() {
 		return id;
@@ -38,8 +31,6 @@ public abstract class BaseEntity implements Serializable, Identifiable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 	/*
      @Override
 	public int hashCode() {
@@ -54,9 +45,7 @@ public abstract class BaseEntity implements Serializable, Identifiable {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-
 		BaseEntity that = (BaseEntity) o;
-
 		if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
 		return true;

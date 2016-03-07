@@ -27,11 +27,9 @@ public class AlunoListaBean {
 
 	@PostConstruct
 	public void init(){
-		System.out.println("AlunoListBean init");
 		alunoDao = new GenericDao<Aluno>(Aluno.class);
 		setListAluno(alunoDao.listar());
 		notaDao = new GenericDao<Nota>(Nota.class);
-
 	}
 
 	public String remove(){
@@ -39,7 +37,6 @@ public class AlunoListaBean {
 		for (Nota nota : listNota) {
 			notaDao.remover(nota);
 		}
-		
 		alunoRemover.setCurso(null);
 		alunoDao.removeById(alunoRemover.getId());
 		FacesContext.getCurrentInstance()

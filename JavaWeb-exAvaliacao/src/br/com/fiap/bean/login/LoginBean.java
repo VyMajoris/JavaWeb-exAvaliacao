@@ -29,7 +29,6 @@ import br.com.fiap.validator.NumericValidator;
 @SessionScoped
 public class LoginBean implements Serializable{
 
-
 	private static final long serialVersionUID = 1L;
 	private Aluno aluno;
 	public Aluno getAluno() {
@@ -49,24 +48,13 @@ public class LoginBean implements Serializable{
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 	}
-
 	public boolean isNumericInputValid (String input){
 		return NumericValidator.isNumeric(input); 
 	}
 
-	
-	
-	
-	
-	
 	public String buscaUsuario(){
-
-		System.out.println(isNumericInputValid(rm));
 		Usuario usuario = null;
 		String retorno = null;
-		System.out.println(rm +" a " + senha);
-
-
 		if (isNumericInputValid(rm)) {
 			usuario = (Usuario) JpaUtil.getHibSession().getNamedQuery("findUsuario")
 					.setLong("rm", Long.parseLong(rm))

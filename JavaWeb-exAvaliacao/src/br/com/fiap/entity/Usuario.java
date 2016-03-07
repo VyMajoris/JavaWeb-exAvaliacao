@@ -23,10 +23,7 @@ import javax.persistence.SequenceGenerator;
 @Inheritance(strategy=InheritanceType.JOINED)
 
 public class Usuario implements Serializable {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 7656098653486072443L;
 
 	@Id

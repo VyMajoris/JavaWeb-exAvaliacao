@@ -14,7 +14,6 @@
 		<ui:define name="title">
 	    Lista de Alunos por disciplina
 	</ui:define>
-
 		<ui:define name="content">
 			<div style="margin-top: 53px" class="canvas">
 				<div class="container">
@@ -61,15 +60,13 @@
 												class="btn btn-info btn-xs" type="button"
 												update=":modalNotaForm" immediate="true">
 												<i class="fa fa-pencil" style="margin-right: 3px" /> Notas
-									<f:setPropertyActionListener
+												<f:setPropertyActionListener
 													target="#{professorControleListagemBean.aluno}"
 													value="#{alu}" />
 
 											</p:commandLink>
-
 										</div>
 									</p:column>
-
 								</p:dataTable>
 							</div>
 						</div>

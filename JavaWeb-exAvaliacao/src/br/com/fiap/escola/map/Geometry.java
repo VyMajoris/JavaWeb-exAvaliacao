@@ -12,8 +12,6 @@ public class Geometry {
 	@JsonIgnore
 	private Object viewport;
 
-
-
 	public Location getLocation() {
 		return location;
 	}
