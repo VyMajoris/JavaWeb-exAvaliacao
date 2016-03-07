@@ -68,6 +68,11 @@
 		<pattern value="/professor/" />
 		<view-id value="/faces/professor/professor-dashboard.xhtml" />
 	</url-mapping>
+	
+	<url-mapping id="boletimAluno">
+		<pattern value="/aluno/" />
+		<view-id value="/faces/aluno/aluno-disciplinaPorCurso.xhtml" />
+	</url-mapping>
 
 	<url-mapping id="dashboardAdmin">
 		<pattern value="/admin/" />

@@ -51,10 +51,13 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<h:outputLabel value="Email" style="font-weight:bold" />
-									<h:inputText required="true" requiredMessage="Insira um email"
+									<h:inputText required="true" validatorMessage="Email inválido" requiredMessage="Insira um email"
 										pa:placeholder="Email"
 										value="#{professorCadastroBean.professor.email}"
-										styleClass="form-control" />
+										styleClass="form-control" >
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+											</h:inputText>
 								</div>
 							</div>
 							<div class="col-md-6">

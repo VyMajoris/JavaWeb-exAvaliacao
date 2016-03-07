@@ -20,12 +20,6 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.application.FacesMessage.Severity;
 
-/**
- * Component for twitter bootstrap alerts.
- * Overrides default JSF Message renderer with Bootstrap alert design.
- *
- * @author vlcekmi3 (https://gist.github.com/vlcekmi3/4151211)
- */
 @FacesRenderer(componentFamily="javax.faces.Messages", rendererType="javax.faces.Messages")
 public class BootstrapMessagesRenderer extends MessagesRenderer {
 

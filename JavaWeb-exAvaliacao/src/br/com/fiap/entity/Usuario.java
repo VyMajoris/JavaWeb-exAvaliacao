@@ -21,7 +21,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-@SequenceGenerator(name="seq", initialValue=10000, allocationSize=1)
+
 public class Usuario implements Serializable {
 
 	/**
@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 7656098653486072443L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="seq")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long rm;
 	private String senha;
 	private TipoUsuarioEnum tipo;

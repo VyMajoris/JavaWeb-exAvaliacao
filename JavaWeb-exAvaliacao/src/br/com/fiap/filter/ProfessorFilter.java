@@ -51,9 +51,10 @@ public class ProfessorFilter implements Filter {
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		String usuario = (String) session.getAttribute("loginType");
 		if (usuario == null) {
-			// session.setAttribute("msg","Você não está logado no sistema!");
+			session.setAttribute("msg","Você não está logado no sistema!");
 			((HttpServletResponse) response).sendRedirect("/JavaWeb-exAvaliacao/usuarioInvalido");
 		} else if (!usuario.equalsIgnoreCase("professor")) {
+			session.setAttribute("msg","Você não tem permissão para acessar esta página!");
 			((HttpServletResponse) response).sendRedirect("/JavaWeb-exAvaliacao/usuarioInvalido");
 		} else {
 			chain.doFilter(request, response);

@@ -42,10 +42,11 @@ public class AlunoFilter implements Filter {
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		String usuario = (String) session.getAttribute("loginType");
 		if (usuario == null) {
-			// session.setAttribute("msg","Você não está logado no sistema!");
-			((HttpServletResponse) response).sendRedirect("../userInvalido.xhtml");
+			 session.setAttribute("msg","401 ... Você não está logado no sistema!");
+			((HttpServletResponse) response).sendRedirect("/JavaWeb-exAvaliacao/usuarioInvalido");
 		} else if (!usuario.equalsIgnoreCase("aluno")) {
-			((HttpServletResponse) response).sendRedirect("../userInvalido.xhtml");
+			session.setAttribute("msg","403 ... Você não tem permissão para acessar esta página!");
+			((HttpServletResponse) response).sendRedirect("/JavaWeb-exAvaliacao/usuarioInvalido");
 		} else {
 			chain.doFilter(request, response);
 		}
