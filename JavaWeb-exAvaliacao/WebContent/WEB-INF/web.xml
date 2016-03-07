@@ -66,7 +66,11 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>ProfessorFilter</filter-name>
-		<url-pattern>/faces/professor/*</url-pattern>
+		<url-pattern>/professor/*</url-pattern>
+	</filter-mapping>
+		<filter-mapping>
+		<filter-name>ProfessorFilter</filter-name>
+		<url-pattern>/faces/professor/professor-alunosPorDisciplina</url-pattern>
 	</filter-mapping>
 	
 	

@@ -14,107 +14,111 @@
 	</ui:define>
 		<ui:define name="content">
 			<f:metadata>
-				<f:viewParam name="idProfessor" value="#{professorCadastroBean.idProf}" />
+				<f:viewParam name="idProfessor"
+					value="#{professorCadastroBean.idProf}" />
 				<f:event type="preRenderView"
 					listener="#{professorCadastroBean.init}" />
 			</f:metadata>
-			<div class=" container top-landing">
-				<h:messages />
-				<h2>Cadastro de Professor</h2>
-				<h:form prependId="false">
-					<h:inputHidden value="#{professorCadastroBean.professor.id}" />
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Nome Completo" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um nome"
-									pa:placeholder="Nome Completo"
-									value="#{professorCadastroBean.professor.nome}"
-									styleClass="form-control" />
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Telefone" style="font-weight:bold" />
-								<h:inputText required="true"
-									requiredMessage="Insira um telefone" pa:placeholder="Telefone"
-									value="#{professorCadastroBean.professor.telefone}"
-									styleClass="form-control tel" />
-							</div>
-						</div>
+			<div style="margin-top: 53px" class="canvas">
+				<div class="container">
+					<div style="margin-top: 20px">
+						<h:messages id="messages" showSummary="true" />
 					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Email" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um email"
-									pa:placeholder="Email"
-									value="#{professorCadastroBean.professor.email}"
-									styleClass="form-control" />
+					<h2>Cadastro de Professor</h2>
+					<h:form prependId="false">
+						<h:inputHidden value="#{professorCadastroBean.professor.id}" />
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Nome Completo" style="font-weight:bold" />
+									<h:inputText required="true" requiredMessage="Insira um nome"
+										pa:placeholder="Nome Completo"
+										value="#{professorCadastroBean.professor.nome}"
+										styleClass="form-control" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Telefone" style="font-weight:bold" />
+									<h:inputText required="true"
+										requiredMessage="Insira um telefone" pa:placeholder="Telefone"
+										value="#{professorCadastroBean.professor.telefone}"
+										styleClass="form-control tel" />
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Data de Nascimento"
-									style="font-weight:bold" />
-								<h:inputText pa:data-language='pt-br' required="true"
-									requiredMessage="Insira uma data de nascimento"
-									pa:placeholder="Data de Nascimento"
-									styleClass="form-control date"
-									value="#{professorCadastroBean.professor.dataNasc}">
-									<f:convertDateTime pattern="dd/mm/yyyy" />
-								</h:inputText>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Email" style="font-weight:bold" />
+									<h:inputText required="true" requiredMessage="Insira um email"
+										pa:placeholder="Email"
+										value="#{professorCadastroBean.professor.email}"
+										styleClass="form-control" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Data de Nascimento"
+										style="font-weight:bold" />
+									<h:inputText pa:data-language='pt-br' required="true"
+										requiredMessage="Insira uma data de nascimento"
+										pa:placeholder="Data de Nascimento"
+										styleClass="form-control date"
+										value="#{professorCadastroBean.professor.dataNasc}">
+										<f:convertDateTime pattern="dd/mm/yyyy" />
+									</h:inputText>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<h:outputLabel value="CPF" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um CPF"
-									pa:placeholder="CPF"
-									value="#{professorCadastroBean.professor.cpf}"
-									styleClass="form-control cpf" />
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<h:outputLabel value="CPF" style="font-weight:bold" />
+									<h:inputText required="true" requiredMessage="Insira um CPF"
+										pa:placeholder="CPF"
+										value="#{professorCadastroBean.professor.cpf}"
+										styleClass="form-control cpf" />
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<h:outputLabel value="Endereço" style="font-weight:bold" />
-								<h:inputText required="true"
-									requiredMessage="Insira um endereço" pa:placeholder="Endereço"
-									value="#{professorCadastroBean.professor.endereco}"
-									styleClass="form-control" />
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<h:outputLabel value="Endereço" style="font-weight:bold" />
+									<h:inputText required="true"
+										requiredMessage="Insira um endereço" pa:placeholder="Endereço"
+										value="#{professorCadastroBean.professor.endereco}"
+										styleClass="form-control" />
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<c:if
-									test="${empty param.idProfessor and empty professorCadastroBean.professor.id}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{professorCadastroBean.cadastrarProfessor}" type="submit"
-										value="Cadastrar" />
-								</c:if>
-								<c:if test="${not empty param.idProfessor}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{professorCadastroBean.atualizarProfessor}" type="submit"
-										value="Atualizar" />
-								</c:if>
-								<c:if
-									test="${empty param.idProfessor and not empty professorCadastroBean.professor.id}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{professorCadastroBean.atualizarProfessor}" type="submit"
-										value="Atualizar" />
-								</c:if>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<c:if
+										test="${empty param.idProfessor and empty professorCadastroBean.professor.id}">
+										<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+											action="#{professorCadastroBean.cadastrarProfessor}"
+											type="submit" value="Cadastrar" />
+									</c:if>
+									<c:if test="${not empty param.idProfessor}">
+										<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+											action="#{professorCadastroBean.atualizarProfessor}"
+											type="submit" value="Atualizar" />
+									</c:if>
+									<c:if
+										test="${empty param.idProfessor and not empty professorCadastroBean.professor.id}">
+										<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+											action="#{professorCadastroBean.atualizarProfessor}"
+											type="submit" value="Atualizar" />
+									</c:if>
+								</div>
 							</div>
 						</div>
-					</div>
-				</h:form>
-			</div>
-			<script type="text/javascript">
+					</h:form>
+				</div>
+				<script type="text/javascript">
 								$(document).ready(function() {
 									$("select").select2();
 								    $(".date").inputmask( 'dd/mm/yyyy' );
@@ -125,6 +129,7 @@
 									});
 								});
 							</script>
+			</div>
 		</ui:define>
 		<ui:define name="footer"></ui:define>
 	</ui:composition>

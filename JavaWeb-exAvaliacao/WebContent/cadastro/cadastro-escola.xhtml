@@ -17,78 +17,82 @@
 				<f:viewParam name="idEscola" value="#{escolaCadastroBean.idEscola}" />
 				<f:event type="preRenderView" listener="#{escolaCadastroBean.init}" />
 			</f:metadata>
-			<div class="container top-landing">
-				<h:messages id="messages" showSummary="true" />
-				<h2>Cadastro de Escolas</h2>
-				<h:form prependId="false">
-
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group has-warning">
-								<h:outputLabel value="Nome" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um nome"
-									pa:placeholder="Nome" value="#{escolaCadastroBean.escola.nome}"
-									styleClass="form-control" />
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Quantidade de salas"
-									style="font-weight:bold" />
-								<h:inputText required="true"
-									requiredMessage="Insira uma quantidade de salas"
-									pa:placeholder="Qtd. Salas" pa:type="number"
-									value="#{escolaCadastroBean.escola.salas}"
-									styleClass="form-control" />
-							</div>
-						</div>
+			<div style="margin-top: 53px" class="canvas">
+				<div class="container">
+					<div style="margin-top: 20px">
+						<h:messages id="messages" showSummary="true" />
 					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Descrição Curta" style="font-weight:bold" />
-								<h:inputText required="true"
-									requiredMessage="Insira uma Descrição"
-									pa:placeholder="Descrição Curta"
-									value="#{escolaCadastroBean.escola.descricao}"
-									styleClass="form-control" />
+					<h2>Cadastro de Escolas</h2>
+					<h:form prependId="false">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group has-warning">
+									<h:outputLabel value="Nome" style="font-weight:bold" />
+									<h:inputText required="true" requiredMessage="Insira um nome"
+										pa:placeholder="Nome"
+										value="#{escolaCadastroBean.escola.nome}"
+										styleClass="form-control" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Quantidade de salas"
+										style="font-weight:bold" />
+									<h:inputText required="true"
+										requiredMessage="Insira uma quantidade de salas"
+										pa:placeholder="Qtd. Salas" pa:type="number"
+										value="#{escolaCadastroBean.escola.salas}"
+										styleClass="form-control" />
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Endereço" style="font-weight:bold" />
-								<h:inputText required="true"
-									requiredMessage="Insira um Endereço" id="address"
-									pa:placeholder="Endereço"
-									value="#{escolaCadastroBean.escola.endereco}"
-									styleClass="form-control" />
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Descrição Curta" style="font-weight:bold" />
+									<h:inputText required="true"
+										requiredMessage="Insira uma Descrição"
+										pa:placeholder="Descrição Curta"
+										value="#{escolaCadastroBean.escola.descricao}"
+										styleClass="form-control" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Endereço" style="font-weight:bold" />
+									<h:inputText required="true"
+										requiredMessage="Insira um Endereço" id="address"
+										pa:placeholder="Endereço"
+										value="#{escolaCadastroBean.escola.endereco}"
+										styleClass="form-control" />
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<c:if
-									test="${empty param.idEscola and empty escolaCadastroBean.escola.id}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{escolaCadastroBean.cadastrarEscola}" type="submit"
-										value="Cadastrar" />
-								</c:if>
-								<c:if test="${not empty param.idEscola}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{escolaCadastroBean.atualizarEscola}" type="submit"
-										value="Atualizar" />
-								</c:if>
-								<c:if
-									test="${empty param.idEscola and not empty escolaCadastroBean.escola.id}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{escolaCadastroBean.atualizarEscola}" type="submit"
-										value="Atualizar" />
-								</c:if>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<c:if
+										test="${empty param.idEscola and empty escolaCadastroBean.escola.id}">
+										<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+											action="#{escolaCadastroBean.cadastrarEscola}" type="submit"
+											value="Cadastrar" />
+									</c:if>
+									<c:if test="${not empty param.idEscola}">
+										<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+											action="#{escolaCadastroBean.atualizarEscola}" type="submit"
+											value="Atualizar" />
+									</c:if>
+									<c:if
+										test="${empty param.idEscola and not empty escolaCadastroBean.escola.id}">
+										<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+											action="#{escolaCadastroBean.atualizarEscola}" type="submit"
+											value="Atualizar" />
+									</c:if>
+								</div>
 							</div>
 						</div>
-					</div>
-				</h:form>
+					</h:form>
+				</div>
 			</div>
 		</ui:define>
 		<ui:define name="footer"></ui:define>

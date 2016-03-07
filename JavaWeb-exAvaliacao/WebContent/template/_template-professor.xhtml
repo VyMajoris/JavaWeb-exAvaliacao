@@ -72,7 +72,7 @@
 
 							<ul class="nav navbar-nav navbar-right">
 
-								<li class="active"><h:commandLink
+								<li class="active navgo-li"><h:commandLink
 										actionListener="#{LoginBean.deslogar()}"> Sair </h:commandLink></li>
 							</ul>
 
@@ -97,14 +97,13 @@
 					</script>
 			<h:form>
 				<ul id="demo2" class="navgo">
-					<li class="active"><a
-						href="../professor/professor-dashboard.xhtml">Dashboard</a></li>
+					<li class="active"><a href="/JavaWeb-exAvaliacao/professor">Dashoard</a></li>
 					<li><a href="#">Disciplinas</a>
 						<ul>
 							<ui:repeat value="#{professorControleBean.professor.disciplinas}"
 								var="disc">
 								<li><h:commandLink title="Ver alunos desta disciplina"
-										action="/professor/professor-alunosPorDisciplina"
+										action="/professor/professor-alunosPorDisciplina?faces-redirect=true"
 										actionListener="#{professorControleListagemBean.updateDisciplinaSession(disc)}"
 										value="#{disc.nome}">
 									</h:commandLink></li>
@@ -120,8 +119,8 @@
 										<ui:repeat
 											value="#{professorControleBean.disciplinaPorCursoPorProfessor(cur.id)}"
 											var="disc">
-											<li><h:commandLink title="Ver alunos desta disciplina"
-													action="/professor/professor-alunosPorDisciplina"
+											<li><h:commandLink class="navgo-disc" title="Ver alunos desta disciplina"
+													action="/professor/professor-alunosPorDisciplina?faces-redirect=true"
 													actionListener="#{professorControleListagemBean.updateDisciplinaSession(disc)}"
 													value="#{disc.nome}">
 												</h:commandLink></li>
@@ -130,41 +129,19 @@
 							</ui:repeat>
 						</ul>
 						</li>
-
-
-						
 					<li><h:commandLink title="Todos meus alunos"
 							action="/professor/professor-todosAlunos"
 							value="Todos meus alunos">
 						</h:commandLink></li>
-						
-					
-		
 							<li class="responsiveLogin"><h:commandLink
 									actionListener="#{LoginBean.deslogar()}"> Sair </h:commandLink></li>
-						
-						
-						
 						
 				</ul>
 			</h:form>
 		</div>
 	</ui:insert>
-
-
-
-
-
-
 	<ui:insert name="content">
-
 	</ui:insert>
-
-
-
-	<!--/row-->
-	<hr />
-
 	<div id="footer">
 		<ui:insert name="footer">
     	Footer area.  See comments below this line in the source.

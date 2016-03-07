@@ -42,12 +42,12 @@ public class LoginBean implements Serializable{
 	private String senha;
 	private Usuario usuario;
 	HttpSession session;
-	
+
 	@PostConstruct
 	public void init(){
 		usuarioDao = new GenericDao<Usuario>(Usuario.class);
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		
+
 	}
 
 	public boolean isNumericInputValid (String input){
@@ -55,12 +55,13 @@ public class LoginBean implements Serializable{
 	}
 
 	public String buscaUsuario(){
+
 		System.out.println(isNumericInputValid(rm));
 		Usuario usuario = null;
 		String retorno = "index";
 		System.out.println(rm +" a " + senha);
-		
-		
+
+
 		if (isNumericInputValid(rm)) {
 			usuario = (Usuario) JpaUtil.getHibSession().getNamedQuery("findUsuario")
 					.setLong("rm", Long.parseLong(rm))
@@ -114,14 +115,13 @@ public class LoginBean implements Serializable{
 	private String loginAdmin(Admin admin) {
 		session.setAttribute("loginType", "admin");
 		session.setAttribute("displayName", "admin");
-		return "/admin/admin-dashboard?faces-redirect=true";
+		return "/index?faces-redirect=true";
 	}
 
 	public void deslogar() throws IOException{
+		session.invalidate();
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		System.out.println(ec.getRequestContextPath());
-	    ec.invalidateSession();
-	    ec.redirect(ec.getRequestContextPath());
+		ec.redirect(ec.getRequestContextPath());
 	}
 
 	public Usuario getUsuario() {

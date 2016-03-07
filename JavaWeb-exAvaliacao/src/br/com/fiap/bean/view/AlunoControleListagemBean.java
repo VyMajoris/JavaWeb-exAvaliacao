@@ -71,7 +71,7 @@ public class AlunoControleListagemBean {
 			dcm.setNome(disc.getNome());
 			
 			Query findNotaPorAlunoEDisciplina = hSession.getNamedQuery("findNotaPorAlunoEDisciplina");
-			findNotaPorAlunoEDisciplina.setLong("rmAluno", (Long) aluno.getId());
+			findNotaPorAlunoEDisciplina.setLong("idAluno", (Long) aluno.getId());
 			findNotaPorAlunoEDisciplina.setLong("idDisciplina",disc.getId());
 			
 			findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_1);

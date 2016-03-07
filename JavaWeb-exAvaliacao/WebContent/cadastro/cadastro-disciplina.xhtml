@@ -19,88 +19,95 @@
 				<f:event type="preRenderView"
 					listener="#{disciplinaCadastroBean.init}" />
 			</f:metadata>
-			<div class=" container top-landing">
-				<h:messages id="messages" showSummary="true" />
-				<h2>Cadastro de Disciplina</h2>
-				<h:form>
-					<h:inputHidden value="#{disciplinaCadastroBean.disciplina.id}" />
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Nome" style="font-weight:bold" />
-								<h:inputText required="true" requiredMessage="Insira um nome"
-									styleClass="form-control"
-									value="#{disciplinaCadastroBean.disciplina.nome}" />
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group has-warning">
-								<h:outputLabel value="Descrição Curta" style="font-weight:bold" />
-								<h:inputText required="true"
-									requiredMessage="Insira uma descrição"
-									styleClass="form-control"
-									value="#{disciplinaCadastroBean.disciplina.descricao}" />
-							</div>
-						</div>
+			<div style="margin-top: 53px" class="canvas">
+				<div class="container">
+					<div style="margin-top: 20px">
+						<h:messages id="messages" showSummary="true" />
 					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Cursos" style="font-weight:bold" />
-								<h:selectOneListbox id="selectCurso" required="true"
-									requiredMessage="Insira um curso" immediate="true"
-									converter="#{simpleEntityConverter}"
-									styleClass="form-control multiselect multiselect-info"
-									value="#{disciplinaCadastroBean.disciplina.curso}">
-									<f:selectItems value="#{disciplinaCadastroBean.listCurso}"
-										var="cur" itemValue="#{cur}" itemLabel="#{cur.nome}" />
-								</h:selectOneListbox>
+					<h2>Cadastro de Disciplina</h2>
+					<h:form>
+						<h:inputHidden value="#{disciplinaCadastroBean.disciplina.id}" />
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Nome" style="font-weight:bold" />
+									<h:inputText required="true" requiredMessage="Insira um nome"
+										styleClass="form-control"
+										value="#{disciplinaCadastroBean.disciplina.nome}" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group has-warning">
+									<h:outputLabel value="Descrição Curta" style="font-weight:bold" />
+									<h:inputText required="true"
+										requiredMessage="Insira uma descrição"
+										styleClass="form-control"
+										value="#{disciplinaCadastroBean.disciplina.descricao}" />
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<h:outputLabel value="Professor" style="font-weight:bold" />
-								<h:selectOneListbox id="selectProf"
-									converter="omnifaces.SelectItemsConverter"
-									styleClass="form-control multiselect multiselect-info"
-									value="#{disciplinaCadastroBean.disciplina.professor}">
-									<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
-									<f:selectItems value="#{disciplinaCadastroBean.listProf}"
-										var="prof" itemValue="#{prof}" itemLabel="#{prof.nome}" />
-								</h:selectOneListbox>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Cursos" style="font-weight:bold" />
+									<h:selectOneListbox style="border: 2px solid #BDC3C7;padding-top: 0px; padding-bottom: 0px;" id="selectCurso" required="true"
+										requiredMessage="Insira um curso" immediate="true"
+										converter="#{simpleEntityConverter}"
+										styleClass="form-control multiselect multiselect-info"
+										value="#{disciplinaCadastroBean.disciplina.curso}">
+										<f:selectItems value="#{disciplinaCadastroBean.listCurso}"
+											var="cur" itemValue="#{cur}" itemLabel="#{cur.nome}" />
+									</h:selectOneListbox>
+								</div>
 							</div>
-						</div>
-						<script type="text/javascript">
+							<div class="col-md-6">
+								<div class="form-group">
+									<h:outputLabel value="Professor" style="font-weight:bold" />
+									<h:selectOneListbox style="border: 2px solid #BDC3C7;padding-top: 0px; padding-bottom: 0px;" id="selectProf"
+										converter="omnifaces.SelectItemsConverter"
+										styleClass="form-control multiselect multiselect-info"
+										value="#{disciplinaCadastroBean.disciplina.professor}">
+										<f:selectItem itemValue="#{null}" itemLabel="Selecione" />
+										<f:selectItems value="#{disciplinaCadastroBean.listProf}"
+											var="prof" itemValue="#{prof}" itemLabel="#{prof.nome}" />
+									</h:selectOneListbox>
+								</div>
+							</div>
+							<script type="text/javascript">
 								$(document).ready(function() {
 									$("select").select2({
 									});
 								});
 							</script>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="form-group">
-								<c:if
-									test="${empty param.idDisciplina and empty disciplinaCadastroBean.disciplina.id}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{disciplinaCadastroBean.cadastrarDisciplina}" type="submit"
-										value="Cadastrar" />
-								</c:if>
-								<c:if test="${not empty param.idDisciplina}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{disciplinaCadastroBean.atualizarDisciplina}" type="submit"
-										value="Atualizar" />
-								</c:if>
-								<c:if
-									test="${empty param.idDisciplina and not empty disciplinaCadastroBean.disciplina.id}">
-									<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
-										action="#{disciplinaCadastroBean.atualizarDisciplina}" type="submit"
-										value="Atualizar" />
-								</c:if>
+						</div>
+						<br/>
+						<br/>
+						
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<c:if
+										test="${empty param.idDisciplina and empty disciplinaCadastroBean.disciplina.id}">
+										<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+											action="#{disciplinaCadastroBean.cadastrarDisciplina}"
+											type="submit" value="Cadastrar" />
+									</c:if>
+									<c:if test="${not empty param.idDisciplina}">
+										<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+											action="#{disciplinaCadastroBean.atualizarDisciplina}"
+											type="submit" value="Atualizar" />
+									</c:if>
+									<c:if
+										test="${empty param.idDisciplina and not empty disciplinaCadastroBean.disciplina.id}">
+										<h:commandButton styleClass="btn btn-block btn-lg btn-primary"
+											action="#{disciplinaCadastroBean.atualizarDisciplina}"
+											type="submit" value="Atualizar" />
+									</c:if>
+								</div>
 							</div>
 						</div>
-					</div>
-				</h:form>
+					</h:form>
+				</div>
 			</div>
 		</ui:define>
 		<ui:define name="footer"></ui:define>

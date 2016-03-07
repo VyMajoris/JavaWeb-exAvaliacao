@@ -6,14 +6,14 @@ public enum TipoNotaEnum {
 		public String toString() {
 		return "Projeto 1";}
 		},
-	ATIVIDADE_PRATICA(.30){ 
+	ATIVIDADE_PRATICA(.40){ 
 		@Override
 		public String toString() {
 		return "Atividade Prática";}
 		},
 
 
-	PROJETO_2(.40){ 
+	PROJETO_2(.30){ 
 		@Override
 		public String toString() {
 		return "Projeto 2";}

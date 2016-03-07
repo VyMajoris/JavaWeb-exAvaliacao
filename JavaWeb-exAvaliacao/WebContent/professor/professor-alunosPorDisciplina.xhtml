@@ -16,117 +16,147 @@
 	</ui:define>
 
 		<ui:define name="content">
-
-				<h:messages />
-				<h:form prependId="false">
-					<h2>
-						Lista dos alunos de:
-						<h:outputText
-							value="#{professorControleListagemBean.disciplina.nome}" />
-					</h2>
-					<div class="row">
-						<div class="col-md-6"></div>
-						<div class="col-md-6"></div>
+			<div style="margin-top: 53px" class="canvas">
+				<div class="container">
+					<div style="margin-top: 20px">
+						<h:messages showDetail="true" />
 					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<p:dataTable emptyMessage="Nenhum resultado encontrado"
-								id="alunoTable" widgetVar="alunoTable" draggableColumns="true"
-								class="table table-condensed" var="alu"
-								value="#{professorControleListagemBean.queryAlunosPorDisciplina()}">
+					<h:form prependId="false">
+						<h2>
+							Lista dos alunos de:
+							<h:outputText
+								value="#{professorControleListagemBean.disciplina.nome}" />
+						</h2>
+						<div class="row">
+							<div class="col-md-6"></div>
+							<div class="col-md-6"></div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<p:dataTable emptyMessage="Nenhum resultado encontrado"
+									id="alunoTable" widgetVar="alunoTable" draggableColumns="true"
+									class="table table-condensed" var="alu"
+									value="#{professorControleListagemBean.queryAlunosPorDisciplina()}">
 
-								<p:column headerText="Nome">
+									<p:column headerText="Nome">
 
-									<h:outputText value="#{alu.nome}" />
-								</p:column>
-								<p:column headerText="Email">
-									<h:outputText value="#{alu.email}" />
-								</p:column>
-								<p:column headerText="Curso">
-									<span class="btn btn-info btn-xs"> <h:outputText
-											value="#{alu.curso.nome}" />
-									</span>
-								</p:column>
-								<p:column headerText="Opções">
-									<p:commandLink pa:data-toggle="modal" pa:data-target="#myModal"
-										style="margin-right: 3px" title="Deletar"
-										action="#{professorControleListagemBean.prepNota(alu)}"
-										class="btn btn-info btn-xs" type="button" update=":modalNotaForm" immediate="true" >
-										<i class="fa fa-pencil" style="margin-right: 3px"  /> Notas
+										<h:outputText value="#{alu.nome}" />
+									</p:column>
+									<p:column headerText="Email">
+										<h:outputText value="#{alu.email}" />
+									</p:column>
+									<p:column headerText="Curso">
+										<div align="center">
+											<span class="btn btn-info btn-xs"> <h:outputText
+													value="#{alu.curso.nome}" />
+											</span>
+										</div>
+									</p:column>
+									<p:column headerText="Opções">
+										<div align="center">
+											<p:commandLink pa:data-toggle="modal"
+												pa:data-target="#myModal" style="margin-right: 3px"
+												title="Deletar"
+												action="#{professorControleListagemBean.prepNota(alu)}"
+												class="btn btn-info btn-xs" type="button"
+												update=":modalNotaForm" immediate="true">
+												<i class="fa fa-pencil" style="margin-right: 3px" /> Notas
 									<f:setPropertyActionListener
-											target="#{professorControleListagemBean.aluno}"
-											value="#{alu}" />
-										
-									</p:commandLink>
+													target="#{professorControleListagemBean.aluno}"
+													value="#{alu}" />
 
+											</p:commandLink>
 
-								</p:column>
+										</div>
+									</p:column>
 
-							</p:dataTable>
-						</div>
-					</div>
-				</h:form>
-
-
-
-
-
-			<div class="modal" id="myModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModal" aria-hidden="false" data-keyboard="false"
-				data-backdrop="static">
-				<h:form id="modalNotaForm">
-					<div class="modal-dialog" role="document">
-
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&#215;</span>
-								</button>
-								<h4 class="modal-title" id="myModalLabel">
-									Notas do Aluno
-									<h:outputText id="alunoNome"
-										value="#{professorControleListagemBean.aluno.nome}" />
-								</h4>
+								</p:dataTable>
 							</div>
+						</div>
+					</h:form>
 
-							<div class="modal-body">
-								<div class="col-md-12">
-									<div class="form-group">
+					<div class="modal" id="myModal" tabindex="-1" role="dialog"
+						aria-labelledby="myModal" aria-hidden="false"
+						data-keyboard="false" data-backdrop="static">
 
-										<h:outputLabel value="Projeto 1" style="font-weight:bold" />
-										<h:inputText pa:placeholder="Nota do Projeto 1"
-											value="#{professorControleListagemBean.notaP1.valor}"
-											styleClass="form-control" />
+						<h:form id="modalNotaForm">
+							<div class="modal-dialog" role="document">
 
-										<h:outputLabel value="Atividade Prática"
-											style="font-weight:bold" />
-										<h:inputText pa:placeholder="Nota da Atividade Prática"
-											value="#{professorControleListagemBean.notaAtvd.valor}"
-											styleClass="form-control" />
 
-										<h:outputLabel value="Projeto 2" style="font-weight:bold" />
-										<h:inputText pa:placeholder="Nota do Projeto 2"
-											value="#{professorControleListagemBean.notaP2.valor}"
-											styleClass="form-control" />
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&#215;</span>
+										</button>
+										<h4 class="modal-title" id="myModalLabel">
+											Notas do Aluno
+											<h:outputText id="alunoNome"
+												value="#{professorControleListagemBean.aluno.nome}" />
+										</h4>
 									</div>
+
+									<div class="modal-body">
+										<div class="col-md-12">
+											<div class="form-group">
+
+												<h:outputLabel for="projeto1" value="Projeto 1"
+													style="font-weight:bold" />
+												<h:inputText id="projeto1" pa:type="number"
+													pa:placeholder="Nota do Projeto 1"
+													value="#{professorControleListagemBean.notaP1.valor}"
+													styleClass="form-control" label="Projeto 1">
+													<f:validator
+														validatorId="br.com.fiap.helpers.NotaValidator" />
+
+												</h:inputText>
+
+
+												<h:outputLabel for="projetoAtvd" value="Atividade Prática"
+													style="font-weight:bold" />
+												<h:inputText id="projetoAtvd" pa:type="number"
+													pa:placeholder="Nota da Atividade Prática"
+													value="#{professorControleListagemBean.notaAtvd.valor}"
+													styleClass="form-control" label="Atividade Prática">
+													<f:validator
+														validatorId="br.com.fiap.helpers.NotaValidator" />
+
+												</h:inputText>
+
+
+												<h:outputLabel for="projeto2" value="Projeto 2"
+													style="font-weight:bold" />
+												<h:inputText id="projeto2" pa:type="number"
+													pa:placeholder="Nota do Projeto 2"
+													value="#{professorControleListagemBean.notaP2.valor}"
+													styleClass="form-control" label="Projeto 2">
+													<f:validator
+														validatorId="br.com.fiap.helpers.NotaValidator" />
+
+												</h:inputText>
+
+											</div>
+										</div>
+									</div>
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Voltar</button>
+										<h:commandLink
+											action="#{professorControleListagemBean.addNota}"
+											class="btn btn-primary" value="Enviar">
+
+										</h:commandLink>
+									</div>
+
 								</div>
+
 							</div>
-
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Voltar</button>
-								<h:commandLink action="#{professorControleListagemBean.addNota}"
-									class="btn btn-primary" value="Enviar" />
-							</div>
-
-						</div>
-
+						</h:form>
 					</div>
-				</h:form>
+
+				</div>
 			</div>
-
-
 		</ui:define>
 		<ui:define name="footer"></ui:define>
 	</ui:composition>

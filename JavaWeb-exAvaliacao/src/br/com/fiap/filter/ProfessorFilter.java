@@ -39,13 +39,22 @@ public class ProfessorFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		String usuario = (String) session.getAttribute("loginType");
 		if (usuario == null) {
 			// session.setAttribute("msg","Você não está logado no sistema!");
-			((HttpServletResponse) response).sendRedirect("../userInvalido.xhtml");
+			((HttpServletResponse) response).sendRedirect("/JavaWeb-exAvaliacao/usuarioInvalido");
 		} else if (!usuario.equalsIgnoreCase("professor")) {
-			((HttpServletResponse) response).sendRedirect("../userInvalido.xhtml");
+			((HttpServletResponse) response).sendRedirect("/JavaWeb-exAvaliacao/usuarioInvalido");
 		} else {
 			chain.doFilter(request, response);
 		}

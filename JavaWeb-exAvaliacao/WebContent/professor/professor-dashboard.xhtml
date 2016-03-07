@@ -28,15 +28,7 @@
 							<p:chart id="notaChart" widgetVar="notaChart" type="bar"
 								model="#{chartView.barModel}" style="height:400px"
 								responsive="true" />
-								<p:chart id="notaChart2" widgetVar="notaChart2" type="bar"
-								model="#{chartView.barModel}" style="height:400px"
-								responsive="true" />
-								<p:chart id="notaChart3" widgetVar="notaChart3" type="bar"
-								model="#{chartView.barModel}" style="height:400px"
-								responsive="true" />
-								<p:chart id="notaChart4" widgetVar="notaChart4" type="bar"
-								model="#{chartView.barModel}" style="height:400px"
-								responsive="true" />
+
 
 						</div>
 					</h:form>
@@ -45,6 +37,7 @@
 					<h:messages />
 					<script type="text/javascript">
 			function notaExtender  () {
+				
 				this.cfg.legend = {
 				        // This renderer is needed for advance legends.
 				        renderer: jQuery.jqplot.EnhancedLegendRenderer,

@@ -117,8 +117,12 @@ public class ProfessorControleListagemBean {
 		Query queryAlunosPorDisciplina = JpaUtil.getHibSession().getNamedQuery("findAlunoPorDisciplina");
 		Disciplina disciplina = (Disciplina) session.getAttribute("disciplina");
 		this.disciplina = disciplina;
-		queryAlunosPorDisciplina.setLong("idDisciplina", disciplina.getId());
-		List<Aluno> listaluno = queryAlunosPorDisciplina.list();
+		List<Aluno> listaluno = null;
+		if (disciplina != null) {
+			queryAlunosPorDisciplina.setLong("idDisciplina", disciplina.getId());
+			listaluno = queryAlunosPorDisciplina.list();
+		}
+		
 		return this.listAluno = listaluno;
 	}
 

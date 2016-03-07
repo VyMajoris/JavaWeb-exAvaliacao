@@ -19,9 +19,9 @@
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 	<link rel="stylesheet"
 		href="https://designmodo.github.io/Flat-UI/dist/css/flat-ui.min.css" />
-	 <h:outputStylesheet name="css/custom.css" />
-	 <h:outputStylesheet name="css/sidemenu.css" />
-	 <h:outputStylesheet name="css/datepicker.css" />
+	<h:outputStylesheet name="css/custom.css" />
+	<h:outputStylesheet name="css/sidemenu.css" />
+	<h:outputStylesheet name="css/datepicker.css" />
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" />
 	<script
@@ -30,23 +30,24 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/js/flat-ui.js" />
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKwvaeHolteDKj5kKkg9z1uIXb7kfr-No" />
-		
-	 <h:outputScript name="js/maps.js" />
-	 <h:outputScript name="js/custom.js" />
-     <h:outputScript name="js/inputmask.js" />
-	 <h:outputScript name="js/jquery.inputmask.js" />
-	 <h:outputScript name="js/inputmask.date.extensions.js" />
-	 <h:outputScript name="js/sidemenu.js" />
-	 <h:outputScript name="js/datepicker.min.js"/>
+
+	<h:outputScript name="js/maps.js" />
+	<h:outputScript name="js/custom.js" />
+	<h:outputScript name="js/inputmask.js" />
+	<h:outputScript name="js/jquery.inputmask.js" />
+	<h:outputScript name="js/inputmask.date.extensions.js" />
+	<h:outputScript name="js/sidemenu.js" />
+	<h:outputScript name="js/datepicker.min.js" />
 	<!-- Include English language -->
-	 <h:outputScript name="js/datepicker.en.js" />
+	<h:outputScript name="js/datepicker.en.js" />
 
 
 </h:head>
 <body>
 	<div id="header">
 		<ui:insert name="header">
-			<nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 0px;">
+			<nav class="navbar navbar-inverse navbar-fixed-top"
+				style="margin-bottom: 0px;">
 				<div class="container">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle collapsed"
@@ -58,29 +59,37 @@
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 
-						<h:form style="padding-right:0px; padding-left:0px;"
+						<h:form
+							style="padding: 0px; display: flex; align-items: center;"
 							class="navbar-form navbar-right">
 
 							<div class="form-group">
-								<h:inputText pa:type="number"
+								<h:inputText style="margin-right:10px;" pa:type="number"
 									pa:placeholder="Registro de Matrícula" value="#{LoginBean.rm}"
-									styleClass="form-control" placeholder="RM" />
+									styleClass="form-control navbar-form-input" placeholder="RM" />
 							</div>
 							<div class="form-group">
-								<h:inputSecret pa:placeholder="Senha" value="#{LoginBean.senha}"
-									styleClass="form-control" />
+								<h:inputSecret style="margin-right:10px;" pa:placeholder="Senha" value="#{LoginBean.senha}"
+									styleClass="form-control navbar-form-input" />
 
 							</div>
-							
-							<p:commandLink class="btn btn-success" type="submit"
-								value="Login" action="#{LoginBean.buscaUsuario()}">
-								<f:ajax render="@form" />
-							</p:commandLink>
+
+							<ul class="nav navbar-nav navbar-right navbar-form-input">
+
+								<li class="active "><p:commandLink type="submit"
+										value="Login" styleClass="" action="#{LoginBean.buscaUsuario()}" ajax="false"> Sair 	<f:ajax
+											render="@form" />
+									</p:commandLink></li>
+							</ul>
+
+
+
+
 
 						</h:form>
-						
-						
-						
+
+
+
 
 					</div>
 					<!--/.navbar-collapse -->

@@ -15,17 +15,18 @@
 	</ui:define>
 
 		<ui:define name="content">
-			<div class="container top-landing">
-				<h:messages />
+			<div style="margin-top: 53px" class="canvas">
+				<div class="container">
+					<h:messages />
 
-				<h2>Lista das minhas Disciplinas</h2>
-				<div class="row">
-					<div class="col-md-6"></div>
-					<div class="col-md-6"></div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<script type="text/javascript">
+					<h2>Lista das minhas Disciplinas</h2>
+					<div class="row">
+						<div class="col-md-6"></div>
+						<div class="col-md-6"></div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<script type="text/javascript">
 				$(document).ready(function() {
 
 					var tableRow = $("td").filter(function() {
@@ -36,52 +37,88 @@
 					}).closest("tr"); tableRow.addClass('success')
 				});
 			</script>
-						<p:dataTable emptyMessage="Nenhum resultado encontrado"
-							id="disciplinaTable" widgetVar="disciplinaTable"
-							draggableColumns="true" class="table table-condensed" var="disc"
-							value="#{alunoControleListagemBean.listDisciplinaComNota}">
+							<p:dataTable emptyMessage="Nenhum resultado encontrado"
+								id="disciplinaTable" widgetVar="disciplinaTable"
+								draggableColumns="true" class="table table-condensed" var="disc"
+								value="#{alunoControleListagemBean.listDisciplinaComNota}">
 
 
-							<p:columnGroup type="header">
-								<p:row>
-									<p:column class="vcenter" rowspan="2" headerText="Disciplina" />
-									<p:column class="vcenter" colspan="3" headerText="Notas" />
-									<p:column class="vcenter" rowspan="2" headerText="Média" />
-									<p:column class="vcenter" rowspan="2" headerText="Situação" />
-								</p:row>
+								<p:columnGroup type="header">
+									<p:row>
+										<p:column class="vcenter" rowspan="2" headerText="Disciplina" />
+										<p:column class="vcenter" colspan="3" headerText="Notas" />
+										<p:column class="vcenter" rowspan="2" headerText="Média" />
+										<p:column class="vcenter" rowspan="2" headerText="Situação" />
+									</p:row>
 
-								<p:row>
-									<p:column class="vcenter" headerText="Projeto 1" />
-									<p:column class="vcenter" headerText="Projeto 2" />
-									<p:column class="vcenter" headerText="Atividade Prática" />
-								</p:row>
-							</p:columnGroup>
-							<p:column>
-								<h:outputText value="#{disc.nome}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{disc.notaP1.valor}" />
-							</p:column>
-							<p:column>
+									<p:row>
+										<p:column class="vcenter" headerText="Projeto 1" />
+										<p:column class="vcenter" headerText="Projeto 2" />
+										<p:column class="vcenter" headerText="Atividade Prática" />
+									</p:row>
+								</p:columnGroup>
+								<p:column>
+									
+										<h:outputText value="#{disc.nome}" />
+									
+								</p:column>
+								<p:column>
+									<div align="center">
+										<h:outputText value="#{disc.notaP1.valor}">
+											<f:convertNumber pattern="#0.0" />
+											<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+										</h:outputText>
+									</div>
+								</p:column>
+								<p:column>
+									<div align="center">
 
-								<h:outputText value="#{disc.notaP2.valor}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{disc.notaAtvd.valor}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{disc.media}">
-									<f:convertNumber pattern="#.00" />
-								</h:outputText>
-							</p:column>
-							<p:column>
-								<h:outputText value="#{disc.status}" />
-							</p:column>
+										<h:outputText value="#{disc.notaP2.valor}">
+											<f:convertNumber pattern="#0.0" />
+											<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+										</h:outputText>
 
-						</p:dataTable>
+										<h:link rendered="#{empty disc.notaP2.valor}"
+											style="margin-right: 3px;pointer-events: none;background-color: #1ABC9C;"
+											class="btn btn-info btn-xs">
+											<i class="fa fa-exclamation-triangle"
+												style="margin-right: 3px" /> Nota pendente
+									
+									</h:link>
+
+
+
+
+
+
+
+									</div>
+
+								</p:column>
+								<p:column>
+								<div align="center">
+									<h:outputText value="#{disc.notaAtvd.valor}">
+										<f:convertNumber pattern="#0.0" />
+										<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+									</h:outputText>
+									</div>
+								</p:column>
+								<p:column>
+								<div align="center">
+									<h:outputText value="#{disc.media}">
+										<f:convertNumber pattern="#0.0" />
+										<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+									</h:outputText>
+									</div>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{disc.status}" />
+								</p:column>
+
+							</p:dataTable>
+						</div>
 					</div>
 				</div>
-
 			</div>
 		</ui:define>
 		<ui:define name="footer"></ui:define>
