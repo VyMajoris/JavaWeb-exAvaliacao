@@ -34,6 +34,10 @@ public class AlunoListaBean {
 	public void listarPorNomeCurso(){
 		listAluno = JpaUtil.getHibSession().getNamedQuery("findAlunoPorNomeCurso").setParameter("nomeCurso", "%"+cursoNome+"%").list();
 	}
+	
+	public void listarTodos(){
+		setListAluno(alunoDao.listar());
+	}
 
 	public String remove(){
 		List<Nota> listNota = JpaUtil.getHibSession().getNamedQuery("findNotaPorAluno").setLong("idAluno", alunoRemover.getId()).list();

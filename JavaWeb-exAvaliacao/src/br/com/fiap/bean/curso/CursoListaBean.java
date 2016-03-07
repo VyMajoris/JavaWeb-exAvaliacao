@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.fiap.dao.GenericDao;
+import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Curso;
 import br.com.fiap.entity.Disciplina;
 
@@ -34,7 +35,10 @@ public class CursoListaBean {
 		for (Disciplina disciplina : cursoRemover.getDisciplinas()) {
 			disciplina.setCurso(null);
 		}
-		
+		for (Aluno aluno : cursoRemover.getAlunos()) {
+			aluno.setCurso(null);
+		}
+
 		cursoDao.removeById(cursoRemover.getId());
 		FacesContext.getCurrentInstance()
 		.addMessage(null, new FacesMessage("Curso Removido!"));

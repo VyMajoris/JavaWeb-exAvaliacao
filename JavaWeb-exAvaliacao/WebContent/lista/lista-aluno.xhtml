@@ -20,23 +20,27 @@
 					<h:messages />
 					<h:form prependId="false">
 						<h2>Lista de Alunos</h2>
-						<div style="margin-bottom: 10px;"  class="row">
-							<h:form  class="form-inline">
-								<div class="form-group">
-									<div class="col-md-6 col-sm12">
-										<h:inputText class="form-control" value="#{alunoListaBean.cursoNome}"
+						<div class="row">
+							<h:form class="form-inline">
+									<div style="margin-bottom:10px;" class="col-md-6 col-sm-12">
+										<h:inputText class="form-control"
+											value="#{alunoListaBean.cursoNome}"
 											pa:placeholder="Nome do Curso" />
 									</div>
-									<div class="col-md-6 col-sm12">
+									<div style="margin-bottom:10px;" class="col-md-3 col-sm-6">
 										<p:commandLink class="btn btn-block btn-primary "
-										  update=":alunoTable"	action="#{alunoListaBean.listarPorNomeCurso()}" value="Pesquisar por Curso" />
+											update=":alunoTable"
+											action="#{alunoListaBean.listarPorNomeCurso()}"
+											value="Pesquisar por Curso" />
 									</div>
-								</div>
+									<div style="margin-bottom:10px;"  class="col-md-3 col-sm-6">
+										<p:commandLink class="btn btn-block btn-primary "
+											update=":alunoTable" action="#{alunoListaBean.listarTodos()}"
+											value="Listar todos" />
+									</div>
 							</h:form>
 						</div>
 						<div class="row">
-
-
 							<div class="col-sm-12">
 								<p:dataTable emptyMessage="Nenhum resultado encontrado"
 									id="alunoTable" widgetVar="alunoTable" class="table" var="alu"
