@@ -47,7 +47,16 @@ public class AlunoControleListagemBean {
 		session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		alunoDao = new GenericDao<Aluno>(Aluno.class);
 		aluno = alunoDao.buscar((Long) session.getAttribute("rmAluno"));
-		listDisciplina = aluno.getCurso().getDisciplinas();
+		if (aluno.getCurso() != null ){
+			if (aluno.getCurso().getDisciplinas() != null)  {
+				listDisciplina = aluno.getCurso().getDisciplinas();
+			}else{
+				listDisciplina = new ArrayList<Disciplina>();
+			}
+
+		}else{
+			listDisciplina = new ArrayList<Disciplina>();
+		}
 		listDisciplinaComNota = new ArrayList<DisciplinaComNota>();
 		prepNota();
 
@@ -58,25 +67,25 @@ public class AlunoControleListagemBean {
 		for (Disciplina disc : listDisciplina) {
 			dcm = new DisciplinaComNota();
 			dcm.setNome(disc.getNome());
-			
+
 			Query findNotaPorAlunoEDisciplina = JpaUtil.getHibSession().getNamedQuery("findNotaPorAlunoEDisciplina");
 			findNotaPorAlunoEDisciplina.setLong("idAluno", (Long) aluno.getId());
 			findNotaPorAlunoEDisciplina.setLong("idDisciplina",disc.getId());
-			
+
 			findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_1);
 			notaP1 = ((Nota) findNotaPorAlunoEDisciplina.uniqueResult());
 			if (notaP1== null) {
 				notaP1 = new Nota();
 			}
 			dcm.setNotaP1(notaP1);
-			
+
 			findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.PROJETO_2);
 			notaP2 = (Nota) findNotaPorAlunoEDisciplina.uniqueResult();
 			if (notaP2== null) {
 				notaP2 = new Nota();
 			}
 			dcm.setNotaP2(notaP2);
-			
+
 			findNotaPorAlunoEDisciplina.setParameter("tipo", TipoNotaEnum.ATIVIDADE_PRATICA);
 			notaAtvd =(Nota) findNotaPorAlunoEDisciplina.uniqueResult();
 			if (notaAtvd== null) {
@@ -92,7 +101,7 @@ public class AlunoControleListagemBean {
 		session.setAttribute("disciplina", disciplina);
 	}
 
-	
+
 
 	public GenericDao<Aluno> getAlunoDao() {
 		return alunoDao;

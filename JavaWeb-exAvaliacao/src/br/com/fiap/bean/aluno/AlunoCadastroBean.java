@@ -73,7 +73,6 @@ public class AlunoCadastroBean {
 
 
 	public String atualizarAluno(){
-		aluno.setSenha(aluno.getCpf());
 		alunoDao.update(aluno);
 		FacesMessage msg = new FacesMessage("Aluno Atualizado!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -62,11 +62,16 @@
 											<f:convertNumber pattern="#0.0" />
 											<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
 										</h:outputText>
+										<h:link rendered="#{empty disc.notaP1.valor}"
+											style="margin-right: 3px;pointer-events: none;background-color: #1ABC9C;"
+											class="btn btn-info btn-xs">
+											<i class="fa fa-exclamation-triangle"
+												style="margin-right: 3px" /> Nota pendente
+									</h:link>
 									</div>
 								</p:column>
 								<p:column>
 									<div align="center">
-
 										<h:outputText value="#{disc.notaP2.valor}">
 											<f:convertNumber pattern="#0.0" />
 											<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
@@ -77,10 +82,8 @@
 											class="btn btn-info btn-xs">
 											<i class="fa fa-exclamation-triangle"
 												style="margin-right: 3px" /> Nota pendente
-									
-									</h:link>
+										</h:link>
 									</div>
-
 								</p:column>
 								<p:column>
 									<div align="center">
@@ -88,6 +91,12 @@
 											<f:convertNumber pattern="#0.0" />
 											<f:convertNumber maxFractionDigits="2" groupingUsed="false" />
 										</h:outputText>
+										<h:link rendered="#{empty disc.notaAtvd.valor}"
+											style="margin-right: 3px;pointer-events: none;background-color: #1ABC9C;"
+											class="btn btn-info btn-xs">
+											<i class="fa fa-exclamation-triangle"
+												style="margin-right: 3px" /> Nota pendente
+									</h:link>
 									</div>
 								</p:column>
 								<p:column>
@@ -101,7 +110,6 @@
 								<p:column>
 									<h:outputText value="#{disc.status}" />
 								</p:column>
-
 							</p:dataTable>
 						</div>
 					</div>
